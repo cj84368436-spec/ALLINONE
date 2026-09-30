@@ -1,0 +1,57 @@
+name: Rift Survivors - Toss miniapp
+on:
+  push:
+    paths:
+      - 'games/rift-survivors/**'
+      - '.github/workflows/rift-survivors.yml'
+  workflow_dispatch:
+    inputs:
+      app_name:
+        description: 'Apps in Toss console appName'
+        required: false
+        default: 'rift-keepers'
+permissions:
+  contents: read
+concurrency:
+  group: rift-survivors-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  game:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: games/rift-survivors
+    env:
+      TOSS_APP_NAME: ${{ inputs.app_name || vars.TOSS_APP_NAME || 'rift-keepers' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run build
+      - run: npm run check:release
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: rift-keepers-toss-release
+          path: |
+            games/rift-survivors/*.ait
+            games/rift-survivors/dist/
+            games/rift-survivors/docs/
+            games/rift-survivors/public/
+            games/rift-survivors/package-lock.json
+            games/rift-survivors/README.md
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rift-keepers-test-evidence
+          path: |
+            games/rift-survivors/playwright-report/
+            games/rift-survivors/test-results/
+          if-no-files-found: ignore
