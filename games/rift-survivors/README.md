@@ -8,7 +8,7 @@
 - 5분 생존 후 2단계 보스전
 - 보석 보상, 영구 강화, 최고 점수 저장
 - 사운드, 일시정지, 종료 확인, Safe Area, 자동/60FPS 목표/배터리 절약 모드
-- 직접 그리는 픽셀 그래픽과 합성 음향
+- 손그림풍 기사·궁수·마법사와 숲 배경, 황금 참격·명중 반응·다층 합성 음향
 - 이번 버전에는 로그인 화면, 실제 돈 결제, 광고 없음
 
 ## 출시 파일 받기
@@ -44,7 +44,9 @@ npm run check:release
 - src/core.js: 전투, 성장, 저장 모델
 - src/runtime.js: 고정 시간 전투와 자동 화면 성능 조절
 - src/spatial.js: 탄환 충돌을 위한 공간 격자
-- src/render.js: 픽셀 그래픽과 Canvas 2D 전장
+- src/art.js: 게임 이미지 로딩과 캐시
+- src/render.js: 손그림풍 Canvas 2D 전장, 스킬과 타격 효과
+- src/icons.js: 독자적인 룬 스킬 아이콘
 - src/main.js: 게임 전체 흐름, 터치와 UI
 - src/platform.js: 토스 저장/익명 키/화면 제어
 - src/audio.js: 사운드와 배경 전환 대응
@@ -59,4 +61,8 @@ npm run check:release
 
 [균열의 수호자 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/)
 
-이 링크는 검증한 1.1 게임의 플레이 체험용입니다. 기록은 이 브라우저에 따로 저장됩니다. 토스용 .ait와 실제 콘솔 등록/출시 과정은 별도로 유지합니다. 미리보기 소스는 preview/index.html에 있고, 실행용 사본은 본인 GitHub Pages의 play/rift-keepers/index.html 경로에서 제공합니다.
+이 링크는 1.2 게임의 플레이 체험용입니다. 기록은 이 브라우저에 따로 저장됩니다. 토스용 .ait와 실제 콘솔 등록/출시 과정은 별도로 유지합니다. 미리보기 소스는 preview/index.html에 있고, 실행용 사본은 본인 GitHub Pages의 play/rift-keepers/index.html 경로에서 제공합니다.
+
+## 디자인 1.2
+
+어두운 초록 숲과 금빛 룬 기사를 중심으로 시작 화면, 세 영웅, 적과 보스, 스킬 효과와 UI를 개편했습니다. 자세한 범위와 이미지 제작 방법은 [docs/ART_DIRECTION.md](docs/ART_DIRECTION.md)를 참고하세요. 게임용 WebP 이미지는 public/art/에 포함돼 있어 별도 이미지 서버 연결 없이 실행합니다. 기사는 대기·걷기·공격 자세를 사용하며 궁수·마법사는 개별 이미지와 코드로 움직임을 표현합니다.
