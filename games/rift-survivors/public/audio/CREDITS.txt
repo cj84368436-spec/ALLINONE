@@ -6,3 +6,5 @@ Modified: selected, mixed, equalized, normalized, faded and encoded for Rift Kee
 1.4 sword contact remix: Kenney knifeSlice/knifeSlice2, cloth2/cloth3 and metalPot2/metalPot3; pitch, filtering, mixing and fades.
 
 1.4 sword contact remix: Kenney knifeSlice/knifeSlice2, cloth2/cloth3 and metalPot2/metalPot3; pitch, filtering, mixing and fades.
+
+1.5 ranged mixes: artisticdude swish-c derived from swish-9 (CC0); Kenney creak2, cloth2, knifeSlice/knifeSlice2 (CC0); Little Robot Sound Factory Spell_00/Spell_01 (CC BY 3.0). Edited, pitched, filtered, mixed, faded and normalized into separate arrow/bolt release and contact samples.

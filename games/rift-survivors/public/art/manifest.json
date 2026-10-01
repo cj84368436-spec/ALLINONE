@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "kind": "original AI-assisted painted 2D production assets",
   "source": {
     "width": 1254,
@@ -129,6 +129,102 @@
     {
       "name": "knight-strike-7.webp",
       "bytes": 17598
+    },
+    {
+      "name": "ranger-attack-0.webp",
+      "bytes": 30228
+    },
+    {
+      "name": "ranger-attack-1.webp",
+      "bytes": 32010
+    },
+    {
+      "name": "ranger-attack-2.webp",
+      "bytes": 31980
+    },
+    {
+      "name": "ranger-attack-3.webp",
+      "bytes": 34594
+    },
+    {
+      "name": "ranger-attack-4.webp",
+      "bytes": 35998
+    },
+    {
+      "name": "ranger-attack-5.webp",
+      "bytes": 34320
+    },
+    {
+      "name": "ranger-attack-6.webp",
+      "bytes": 29478
+    },
+    {
+      "name": "ranger-attack-7.webp",
+      "bytes": 28962
+    },
+    {
+      "name": "mage-attack-0.webp",
+      "bytes": 28972
+    },
+    {
+      "name": "mage-attack-1.webp",
+      "bytes": 32716
+    },
+    {
+      "name": "mage-attack-2.webp",
+      "bytes": 31184
+    },
+    {
+      "name": "mage-attack-3.webp",
+      "bytes": 33486
+    },
+    {
+      "name": "mage-attack-4.webp",
+      "bytes": 34330
+    },
+    {
+      "name": "mage-attack-5.webp",
+      "bytes": 32600
+    },
+    {
+      "name": "mage-attack-6.webp",
+      "bytes": 28532
+    },
+    {
+      "name": "mage-attack-7.webp",
+      "bytes": 27970
+    },
+    {
+      "name": "ranger-walk-0.webp",
+      "bytes": 29034
+    },
+    {
+      "name": "ranger-walk-1.webp",
+      "bytes": 27288
+    },
+    {
+      "name": "ranger-walk-2.webp",
+      "bytes": 28894
+    },
+    {
+      "name": "ranger-walk-3.webp",
+      "bytes": 26628
+    },
+    {
+      "name": "mage-walk-0.webp",
+      "bytes": 28742
+    },
+    {
+      "name": "mage-walk-1.webp",
+      "bytes": 27938
+    },
+    {
+      "name": "mage-walk-2.webp",
+      "bytes": 27836
+    },
+    {
+      "name": "mage-walk-3.webp",
+      "bytes": 26844
     }
   ],
   "knightAnimation": {
@@ -141,5 +237,21 @@
     },
     "sourceScale": 0.5
   },
-  "totalBytes": 1164544
+  "totalBytes": 1895108,
+  "rangedAnimation": {
+    "heroes": [
+      "ranger",
+      "mage"
+    ],
+    "attackFrames": 8,
+    "walkFrames": 4,
+    "width": 352,
+    "height": 288,
+    "root": {
+      "x": 176,
+      "y": 252
+    },
+    "attackScale": 0.8380281690140845,
+    "walkScale": 0.54337899543379
+  }
 }

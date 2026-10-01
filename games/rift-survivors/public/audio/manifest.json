@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "files": [
     {
       "name": "swish-a.mp3",
@@ -90,6 +90,30 @@
       "bytes": 481115,
       "duration": 30.040816,
       "sha256": "d365e4d8aed58b087da60b807310afc120b9dc46cf1e438692110b42d20a0856"
+    },
+    {
+      "name": "arrow-release.mp3",
+      "bytes": 4554,
+      "duration": 0.235102,
+      "sha256": "5b5eac5d60328703f740f034cf327ebcfb7a44640b4a8c40a4b0b0e8a537c525"
+    },
+    {
+      "name": "arrow-hit.mp3",
+      "bytes": 5477,
+      "duration": 0.313469,
+      "sha256": "b244031d6d97a7af7b55e682a9f69ffe06bcb0860950e8184d340c43bf5caad0"
+    },
+    {
+      "name": "bolt-release.mp3",
+      "bytes": 10622,
+      "duration": 0.626939,
+      "sha256": "65178e152b0dcde658ffa84a4d2c43d70ae74ec2fabc33cd6e6b1032898e482f"
+    },
+    {
+      "name": "bolt-hit.mp3",
+      "bytes": 6860,
+      "duration": 0.391837,
+      "sha256": "a03aedd629103fb6fb7eda09efb081d3ce42b179ce7033a8953ba3386df720c0"
     }
   ],
   "sources": [
@@ -112,6 +136,7 @@
       "page": "https://opengameart.org/content/fantasy-sound-effects-library"
     }
   ],
-  "totalBytes": 729056,
-  "bladeMix": "Recorded knife edge, low pitched cloth impact and quiet metal resonance; no chopped-wood layer. Contact playback is driven by combat contact events."
+  "totalBytes": 756569,
+  "bladeMix": "Recorded knife edge, low pitched cloth impact and quiet metal resonance; no chopped-wood layer. Contact playback is driven by combat contact events.",
+  "rangedMix": "Separate release and contact mixes: recorded swish/creak for bow, cloth/knife edge for arrow contact, Fantasy Spell_00/Spell_01 for frost release and shatter. No synthesized tones or noise."
 }
