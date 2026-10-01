@@ -9,7 +9,7 @@ import {FixedClock,RenderBudget,joystick} from "./runtime.js";
 const $=id=>document.getElementById(id),platform=new Platform(),audio=new Audio(),renderer=new Renderer($("world"));
 let save=cleanSave(),hero=HEROES[0],game=null,ready=false,settled=false,dialogKind=null,returnFocus=null,last=0,clock=0,bannerUntil=0,skillSignature="",exiting=false;
 const simulation=new FixedClock(),budget=new RenderBudget(),metrics={frames:0,steps:0,frameMs:0,updateMs:0,renderMs:0};let lastDraw=0,lastHud=0;
-const practiceKey=new URLSearchParams(location.search).get("practice"),practiceHero={blade:"knight",arrow:"ranger",bolt:"mage"}[practiceKey]||null,practiceTitle={blade:"검술 연습",arrow:"궁술 연습",bolt:"마법 연습"}[practiceKey]||"전투 연습";if(practiceHero)hero=HEROES.find(h=>h.id===practiceHero);
+const practiceParam=new URLSearchParams(location.search).get("practice"),practiceKey=["blade","arrow","bolt"].includes(practiceParam)?practiceParam:null,practiceHero={blade:"knight",arrow:"ranger",bolt:"mage"}[practiceKey]||null,practiceTitle={blade:"검술 연습",arrow:"궁술 연습",bolt:"마법 연습"}[practiceKey]||"전투 연습";if(practiceHero)hero=HEROES.find(h=>h.id===practiceHero);
 const joy={active:false,id:null,x:0,y:0,ox:0,oy:0,keyboard:false},keys=new Set();
 const format=n=>Math.floor(n).toLocaleString("ko-KR"),timeText=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(Math.floor(n%60)).padStart(2,"0");
 function toast(text){$("toast").textContent=text;$("toast").classList.add("visible");clearTimeout(toast.timer);toast.timer=setTimeout(()=>$("toast").classList.remove("visible"),4000);}
