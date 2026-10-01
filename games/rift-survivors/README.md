@@ -1,13 +1,51 @@
-# 균열의 수호자 — 2D 서바이벌 게임
+# 균열의 수호자 — 토스 2D 미니앱
 
-아이폰 Safari와 Windows 브라우저에서 플레이하는 한국어 2D 액션 게임입니다. 별도 엔진 설치나 서버 없이 실행하도록 제작합니다.
+토스 앱 안에서 실행하는 한국어 2D 생존 액션 게임입니다. Apps in Toss WebView SDK 3.x를 사용하며 별도 Unity, Unreal, Xcode 프로젝트가 필요하지 않습니다.
 
-## 첫 번째 완성판 구성
+- 룬 기사 / 별빛 궁수 / 서리 마법사
+- 드래그 이동, 자동 공격, 회피, 별빛 폭풍
+- 레벨업 3지선다, 무기 4개, 스킬 5레벨 각성
+- 5분 생존 후 2단계 보스전
+- 보석 보상, 영구 강화, 최고 점수 저장
+- 사운드, 일시정지, 종료 확인, Safe Area
+- 직접 그리는 픽셀 그래픽과 합성 음향
+- 이번 버전에는 로그인 화면, 실제 돈 결제, 광고 없음
 
-- 세로 화면, 터치 드래그 이동, PC 키보드 지원
-- 3종 영웅, 자동 공격, 3지선다 스킬 성장
-- 5분 생존 후 최종 보스전, 회피와 궁극기
-- 결과 화면, 재시작, 보석과 영구 강화, 로컬 기록 저장
-- 직접 그린 2D 그래픽과 브라우저 합성 음향
+## 출시 파일 받기
 
-완성된 실행 파일, 검증 결과와 플레이 링크를 이 폴더에 정리합니다.
+[GitHub Actions](https://github.com/cj84368436-spec/ALLINONE/actions/workflows/rift-survivors.yml)에서 성공한 실행을 열고 **rift-keepers-toss-release** 아티팩트를 내려받으세요.
+
+.ait 번들, 600px PNG 아이콘, 게임 이미지, 빌드 manifest와 등록 문서가 포함됩니다. 실제 검증 상태는 [docs/VALIDATION.md](docs/VALIDATION.md), 등록 절차는 [docs/SUBMISSION.md](docs/SUBMISSION.md)에 기록합니다.
+
+기본 appName은 **rift-keepers**입니다. 콘솔에 등록한 실제 값이 다르면 **TOSS_APP_NAME** 환경 변수/Actions 변수로 바꾸어 다시 빌드해야 합니다. 앱 종류는 콘솔에서 **게임**으로 등록합니다.
+
+## Windows에서 개발
+
+Node.js 22 LTS와 Git을 준비한 뒤 이 폴더에서 실행:
+
+~~~powershell
+npm install
+npm run dev
+~~~
+
+개발 모드에서는 토스 네이티브 저장소를 로컬 대체 경로로 테스트합니다. 출시 빌드는 토스 익명 사용자 키와 토스 SDK Storage를 사용합니다. DEV 검증 도구는 출시 번들에서 제거됩니다.
+
+~~~powershell
+npm test
+npx playwright install chromium
+npm run test:e2e
+npm run build
+npm run check:release
+~~~
+
+## 구성
+
+- src/core.js: 전투, 성장, 저장 모델
+- src/render.js: 픽셀 그래픽과 Canvas 2D 전장
+- src/main.js: 게임 전체 흐름, 터치와 UI
+- src/platform.js: 토스 저장/익명 키/화면 제어
+- src/audio.js: 사운드와 배경 전환 대응
+- tests: 로직 및 실제 브라우저 테스트
+- docs: 출시 등록 자료와 데이터 안내
+
+기록은 해당 기기 토스 저장소에 남습니다. 이번 버전은 기기 간 서버 동기화와 멀티플레이를 제공하지 않습니다. 실제 토스 콘솔 제출/심사/공개 여부는 빌드 성공과 별도로 확인해야 합니다.
