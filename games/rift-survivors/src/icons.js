@@ -1,3 +1,4 @@
+import {Art} from "./art.js";
 const paths={
 blade:'<path d="M9 24 24 4l4 1-1 4L13 27z"/><path d="m7 18 12 10M5 28l5-6"/>',
 arrow:'<path d="M7 26 26 7m-8 0h8v8M8 7q14 7 17 18M8 7l17 18M6 22l4 4"/>',
@@ -15,4 +16,4 @@ ultimate:'<path d="m16 2 4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="m25 3 1 
 settings:'<path d="m13 3 6 0 1 4 4 2 4-1 3 5-3 3v4l2 3-4 4-4-2-3 1-2 4h-6l-1-4-4-2-4 1-2-5 3-3v-4l-2-3 4-4 4 2 3-1z"/><circle cx="16" cy="16" r="5"/>',
 pause:'<path d="M10 7v18M22 7v18"/>'
 };
-export function iconMarkup(key){return '<svg class="rune-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[key]||paths.heart)+'</svg>';}
+export function iconMarkup(key){if(["blade","arrow","bolt","orbit","lightning","frost"].includes(key))return '<img class="rune-icon painted-icon" src="'+Art.urls["icon-"+key]+'" alt="" aria-hidden="true">';return '<svg class="rune-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[key]||paths.heart)+'</svg>';}
