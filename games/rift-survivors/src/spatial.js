@@ -6,7 +6,7 @@ export class EnemyGrid {
     this.active.length = 0;
     for (const enemy of enemies) {
       if (enemy.hp <= 0) continue;
-      const key = Math.floor(enemy.x / this.size) + "," + Math.floor(enemy.y / this.size);
+      const key = Math.floor(enemy.x / this.size) * 65536 + Math.floor(enemy.y / this.size);
       let bucket = this.cells.get(key);
       if (!bucket) { bucket = []; this.cells.set(key, bucket); }
       if (!bucket.length) this.active.push(bucket);
@@ -14,8 +14,8 @@ export class EnemyGrid {
     }
   }
   move(enemy, oldX, oldY) {
-    const oldKey = Math.floor(oldX / this.size) + "," + Math.floor(oldY / this.size);
-    const key = Math.floor(enemy.x / this.size) + "," + Math.floor(enemy.y / this.size);
+    const oldKey = Math.floor(oldX / this.size) * 65536 + Math.floor(oldY / this.size);
+    const key = Math.floor(enemy.x / this.size) * 65536 + Math.floor(enemy.y / this.size);
     if (key === oldKey) return;
     const oldBucket = this.cells.get(oldKey);
     const index = oldBucket?.indexOf(enemy) ?? -1;
@@ -30,7 +30,7 @@ export class EnemyGrid {
     out.length = 0;
     for (let x = Math.floor(minX / this.size); x <= Math.floor(maxX / this.size); x++)
       for (let y = Math.floor(minY / this.size); y <= Math.floor(maxY / this.size); y++) {
-        const bucket = this.cells.get(x + "," + y);
+        const bucket = this.cells.get(x * 65536 + y);
         if (bucket) for (const enemy of bucket) out.push(enemy);
       }
     return out;
