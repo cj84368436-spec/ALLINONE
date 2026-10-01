@@ -42,3 +42,6 @@ test("drop consolidation preserves both experience and healing within a fixed bu
 test("enemy projectiles also use swept collisions; nonfinite deltas do not poison state",()=>{
   const g=new Game();g.shots=[{x:850,y:900,vx:2500,vy:0,r:6,ttl:1,damage:9}];g.step(.05);assert.equal(g.player.hp,111);const t=g.time;g.step(NaN);assert.equal(g.time,t);assert.ok(Number.isFinite(g.player.x));
 });
+test("knockback across a spatial cell boundary updates projectile candidates",()=>{
+  const grid=new EnemyGrid(),enemy={id:1,x:95,y:100,hp:10};grid.rebuild([enemy]);enemy.x=105;grid.move(enemy,95,100);assert.equal(grid.query(96,96,110,110).length,1);assert.equal(grid.query(0,96,95,110).length,0);grid.rebuild([enemy]);assert.equal(grid.query(96,96,110,110).length,1);
+});
