@@ -1,0 +1,116 @@
+{
+  "version": "1.3.0",
+  "files": [
+    {
+      "name": "swish-a.mp3",
+      "bytes": 4554,
+      "duration": 0.235102,
+      "sha256": "dfd47fa5931604678a2d5979e3a203fe589264623c1bb8643f33ad1b149f97e4"
+    },
+    {
+      "name": "swish-b.mp3",
+      "bytes": 3718,
+      "duration": 0.182857,
+      "sha256": "49a64b1b135a6b6fd893e431c3f923dfbbb2bcd84b21494a982bcbe65c0ea867"
+    },
+    {
+      "name": "swish-c.mp3",
+      "bytes": 4554,
+      "duration": 0.235102,
+      "sha256": "a28a8a40ea6b398fae0f8f7299bbc7ec81ac6a96d6f1cda3333036ecf64e5964"
+    },
+    {
+      "name": "blade-hit-a.mp3",
+      "bytes": 7985,
+      "duration": 0.470204,
+      "sha256": "a9c84e0f5966cc34c3fb78f18ed11d9cfda52c3f1df92084e34da92d2aad4972"
+    },
+    {
+      "name": "blade-hit-b.mp3",
+      "bytes": 7567,
+      "duration": 0.444082,
+      "sha256": "1a0e9bd41b5ee38eb424ee3301e4b7e7652dce08bb0908a5b0a961c8fe4c2e05"
+    },
+    {
+      "name": "arrow.mp3",
+      "bytes": 2882,
+      "duration": 0.130612,
+      "sha256": "f8a3cb86e780e1cec3425001b7570f9ca5c299293a3b49387fc7a85829b06f76"
+    },
+    {
+      "name": "magic.mp3",
+      "bytes": 21071,
+      "duration": 1.28,
+      "sha256": "c8c53da6f8a84ee175f69029b223b436036b2fa297b59f763b86d969fb5a949e"
+    },
+    {
+      "name": "frost.mp3",
+      "bytes": 21071,
+      "duration": 1.28,
+      "sha256": "9621f9b2d16bcde159a2877adcec0de530013b5b42c736ab21ec421183fa90b9"
+    },
+    {
+      "name": "thunder.mp3",
+      "bytes": 24285,
+      "duration": 1.48898,
+      "sha256": "7d974f1fcafcc39cabbab7d400d1b1f88c542649cff2d7353046a24ca416536d"
+    },
+    {
+      "name": "ultimate.mp3",
+      "bytes": 38515,
+      "duration": 2.35102,
+      "sha256": "90ba935737e68fe0c0dcc07d69de8d91eb6007ed093ed418167c0424f46e7703"
+    },
+    {
+      "name": "reward.mp3",
+      "bytes": 58269,
+      "duration": 3.604898,
+      "sha256": "29c980a8257a38b800aea4e96691a96b8a75b35e291f4ac7ed1f76fb4e05e39c"
+    },
+    {
+      "name": "select.mp3",
+      "bytes": 3516,
+      "duration": 0.182857,
+      "sha256": "1a7d4148120e0194e1ec7db42e7d05dfcec197576e7ddd8b68e9783657363752"
+    },
+    {
+      "name": "boss.mp3",
+      "bytes": 41133,
+      "duration": 2.533878,
+      "sha256": "3226e00632e9afd1a540f1e001e05b5a0c96219746366d3c5f4d775fca233108"
+    },
+    {
+      "name": "hurt.mp3",
+      "bytes": 9239,
+      "duration": 0.548571,
+      "sha256": "1ef133fab89be959f1f7e62cf55da07551c281158f70f219b952364900bb3c82"
+    },
+    {
+      "name": "ambience.mp3",
+      "bytes": 481115,
+      "duration": 30.040816,
+      "sha256": "d365e4d8aed58b087da60b807310afc120b9dc46cf1e438692110b42d20a0856"
+    }
+  ],
+  "sources": [
+    {
+      "name": "swishes",
+      "author": "artisticdude",
+      "license": "CC0-1.0",
+      "page": "https://opengameart.org/content/swishes-sound-pack"
+    },
+    {
+      "name": "rpg",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "page": "https://kenney.nl/assets/rpg-audio"
+    },
+    {
+      "name": "fantasy",
+      "author": "Little Robot Sound Factory",
+      "license": "CC-BY-3.0",
+      "page": "https://opengameart.org/content/fantasy-sound-effects-library"
+    }
+  ],
+  "totalBytes": 729474
+}
