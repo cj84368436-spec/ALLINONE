@@ -10,6 +10,11 @@ on:
         description: 'Apps in Toss console appName'
         required: false
         default: 'rift-keepers'
+      upload_to_toss:
+        description: 'Upload verified TEST bundle to Toss (requires TOSS_API_KEY secret)'
+        type: boolean
+        required: false
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -31,11 +36,17 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm test
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
       - run: npm run test:e2e
+      - run: npm run benchmark
       - run: npm run build
       - run: npm run check:release
       - run: npm run screenshots
+      - name: Optional Toss console TEST upload
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_toss }}
+        env:
+          TOSS_API_KEY: ${{ secrets.TOSS_API_KEY }}
+        run: node scripts/deploy-toss.mjs
       - uses: actions/upload-artifact@v4
         if: success()
         with:
