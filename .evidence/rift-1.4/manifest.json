@@ -1,0 +1,16 @@
+{
+  "version": "1.4.0",
+  "engine": "Chromium",
+  "nativePhoneTest": false,
+  "recordedAudio": true,
+  "video": "knight-15s.mp4",
+  "screenshots": [
+    "home.png",
+    "anticipation.png",
+    "combat.png",
+    "recovery.png",
+    "small-phone.png"
+  ],
+  "combatScene": "Animation stage verification fixture; video uses the public sword-practice mode",
+  "errors": []
+}

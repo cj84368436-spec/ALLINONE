@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "kind": "original AI-assisted painted 2D production assets",
   "source": {
     "width": 1254,
@@ -97,7 +97,49 @@
     {
       "name": "title-OFL.txt",
       "bytes": 4350
+    },
+    {
+      "name": "knight-strike-0.webp",
+      "bytes": 17908
+    },
+    {
+      "name": "knight-strike-1.webp",
+      "bytes": 19548
+    },
+    {
+      "name": "knight-strike-2.webp",
+      "bytes": 20798
+    },
+    {
+      "name": "knight-strike-3.webp",
+      "bytes": 17966
+    },
+    {
+      "name": "knight-strike-4.webp",
+      "bytes": 19624
+    },
+    {
+      "name": "knight-strike-5.webp",
+      "bytes": 18852
+    },
+    {
+      "name": "knight-strike-6.webp",
+      "bytes": 19030
+    },
+    {
+      "name": "knight-strike-7.webp",
+      "bytes": 17598
     }
   ],
-  "totalBytes": 1013220
+  "knightAnimation": {
+    "frames": 8,
+    "width": 352,
+    "height": 288,
+    "root": {
+      "x": 176,
+      "y": 252
+    },
+    "sourceScale": 0.5
+  },
+  "totalBytes": 1164544
 }
