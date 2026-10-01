@@ -1,22 +1,20 @@
 export class Audio {
-  constructor() { this.context=null; this.enabled=true; this.timer=null; this.note=0; this.voices=new Set(); this.delayed=new Set(); }
-  unlock() { if(!this.enabled||document.hidden)return; try { if(!this.context)this.context=new(window.AudioContext||window.webkitAudioContext)(); this.context.resume().catch(()=>{}); this.music(); } catch{} }
-  tone(freq,duration=.12,gain=.035,type="sine") {
-    if(!this.enabled||!this.context||this.context.state!=="running"||document.hidden||this.voices.size>=24)return;
-    const c=this.context,o=c.createOscillator(),v=c.createGain(); this.voices.add(o);o.type=type;o.frequency.value=freq;
-    v.gain.setValueAtTime(0,c.currentTime);v.gain.linearRampToValueAtTime(gain,c.currentTime+.01);v.gain.exponentialRampToValueAtTime(.001,c.currentTime+duration);
-    o.connect(v);v.connect(c.destination);o.onended=()=>{o.disconnect();v.disconnect();this.voices.delete(o);};o.start();o.stop(c.currentTime+duration+.02);
-  }
-  later(fn,ms) { const id=setTimeout(()=>{this.delayed.delete(id);fn();},ms);this.delayed.add(id); }
-  music() { if(this.timer||!this.enabled||!this.context)return;const notes=[220,261.63,329.63,293.66,220,196,261.63,329.63];this.timer=setInterval(()=>this.tone(notes[this.note++%notes.length],.48,.013),560); }
-  stop() { clearInterval(this.timer);this.timer=null;for(const id of this.delayed)clearTimeout(id);this.delayed.clear();for(const o of this.voices)try{o.stop();}catch{}this.context?.suspend().catch(()=>{}); }
-  set(enabled) { this.enabled=enabled;if(enabled)this.unlock();else this.stop(); }
-  event(type,key) {
-    if(type==="attack"){if(key==="arrow"||key==="bolt")this.tone(key==="arrow"?710:410,.045,.009,"triangle");if(key==="blade")this.tone(140,.07,.022,"triangle");if(key==="lightning")this.tone(210,.17,.025,"sawtooth");}
-    else if(["level","choose","evolve","chest","magnet"].includes(type)){this.tone(523,.16,.045);this.later(()=>this.tone(784,.22,.03),100);}
-    else if(type==="hurt")this.tone(80,.12,.05,"triangle");
-    else if(type==="ultimate"){this.tone(98,.5,.055,"triangle");this.later(()=>this.tone(392,.6,.035),130);}
-    else if(type==="dash")this.tone(460,.09,.018,"triangle");
-    else if(type==="boss")this.tone(65,.8,.07,"triangle");
-  }
+constructor(){this.context=null;this.enabled=true;this.timer=null;this.note=0;this.voices=new Set();this.delayed=new Set();this.noiseBuffer=null;this.lastImpact=0;}
+unlock(){if(!this.enabled||document.hidden)return;try{if(!this.context)this.context=new(window.AudioContext||window.webkitAudioContext)();this.context.resume().catch(()=>{});this.music();}catch{}}
+canPlay(){return this.enabled&&this.context&&this.context.state==="running"&&!document.hidden&&this.voices.size<24;}
+tone(freq,duration=.12,gain=.035,type="sine",end=freq){if(!this.canPlay())return;const c=this.context,o=c.createOscillator(),v=c.createGain();this.voices.add(o);o.type=type;o.frequency.setValueAtTime(freq,c.currentTime);if(end!==freq)o.frequency.exponentialRampToValueAtTime(Math.max(20,end),c.currentTime+duration);v.gain.setValueAtTime(0,c.currentTime);v.gain.linearRampToValueAtTime(gain,c.currentTime+.006);v.gain.exponentialRampToValueAtTime(.001,c.currentTime+duration);o.connect(v);v.connect(c.destination);o.onended=()=>{o.disconnect();v.disconnect();this.voices.delete(o);};o.start();o.stop(c.currentTime+duration+.02);}
+noise(duration=.12,gain=.03,frequency=1500,end=frequency){if(!this.canPlay())return;const c=this.context;if(!this.noiseBuffer){const b=c.createBuffer(1,c.sampleRate*.4,c.sampleRate),data=b.getChannelData(0);let value=0;for(let i=0;i<data.length;i++){value=(value+Math.random()*2-1)*.7;data[i]=value;}this.noiseBuffer=b;}const source=c.createBufferSource(),filter=c.createBiquadFilter(),volume=c.createGain();source.buffer=this.noiseBuffer;filter.type="bandpass";filter.Q.value=.7;filter.frequency.setValueAtTime(frequency,c.currentTime);filter.frequency.exponentialRampToValueAtTime(Math.max(60,end),c.currentTime+duration);volume.gain.setValueAtTime(gain,c.currentTime);volume.gain.exponentialRampToValueAtTime(.001,c.currentTime+duration);source.connect(filter);filter.connect(volume);volume.connect(c.destination);this.voices.add(source);source.onended=()=>{source.disconnect();filter.disconnect();volume.disconnect();this.voices.delete(source);};source.start();source.stop(c.currentTime+duration);}
+later(fn,ms){const id=setTimeout(()=>{this.delayed.delete(id);fn();},ms);this.delayed.add(id);}
+music(){if(this.timer||!this.enabled||!this.context)return;const notes=[146.83,174.61,220,196,146.83,130.81,174.61,196];this.timer=setInterval(()=>{const note=notes[this.note++%notes.length];this.tone(note,1.15,.009);if(this.note%2===0)this.tone(note*2,.85,.004,"triangle");},820);}
+stop(){clearInterval(this.timer);this.timer=null;for(const id of this.delayed)clearTimeout(id);this.delayed.clear();for(const o of this.voices)try{o.stop();}catch{}this.context?.suspend().catch(()=>{});}
+set(enabled){this.enabled=enabled;if(enabled)this.unlock();else this.stop();}
+event(type,key){
+if(type==="attack"){if(key==="blade"){this.noise(.12,.055,2600,420);this.tone(260,.10,.018,"triangle",90);}else if(key==="arrow"){this.noise(.07,.025,3900,1600);this.tone(920,.065,.009,"sine",380);}else if(key==="bolt"){this.tone(510,.12,.018,"triangle",940);}else if(key==="lightning"){this.noise(.15,.052,1200,240);this.tone(85,.18,.019,"triangle",45);}else if(key==="frost"){this.noise(.20,.026,3600,1300);this.tone(1200,.17,.006,"sine",560);}}
+else if(type==="impact"){if(!this.context||this.context.currentTime-this.lastImpact<.07)return;this.lastImpact=this.context.currentTime;this.noise(.065,.047,820,190);this.tone(116,.085,.028,"triangle",48);if(key==="blade")this.tone(1450,.035,.005,"sine",530);}
+else if(["level","choose","evolve","chest","magnet"].includes(type)){this.tone(523,.22,.031);this.later(()=>this.tone(659,.23,.020),80);this.later(()=>this.tone(784,.35,.022),160);}
+else if(type==="hurt"){this.noise(.09,.04,430,120);this.tone(92,.15,.042,"triangle",45);}
+else if(type==="ultimate"){this.tone(73,.6,.04,"triangle",44);this.noise(.35,.055,2800,360);this.later(()=>this.tone(392,.6,.023),100);this.later(()=>this.tone(587,.6,.019),170);}
+else if(type==="dash")this.noise(.12,.034,1900,600);
+else if(type==="boss"){this.tone(55,.9,.040,"triangle");this.later(()=>this.tone(82,.8,.023,"triangle"),150);}
+}
 }
