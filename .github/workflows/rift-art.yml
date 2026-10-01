@@ -1,4 +1,4 @@
-name: Prepare original Rift artwork
+name: Prepare and verify original Rift artwork
 on:
   push:
     paths:
