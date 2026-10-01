@@ -24,7 +24,7 @@ test("all six evolutions require a max weapon and its paired passive and emit on
   for(const [key,evo] of Object.entries(EVOLUTIONS)){const g=new Game();g.weapons={[key]:5};g.passives[evo.passive]=1;g.checkEvolution();assert.equal(g.evolved[key],undefined);g.passives[evo.passive]=2;g.checkEvolution();g.checkEvolution();assert.equal(g.evolved[key],true);assert.equal(g.events.filter(e=>e.type==="evolve").length,1);}
 });
 test("evolved arrows add five penetrating projectiles without exceeding the projectile budget",()=>{
-  const g=new Game("ranger"),e=g.spawn("shade");Object.assign(e,{x:1000,y:900,hp:10000});g.weapons.arrow=5;g.passives.haste=2;g.checkEvolution();g.attack("arrow",5);assert.equal(g.bullets.length,5);assert.ok(g.bullets.every(b=>b.pierce===3));for(let i=0;i<100;i++)g.attack("arrow",5);assert.equal(g.bullets.length,LIMITS.bullets);
+  const g=new Game("ranger"),e=g.spawn("shade");Object.assign(e,{x:1000,y:900,hp:10000});g.weapons.arrow=5;g.passives.haste=2;g.checkEvolution();g.attack("arrow",5);assert.equal(g.bullets.length,0);g.advanceRanged(.3);assert.equal(g.bullets.length,5);assert.ok(g.bullets.every(b=>b.pierce===3));for(let i=0;i<100;i++){g.attack("arrow",5);g.advanceRanged(.3);}assert.equal(g.bullets.length,LIMITS.bullets);
 });
 test("skill rerolls are free, limited to three per run and do not consume an earned level",()=>{
   const g=new Game();assert.equal(g.reroll(),false);g.addXP(8);for(let i=0;i<3;i++){assert.equal(g.reroll(),true);assert.equal(g.pending,1);assert.equal(g.phase,"upgrade");assert.equal(g.choices.length,3);}assert.equal(g.reroll(),false);g.choose(g.choices[0]);assert.equal(g.phase,"playing");

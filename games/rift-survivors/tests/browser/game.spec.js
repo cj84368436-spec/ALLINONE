@@ -70,7 +70,7 @@ await page.locator("#pause").click();await page.locator("#pause-settings").click
 
 test("recorded Foley and spell buffers decode into real audio on mobile browsers",async({page},testInfo)=>{
 const result=await page.evaluate(()=>{const a=window.__riftTest.audio;return [...a.buffers].map(([name,b])=>{const x=b.getChannelData(0);let energy=0,peak=0;for(let i=0;i<x.length;i++){energy+=x[i]*x[i];peak=Math.max(peak,Math.abs(x[i]));}return {name,duration:b.duration,rms:Math.sqrt(energy/x.length),peak};});});
-expect(result).toHaveLength(15);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
+expect(result).toHaveLength(19);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
 await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 });
 test("one sword sweep hitting ten enemies plays one whoosh and one impact",async({page})=>{
@@ -82,7 +82,7 @@ await page.locator("#pause").click();await expect.poll(()=>page.evaluate(()=>win
 });
 test("missing recorded audio offers a working retry without a broken start screen",async({page})=>{
 await page.route("**/audio/swish-a.mp3*",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#home")).toBeHidden();
-await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(15);
+await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(19);
 });
 test("painted sword texture, scenery, badges and bundled title font are loaded",async({page})=>{
 const assets=await page.evaluate(()=>{const art=window.__riftTest.renderer;return {ready:art.artReady,font:[...document.fonts].some(f=>f.family==="RiftTitle"&&f.status==="loaded")};});expect(assets.ready).toBe(true);expect(assets.font).toBe(true);
@@ -99,3 +99,18 @@ test("fifteen-second sword practice keeps permanent records unchanged",async({pa
 await page.goto("/?practice=blade");await expect(page.locator("#home")).toBeVisible();const before=await page.evaluate(()=>JSON.stringify(window.__riftTest.save));await page.locator("#start").click();await expect(page.locator("#objective")).toHaveText("15초 검술 연습");
 await page.evaluate(()=>{const g=window.__riftTest.game;for(let i=0;i<1100&&!g.result;i++)g.step(1/60);});await expect(page.locator("#dialog-title")).toHaveText("검술 연습 완료");await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>JSON.stringify(window.__riftTest.save))).toBe(before);expect(await page.evaluate(()=>window.__riftTest.game.level)).toBe(1);
 });
+
+for(const [hero,key,title]of [["ranger","arrow","궁술 연습"],["mage","bolt","마법 연습"]]){
+test(hero+" preparation matches release animation, projectile travel and its own contact sound",async({page})=>{
+await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
+const setup=await page.evaluate(key=>{const t=window.__riftTest,g=t.game;g.enemies=[];g.bullets=[];g.events=[];g.spawnCd=999;g.cool[key]=999;delete g.rangedAttacks[key];const e=g.spawn("brute");Object.assign(e,{x:g.player.x+110,y:g.player.y,hp:500,maxHp:500,speed:0});g.events=[];g.attack(key,1);g.phase="paused";return {hp:e.hp,bullets:g.bullets.length,elapsed:g.rangedAttacks[key].elapsed};},key);expect(setup).toEqual({hp:500,bullets:0,elapsed:0});
+await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";for(let i=0;i<7;i++)g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.bullets.length)).toBe(0);expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(500);
+await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";for(let i=0;i<20;i++)g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(key==="arrow"?488:484);await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toBe(key+"-hit");expect(await page.evaluate(()=>window.__riftTest.renderer.feedback.projectileKey)).toBe(key);
+await page.screenshot({path:"test-results/"+hero+"-combat.png"});
+});
+test(hero+" fifteen-second practice preserves records and stays reachable on a small phone",async({page})=>{
+await page.setViewportSize({width:360,height:640});await page.goto("/?practice="+key);await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#start")).toContainText(title+" 시작");expect(await page.locator("#start").evaluate(b=>b.getBoundingClientRect().bottom)).toBeLessThan(640);
+await expect(page.locator('[data-hero="'+hero+'"]')).toHaveAttribute("aria-pressed","true");const before=await page.evaluate(()=>JSON.stringify(window.__riftTest.save));await page.locator("#start").click();await expect(page.locator("#objective")).toHaveText("15초 "+title);
+await page.evaluate(()=>{const g=window.__riftTest.game;for(let i=0;i<1000&&!g.result;i++)g.step(1/60);});await expect(page.locator("#dialog-title")).toHaveText(title+" 완료");await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>JSON.stringify(window.__riftTest.save))).toBe(before);expect(await page.evaluate(()=>window.__riftTest.game.hero.id)).toBe(hero);
+});
+}

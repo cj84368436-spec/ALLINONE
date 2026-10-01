@@ -61,7 +61,7 @@ npm run check:release
 
 [균열의 수호자 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/)
 
-이 링크는 1.4 게임의 플레이 체험용입니다. 기록은 이 브라우저에 따로 저장됩니다. 토스용 .ait와 실제 콘솔 등록/출시 과정은 별도로 유지합니다. 미리보기 소스는 preview/index.html에 있고, 실행용 사본은 본인 GitHub Pages의 play/rift-keepers/index.html 경로에서 제공합니다.
+이 링크는 1.5 게임의 플레이 체험용입니다. 기록은 이 브라우저에 따로 저장됩니다. 토스용 .ait와 실제 콘솔 등록/출시 과정은 별도로 유지합니다. 미리보기 소스는 preview/index.html에 있고, 실행용 사본은 본인 GitHub Pages의 play/rift-keepers/index.html 경로에서 제공합니다.
 
 ## 디자인과 사운드 1.4
 
@@ -74,3 +74,13 @@ npm run check:release
 [실제 전투 영상과 효과음](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/sword.html?v=1.4)으로 변경된 검술을 볼 수 있습니다.
 
 [15초 검술 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.4&practice=blade)은 같은 게임 코드로 실행하며 점수·보석·영구 기록을 변경하지 않습니다. 검의 준비 동작, 궤적, 실제 접촉 시점과 녹음 명중음을 한 전투 상태로 연결했습니다. 룬 기사는 8개 공격 포즈를 사용하고, 검은 바라보는 방향의 부채꼴 범위를 타격합니다. 강한 공격과 일반 공격에 짧은 정지, 밀림과 잘게 흩어지는 불꽃이 적용됩니다. 검에 맞지 않은 적이나 빗나간 공격에는 명중음이 재생되지 않습니다.
+
+## 세 영웅의 전투 동작 — 1.5
+
+별빛 궁수와 서리 마법사에도 각각 공격 8프레임·걷기 4프레임을 적용했습니다. 활시위를 놓는 순간의 발사, 마력을 모으고 내보내는 동작, 탄환의 실제 충돌과 각각의 효과음을 연결했습니다. 화살은 초록 별빛과 금빛 화살대, 마력 창은 푸른 서리 결정과 충돌 파편으로 구분합니다. 각 영웅의 무기 진화, 스킬 조합과 영구 기록을 유지합니다.
+
+- [15초 궁술 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5&practice=arrow)
+- [15초 마법 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5&practice=bolt)
+- [일반 생존 게임](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5)
+
+연습은 점수·보석·영구 기록을 변경하지 않습니다. 기존 검술 영상은 1.4 시점의 기사 검술 영상이며 궁수·마법사 변경을 보여 주는 영상은 아닙니다.

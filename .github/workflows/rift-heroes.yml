@@ -1,4 +1,4 @@
-name: Prepare ranger and mage assets 1.5
+name: Capture and verify three animated heroes 1.5
 on:
   push:
     paths:
@@ -18,24 +18,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Produce compact animation frames and recorded audio
+      - name: Install image preparation tools
+        working-directory: games/rift-survivors
+        run: npm install --no-save --no-audit --no-fund sharp@0.34.5
+      - name: Capture actual mobile game screens
         working-directory: games/rift-survivors
         run: |
-          if ! command -v ffmpeg >/dev/null; then sudo apt-get update && sudo apt-get install -y ffmpeg; fi
-          npm install --no-save --no-audit --no-fund sharp@0.34.5
-          node scripts/prepare-heroes.mjs
-      - name: Save generated production assets
+          npx playwright install --with-deps chromium
+          node scripts/capture-art.mjs
+      - name: Save review evidence
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add games/rift-survivors/public/art/ games/rift-survivors/public/audio/
+          git add .evidence/rift-1.5/
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Prepare ranger and mage frames and recorded ranged audio [skip ci]"
+          git commit -m "Capture all three heroes in mobile combat 1.5 [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
       - uses: actions/upload-artifact@v4
         with:
-          name: rift-ranged-production-assets
-          path: |
-            games/rift-survivors/public/art/
-            games/rift-survivors/public/audio/
+          name: rift-heroes-review
+          path: .evidence/rift-1.5/
