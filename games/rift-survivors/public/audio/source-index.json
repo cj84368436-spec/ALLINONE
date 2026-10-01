@@ -1,0 +1,887 @@
+{
+  "version": "1.3.0",
+  "sources": [
+    {
+      "name": "swishes",
+      "url": "https://opengameart.org/sites/default/files/swishes.zip",
+      "author": "artisticdude",
+      "license": "CC0-1.0",
+      "page": "https://opengameart.org/content/swishes-sound-pack",
+      "sha256": "7980215241b739a787dcf26f660ce510bb237900968789395a86911619795693",
+      "files": [
+        {
+          "path": "__MACOSX/swishes/._swish-1.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-10.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-11.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-12.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-13.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-2.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-3.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-4.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-5.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-6.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-7.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-8.wav",
+          "bytes": 82
+        },
+        {
+          "path": "__MACOSX/swishes/._swish-9.wav",
+          "bytes": 82
+        },
+        {
+          "path": "swishes/swish-1.wav",
+          "bytes": 34138
+        },
+        {
+          "path": "swishes/swish-10.wav",
+          "bytes": 33862
+        },
+        {
+          "path": "swishes/swish-11.wav",
+          "bytes": 28346
+        },
+        {
+          "path": "swishes/swish-12.wav",
+          "bytes": 20892
+        },
+        {
+          "path": "swishes/swish-13.wav",
+          "bytes": 19516
+        },
+        {
+          "path": "swishes/swish-2.wav",
+          "bytes": 26136
+        },
+        {
+          "path": "swishes/swish-3.wav",
+          "bytes": 39390
+        },
+        {
+          "path": "swishes/swish-4.wav",
+          "bytes": 39384
+        },
+        {
+          "path": "swishes/swish-5.wav",
+          "bytes": 34414
+        },
+        {
+          "path": "swishes/swish-6.wav",
+          "bytes": 37310
+        },
+        {
+          "path": "swishes/swish-7.wav",
+          "bytes": 50420
+        },
+        {
+          "path": "swishes/swish-8.wav",
+          "bytes": 41456
+        },
+        {
+          "path": "swishes/swish-9.wav",
+          "bytes": 52906
+        }
+      ]
+    },
+    {
+      "name": "rpg",
+      "url": "https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "page": "https://kenney.nl/assets/rpg-audio",
+      "sha256": "6dbeaf8544da958d8f2adcb4a4a4b76c1ade34a05f8ab9edccd327da7375f38b",
+      "files": [
+        {
+          "path": "Audio/beltHandle1.ogg",
+          "bytes": 10820
+        },
+        {
+          "path": "Audio/beltHandle2.ogg",
+          "bytes": 15410
+        },
+        {
+          "path": "Audio/bookClose.ogg",
+          "bytes": 9292
+        },
+        {
+          "path": "Audio/bookFlip1.ogg",
+          "bytes": 18248
+        },
+        {
+          "path": "Audio/bookFlip2.ogg",
+          "bytes": 12393
+        },
+        {
+          "path": "Audio/bookFlip3.ogg",
+          "bytes": 9077
+        },
+        {
+          "path": "Audio/bookOpen.ogg",
+          "bytes": 8273
+        },
+        {
+          "path": "Audio/bookPlace1.ogg",
+          "bytes": 9901
+        },
+        {
+          "path": "Audio/bookPlace2.ogg",
+          "bytes": 11185
+        },
+        {
+          "path": "Audio/bookPlace3.ogg",
+          "bytes": 9570
+        },
+        {
+          "path": "Audio/chop.ogg",
+          "bytes": 9370
+        },
+        {
+          "path": "Audio/cloth1.ogg",
+          "bytes": 16508
+        },
+        {
+          "path": "Audio/cloth2.ogg",
+          "bytes": 11787
+        },
+        {
+          "path": "Audio/cloth3.ogg",
+          "bytes": 12432
+        },
+        {
+          "path": "Audio/cloth4.ogg",
+          "bytes": 11043
+        },
+        {
+          "path": "Audio/clothBelt.ogg",
+          "bytes": 21491
+        },
+        {
+          "path": "Audio/clothBelt2.ogg",
+          "bytes": 20013
+        },
+        {
+          "path": "Audio/creak1.ogg",
+          "bytes": 15761
+        },
+        {
+          "path": "Audio/creak2.ogg",
+          "bytes": 19012
+        },
+        {
+          "path": "Audio/creak3.ogg",
+          "bytes": 10408
+        },
+        {
+          "path": "Audio/doorClose_1.ogg",
+          "bytes": 18564
+        },
+        {
+          "path": "Audio/doorClose_2.ogg",
+          "bytes": 17598
+        },
+        {
+          "path": "Audio/doorClose_3.ogg",
+          "bytes": 20889
+        },
+        {
+          "path": "Audio/doorClose_4.ogg",
+          "bytes": 16902
+        },
+        {
+          "path": "Audio/doorOpen_1.ogg",
+          "bytes": 22848
+        },
+        {
+          "path": "Audio/doorOpen_2.ogg",
+          "bytes": 30280
+        },
+        {
+          "path": "Audio/drawKnife1.ogg",
+          "bytes": 11134
+        },
+        {
+          "path": "Audio/drawKnife2.ogg",
+          "bytes": 12395
+        },
+        {
+          "path": "Audio/drawKnife3.ogg",
+          "bytes": 12726
+        },
+        {
+          "path": "Audio/dropLeather.ogg",
+          "bytes": 11695
+        },
+        {
+          "path": "Audio/footstep00.ogg",
+          "bytes": 9475
+        },
+        {
+          "path": "Audio/footstep01.ogg",
+          "bytes": 9900
+        },
+        {
+          "path": "Audio/footstep02.ogg",
+          "bytes": 9528
+        },
+        {
+          "path": "Audio/footstep03.ogg",
+          "bytes": 10559
+        },
+        {
+          "path": "Audio/footstep04.ogg",
+          "bytes": 11303
+        },
+        {
+          "path": "Audio/footstep05.ogg",
+          "bytes": 10288
+        },
+        {
+          "path": "Audio/footstep06.ogg",
+          "bytes": 9885
+        },
+        {
+          "path": "Audio/footstep07.ogg",
+          "bytes": 10264
+        },
+        {
+          "path": "Audio/footstep08.ogg",
+          "bytes": 9242
+        },
+        {
+          "path": "Audio/footstep09.ogg",
+          "bytes": 9356
+        },
+        {
+          "path": "Audio/handleCoins.ogg",
+          "bytes": 25394
+        },
+        {
+          "path": "Audio/handleCoins2.ogg",
+          "bytes": 13094
+        },
+        {
+          "path": "Audio/handleSmallLeather.ogg",
+          "bytes": 10492
+        },
+        {
+          "path": "Audio/handleSmallLeather2.ogg",
+          "bytes": 10028
+        },
+        {
+          "path": "Audio/knifeSlice.ogg",
+          "bytes": 15532
+        },
+        {
+          "path": "Audio/knifeSlice2.ogg",
+          "bytes": 15099
+        },
+        {
+          "path": "Audio/metalClick.ogg",
+          "bytes": 13615
+        },
+        {
+          "path": "Audio/metalLatch.ogg",
+          "bytes": 10208
+        },
+        {
+          "path": "Audio/metalPot1.ogg",
+          "bytes": 31619
+        },
+        {
+          "path": "Audio/metalPot2.ogg",
+          "bytes": 22471
+        },
+        {
+          "path": "Audio/metalPot3.ogg",
+          "bytes": 23142
+        },
+        {
+          "path": "Preview.ogg",
+          "bytes": 321120
+        }
+      ]
+    },
+    {
+      "name": "fantasy",
+      "url": "https://opengameart.org/sites/default/files/Fantasy%20Sound%20Library.zip",
+      "author": "Little Robot Sound Factory",
+      "license": "CC-BY-3.0",
+      "page": "https://opengameart.org/content/fantasy-sound-effects-library",
+      "sha256": "5649523e6be5180f81141bc00f9a1597a1297f193896b7295e6ffebaeb41bb53",
+      "files": [
+        {
+          "path": "Fantasy Sound Library/Mp3/Ambience_Cave_00.mp3",
+          "bytes": 1332690
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Dragon_Growl_00.mp3",
+          "bytes": 81038
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Dragon_Growl_01.mp3",
+          "bytes": 104861
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_00.mp3",
+          "bytes": 8153
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_01.mp3",
+          "bytes": 8313
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_02.mp3",
+          "bytes": 9567
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_03.mp3",
+          "bytes": 8940
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_04.mp3",
+          "bytes": 7686
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_05.mp3",
+          "bytes": 9567
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_06.mp3",
+          "bytes": 9567
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_07.mp3",
+          "bytes": 10194
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_08.mp3",
+          "bytes": 6432
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Dirt_09.mp3",
+          "bytes": 10194
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_00.mp3",
+          "bytes": 19722
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_01.mp3",
+          "bytes": 19095
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_02.mp3",
+          "bytes": 19095
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_03.mp3",
+          "bytes": 20976
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_04.mp3",
+          "bytes": 20976
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_05.mp3",
+          "bytes": 17214
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_06.mp3",
+          "bytes": 19722
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Footsteps/Footstep_Water_07.mp3",
+          "bytes": 19722
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Goblin_00.mp3",
+          "bytes": 77276
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Goblin_01.mp3",
+          "bytes": 19598
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Goblin_02.mp3",
+          "bytes": 62230
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Goblin_03.mp3",
+          "bytes": 25867
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Goblin_04.mp3",
+          "bytes": 40287
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Inventory_Open_00.mp3",
+          "bytes": 11448
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Inventory_Open_01.mp3",
+          "bytes": 45426
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Jingle_Achievement_00.mp3",
+          "bytes": 87307
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Jingle_Lose_00.mp3",
+          "bytes": 145612
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Jingle_Win_00.mp3",
+          "bytes": 241534
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Menu_Select_00.mp3",
+          "bytes": 5178
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Pickup_Gold_00.mp3",
+          "bytes": 10194
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Pickup_Gold_01.mp3",
+          "bytes": 8313
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Pickup_Gold_02.mp3",
+          "bytes": 10194
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Pickup_Gold_03.mp3",
+          "bytes": 9567
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Pickup_Gold_04.mp3",
+          "bytes": 7686
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Spell_00.mp3",
+          "bytes": 55960
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Spell_01.mp3",
+          "bytes": 31510
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Spell_02.mp3",
+          "bytes": 83416
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Spell_03.mp3",
+          "bytes": 142602
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Spell_04.mp3",
+          "bytes": 84296
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Trap_00.mp3",
+          "bytes": 23385
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Trap_01.mp3",
+          "bytes": 31634
+        },
+        {
+          "path": "Fantasy Sound Library/Mp3/Trap_02.mp3",
+          "bytes": 27872
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Ambience_Cave_00.wav",
+          "bytes": 14668018
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Dragon_Growl_00.wav",
+          "bytes": 493720
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Dragon_Growl_01.wav",
+          "bytes": 618980
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_00.wav",
+          "bytes": 36644
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_01.wav",
+          "bytes": 40628
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_02.wav",
+          "bytes": 52564
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_03.wav",
+          "bytes": 44468
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_04.wav",
+          "bytes": 37556
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_05.wav",
+          "bytes": 48308
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_06.wav",
+          "bytes": 50228
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_07.wav",
+          "bytes": 54164
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_08.wav",
+          "bytes": 27956
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Dirt_09.wav",
+          "bytes": 53688
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_00.wav",
+          "bytes": 199918
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_01.wav",
+          "bytes": 188206
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_02.wav",
+          "bytes": 193720
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_03.wav",
+          "bytes": 213556
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_04.wav",
+          "bytes": 212320
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_05.wav",
+          "bytes": 171664
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_06.wav",
+          "bytes": 199228
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Footsteps/Footstep_Water_07.wav",
+          "bytes": 199228
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Goblin_00.wav",
+          "bytes": 455812
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Goblin_01.wav",
+          "bytes": 109284
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Goblin_02.wav",
+          "bytes": 364944
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Goblin_03.wav",
+          "bytes": 146244
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Goblin_04.wav",
+          "bytes": 243056
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Inventory_Open_00.wav",
+          "bytes": 59832
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Inventory_Open_01.wav",
+          "bytes": 482070
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Jingle_Achievement_00.wav",
+          "bytes": 1027204
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Jingle_Lose_00.wav",
+          "bytes": 1729156
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Jingle_Win_00.wav",
+          "bytes": 2881156
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Menu_Select_00.wav",
+          "bytes": 21428
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Pickup_Gold_00.wav",
+          "bytes": 53368
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Pickup_Gold_01.wav",
+          "bytes": 39092
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Pickup_Gold_02.wav",
+          "bytes": 51384
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Pickup_Gold_03.wav",
+          "bytes": 47540
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Pickup_Gold_04.wav",
+          "bytes": 39026
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Spell_00.wav",
+          "bytes": 337876
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Spell_01.wav",
+          "bytes": 181472
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Spell_02.wav",
+          "bytes": 939980
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Spell_03.wav",
+          "bytes": 1555344
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Spell_04.wav",
+          "bytes": 910346
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Trap_00.wav",
+          "bytes": 248264
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Trap_01.wav",
+          "bytes": 331522
+        },
+        {
+          "path": "Fantasy Sound Library/Wav/Trap_02.wav",
+          "bytes": 287422
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Ambience_Cave_00.wav",
+          "bytes": 349
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Dragon_Growl_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Dragon_Growl_01.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Goblin_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Goblin_01.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Goblin_02.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Goblin_03.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Goblin_04.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Inventory_Open_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Inventory_Open_01.wav",
+          "bytes": 377
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Jingle_Achievement_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Jingle_Lose_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Jingle_Win_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Menu_Select_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Pickup_Gold_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Pickup_Gold_01.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Pickup_Gold_02.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Pickup_Gold_03.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Pickup_Gold_04.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Spell_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Spell_01.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Spell_02.wav",
+          "bytes": 349
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Spell_03.wav",
+          "bytes": 378
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Spell_04.wav",
+          "bytes": 378
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Trap_00.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Trap_01.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/._Trap_02.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_00.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_01.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_02.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_03.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_04.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_05.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_06.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_07.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_08.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Dirt_09.wav",
+          "bytes": 239
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_00.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_01.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_02.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_03.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_04.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_05.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_06.wav",
+          "bytes": 487
+        },
+        {
+          "path": "__MACOSX/Fantasy Sound Library/Wav/Footsteps/._Footstep_Water_07.wav",
+          "bytes": 487
+        }
+      ]
+    }
+  ]
+}
