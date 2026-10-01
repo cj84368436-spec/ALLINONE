@@ -1,0 +1,12 @@
+{
+  "version": "1.3.0",
+  "engine": "Chromium",
+  "nativePhoneTest": false,
+  "screenshots": [
+    "home.png",
+    "combat.png",
+    "small-phone.png"
+  ],
+  "combatScene": "Design verification fixture captured from the actual running renderer",
+  "errors": []
+}

@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "kind": "original AI-assisted painted 2D production assets",
   "source": {
     "width": 1254,
@@ -57,7 +57,47 @@
     {
       "name": "forest.webp",
       "bytes": 216016
+    },
+    {
+      "name": "gold-slash.webp",
+      "bytes": 102982
+    },
+    {
+      "name": "grove.webp",
+      "bytes": 238520
+    },
+    {
+      "name": "icon-blade.webp",
+      "bytes": 12496
+    },
+    {
+      "name": "icon-arrow.webp",
+      "bytes": 13036
+    },
+    {
+      "name": "icon-bolt.webp",
+      "bytes": 13542
+    },
+    {
+      "name": "icon-orbit.webp",
+      "bytes": 12532
+    },
+    {
+      "name": "icon-lightning.webp",
+      "bytes": 12378
+    },
+    {
+      "name": "icon-frost.webp",
+      "bytes": 13092
+    },
+    {
+      "name": "title.woff2",
+      "bytes": 73012
+    },
+    {
+      "name": "title-OFL.txt",
+      "bytes": 4350
     }
   ],
-  "totalBytes": 517280
+  "totalBytes": 1013220
 }
