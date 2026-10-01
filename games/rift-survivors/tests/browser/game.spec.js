@@ -50,3 +50,20 @@ expect(values.counts.enemies).toBeLessThanOrEqual(180);expect(values.counts.bull
 test("a second touch can dash while the movement pointer remains held",async({page})=>{
 await page.locator("#start").click();await page.mouse.move(120,450);await page.mouse.down();await page.mouse.move(180,450);await page.locator("#dash").dispatchEvent("pointerdown",{pointerId:2,pointerType:"touch",clientX:265,clientY:740,bubbles:true});expect(await page.evaluate(()=>window.__riftTest.game.player.dashCd)).toBeGreaterThan(0);const x=await page.evaluate(()=>window.__riftTest.game.player.x);await page.waitForTimeout(150);expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(x);await page.mouse.up();
 });
+
+test("painted assets load before play and hero portraits contain detailed artwork",async({page})=>{
+expect(await page.evaluate(()=>window.__riftTest.renderer.artReady)).toBe(true);
+const detail=await page.locator(".hero canvas").first().evaluate(canvas=>{const bytes=canvas.getContext("2d").getImageData(0,0,canvas.width,canvas.height).data,colors=new Set();let opaque=0;for(let i=0;i<bytes.length;i+=4){if(bytes[i+3]>100){opaque++;colors.add(bytes[i]+","+bytes[i+1]+","+bytes[i+2]);}}return {opaque,colors:colors.size};});
+expect(detail.opaque).toBeGreaterThan(1800);expect(detail.colors).toBeGreaterThan(500);
+await page.locator("#start").click();await expect(page.locator("#skills .rune-icon")).toHaveCount(1);
+await page.screenshot({path:"test-results/painterly-knight.png"});
+});
+test("missing art leaves a visible retry and a successful retry restores the game",async({page})=>{
+await page.route("**/art/forest.webp",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#boot-message")).toContainText("불러오지 못했어요");
+await page.unroute("**/art/forest.webp");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.renderer.artReady)).toBe(true);
+});
+test("golden strike creates hit feedback and reduced motion remains selectable",async({page})=>{
+await page.locator("#start").click();await page.evaluate(()=>{const g=window.__riftTest.game;const e=g.spawn("brute");e.x=g.player.x+80;e.y=g.player.y;e.hp=e.maxHp=500;g.attack("blade",1);});
+await expect.poll(()=>page.evaluate(()=>window.__riftTest.renderer.feedback.swingUntil)).toBeGreaterThan(0);
+await page.locator("#pause").click();await page.locator("#pause-settings").click();await page.locator("#motion").click();expect(await page.evaluate(()=>window.__riftTest.renderer.reduced)).toBe(true);await page.locator("#settings-close").click();await page.locator("#resume").click();await expect(page.locator("#hud")).toBeVisible();
+});
