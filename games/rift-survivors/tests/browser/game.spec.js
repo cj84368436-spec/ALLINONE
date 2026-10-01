@@ -81,8 +81,8 @@ expect(await page.evaluate(()=>window.__riftTest.audio.stats.maxVoices)).toBeLes
 await page.locator("#pause").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.voices.size)).toBe(0);
 });
 test("missing recorded audio offers a working retry without a broken start screen",async({page})=>{
-await page.route("**/audio/swish-a.mp3",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#home")).toBeHidden();
-await page.unroute("**/audio/swish-a.mp3");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(15);
+await page.route("**/audio/swish-a.mp3*",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#home")).toBeHidden();
+await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(15);
 });
 test("painted sword texture, scenery, badges and bundled title font are loaded",async({page})=>{
 const assets=await page.evaluate(()=>{const art=window.__riftTest.renderer;return {ready:art.artReady,font:[...document.fonts].some(f=>f.family==="RiftTitle"&&f.status==="loaded")};});expect(assets.ready).toBe(true);expect(assets.font).toBe(true);
