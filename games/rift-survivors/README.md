@@ -54,3 +54,9 @@ npm run check:release
 기록은 해당 기기 토스 저장소에 남습니다. 이번 버전은 기기 간 서버 동기화와 멀티플레이를 제공하지 않습니다. 실제 토스 콘솔 제출/심사/공개 여부는 빌드 성공과 별도로 확인해야 합니다.
 
 버전 1.1.0의 변화와 측정 방법은 [docs/PERFORMANCE.md](docs/PERFORMANCE.md)를 참고하세요. 자동 검증에는 Chromium과 WebKit을 사용하며 실제 iPhone 토스 QR 테스트는 별도로 필요합니다.
+
+## 바로 플레이하는 미리보기
+
+[균열의 수호자 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/)
+
+이 링크는 검증한 1.1 게임의 플레이 체험용입니다. 기록은 이 브라우저에 따로 저장됩니다. 토스용 .ait와 실제 콘솔 등록/출시 과정은 별도로 유지합니다. 미리보기 소스는 preview/index.html에 있고, 실행용 사본은 본인 GitHub Pages의 play/rift-keepers/index.html 경로에서 제공합니다.
