@@ -1,10 +1,11 @@
 import {Storage,User,Screen,SafeArea,graniteEvent} from "@apps-in-toss/web-framework";
 import {cleanSave} from "./core.js";
 const LOCAL=import.meta.env.DEV;
-const timeout=(p,ms=5000)=>Promise.race([p,new Promise((_,reject)=>setTimeout(()=>reject(new Error("토스 연결 시간이 초과됐어요")),ms))]);
+async function timeout(p,ms=5000){let timer;try{return await Promise.race([p,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error("토스 연결 시간이 초과됐어요")),ms);})]);}finally{clearTimeout(timer);}}
 export class Platform{
 constructor(){this.key=null;this.queue=Promise.resolve();this.unsub=[];this.onSaveError=()=>{};}
 async init(onExit){
+this.dispose();
 if(LOCAL){this.key="riftkeepers:dev:v1";return cleanSave(localStorage.getItem(this.key));}
 const identity=await timeout(User.getAnonymousKey());
 if(identity?.type!=="HASH"||typeof identity.hash!=="string"||!identity.hash)throw new Error("사용자 정보 오류");
@@ -15,10 +16,10 @@ insets();try{this.unsub.push(SafeArea.subscribe({onEvent:insets,onError:()=>{}})
 for(const event of ["backEvent","homeEvent"]){try{this.unsub.push(graniteEvent.addEventListener(event,{onEvent:onExit,onError:()=>{}}));}catch{}}
 Screen.setOrientation({type:"portrait"}).catch(()=>{});
 return cleanSave(raw);}
-save(value){if(!this.key)return Promise.reject(new Error("저장소 준비 전"));const data=JSON.stringify(cleanSave(value));
-const task=this.queue.catch(()=>{}).then(()=>LOCAL?localStorage.setItem(this.key,data):timeout(Storage.setItem(this.key,data)));
+save(value){if(!this.key)return Promise.reject(new Error("저장소 준비 전"));const data=JSON.stringify(cleanSave(value)),key=this.key;
+const task=this.queue.catch(()=>{}).then(()=>LOCAL?localStorage.setItem(key,data):timeout(Storage.setItem(key,data)));
 this.queue=task;task.catch(()=>this.onSaveError());return task;}
 awake(enabled){if(!LOCAL)Screen.setAwakeMode({enabled}).catch(()=>{});}
 async close(){await this.queue.catch(()=>{});if(!LOCAL){await Screen.setAwakeMode({enabled:false}).catch(()=>{});await Screen.close();}}
-dispose(){for(const fn of this.unsub)if(typeof fn==="function")fn();this.unsub=[];this.awake(false);}
+dispose(){for(const fn of this.unsub)if(typeof fn==="function")try{fn();}catch{}this.unsub=[];this.awake(false);}
 }
