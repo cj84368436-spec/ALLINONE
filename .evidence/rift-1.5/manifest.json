@@ -1,0 +1,23 @@
+{
+  "version": "1.5.0",
+  "engine": "Chromium",
+  "nativePhoneTest": false,
+  "screenshots": [
+    "knight-home.webp",
+    "knight-prepare.webp",
+    "knight-release.webp",
+    "knight-contact.webp",
+    "ranger-home.webp",
+    "ranger-prepare.webp",
+    "ranger-release.webp",
+    "ranger-contact.webp",
+    "mage-home.webp",
+    "mage-prepare.webp",
+    "mage-release.webp",
+    "mage-contact.webp",
+    "arrow-small-phone.webp",
+    "bolt-small-phone.webp"
+  ],
+  "scene": "Actual renderer with fixed close target positions to inspect animation timing; normal public practice is tested separately",
+  "errors": []
+}
