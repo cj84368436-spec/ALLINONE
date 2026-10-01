@@ -1,20 +1,39 @@
-export class Audio {
-constructor(){this.context=null;this.enabled=true;this.timer=null;this.note=0;this.voices=new Set();this.delayed=new Set();this.noiseBuffer=null;this.lastImpact=0;}
-unlock(){if(!this.enabled||document.hidden)return;try{if(!this.context)this.context=new(window.AudioContext||window.webkitAudioContext)();this.context.resume().catch(()=>{});this.music();}catch{}}
-canPlay(){return this.enabled&&this.context&&this.context.state==="running"&&!document.hidden&&this.voices.size<24;}
-tone(freq,duration=.12,gain=.035,type="sine",end=freq){if(!this.canPlay())return;const c=this.context,o=c.createOscillator(),v=c.createGain();this.voices.add(o);o.type=type;o.frequency.setValueAtTime(freq,c.currentTime);if(end!==freq)o.frequency.exponentialRampToValueAtTime(Math.max(20,end),c.currentTime+duration);v.gain.setValueAtTime(0,c.currentTime);v.gain.linearRampToValueAtTime(gain,c.currentTime+.006);v.gain.exponentialRampToValueAtTime(.001,c.currentTime+duration);o.connect(v);v.connect(c.destination);o.onended=()=>{o.disconnect();v.disconnect();this.voices.delete(o);};o.start();o.stop(c.currentTime+duration+.02);}
-noise(duration=.12,gain=.03,frequency=1500,end=frequency){if(!this.canPlay())return;const c=this.context;if(!this.noiseBuffer){const b=c.createBuffer(1,c.sampleRate*.4,c.sampleRate),data=b.getChannelData(0);let value=0;for(let i=0;i<data.length;i++){value=(value+Math.random()*2-1)*.7;data[i]=value;}this.noiseBuffer=b;}const source=c.createBufferSource(),filter=c.createBiquadFilter(),volume=c.createGain();source.buffer=this.noiseBuffer;filter.type="bandpass";filter.Q.value=.7;filter.frequency.setValueAtTime(frequency,c.currentTime);filter.frequency.exponentialRampToValueAtTime(Math.max(60,end),c.currentTime+duration);volume.gain.setValueAtTime(gain,c.currentTime);volume.gain.exponentialRampToValueAtTime(.001,c.currentTime+duration);source.connect(filter);filter.connect(volume);volume.connect(c.destination);this.voices.add(source);source.onended=()=>{source.disconnect();filter.disconnect();volume.disconnect();this.voices.delete(source);};source.start();source.stop(c.currentTime+duration);}
-later(fn,ms){const id=setTimeout(()=>{this.delayed.delete(id);fn();},ms);this.delayed.add(id);}
-music(){if(this.timer||!this.enabled||!this.context)return;const notes=[146.83,174.61,220,196,146.83,130.81,174.61,196];this.timer=setInterval(()=>{const note=notes[this.note++%notes.length];this.tone(note,1.15,.009);if(this.note%2===0)this.tone(note*2,.85,.004,"triangle");},820);}
-stop(){clearInterval(this.timer);this.timer=null;for(const id of this.delayed)clearTimeout(id);this.delayed.clear();for(const o of this.voices)try{o.stop();}catch{}this.context?.suspend().catch(()=>{});}
+const SAMPLES=["swish-a","swish-b","swish-c","blade-hit-a","blade-hit-b","arrow","magic","frost","thunder","ultimate","hurt","reward","select","boss","ambience"];
+export class Audio{
+constructor(){this.context=null;this.enabled=true;this.timer=null;this.voices=new Set();this.delayed=new Set();this.buffers=new Map();this.promise=null;this.ambientVoice=null;this.epoch=0;this.wantsPlayback=false;this.lastImpact=-1;this.stats={played:0,maxVoices:0,lastSample:null};}
+createContext(){if(this.context)return this.context;const Context=window.AudioContext||window.webkitAudioContext;if(!Context)return null;const c=this.context=new Context(),compressor=c.createDynamicsCompressor();compressor.threshold.value=-13;compressor.knee.value=18;compressor.ratio.value=5;compressor.attack.value=.004;compressor.release.value=.16;this.master=c.createGain();this.master.gain.value=.72;this.master.connect(compressor);compressor.connect(c.destination);return c;}
+prepare(){if(this.promise)return this.promise;const c=this.createContext();if(!c)return Promise.resolve();this.promise=Promise.all(SAMPLES.map(async name=>{if(this.buffers.has(name))return;const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),18000);try{const response=await fetch(new URL("audio/"+name+".mp3",document.baseURI),{signal:controller.signal});if(!response.ok)throw new Error("Audio unavailable: "+name);const bytes=await response.arrayBuffer(),buffer=await c.decodeAudioData(bytes);this.buffers.set(name,buffer);}finally{clearTimeout(timer);}})).catch(error=>{this.promise=null;throw error;});return this.promise;}
+unlock(){if(!this.enabled||document.hidden)return;this.wantsPlayback=true;const epoch=this.epoch,c=this.createContext();if(!c)return;const resume=c.resume();Promise.all([resume,this.prepare()]).then(()=>{if(this.enabled&&this.wantsPlayback&&!document.hidden&&epoch===this.epoch)this.music();}).catch(()=>{});}
+play(name,{gain=.4,rate=1,delay=0,group="effects",loop=false}={}){
+const c=this.context,buffer=this.buffers.get(name);if(!this.enabled||!this.wantsPlayback||!c||c.state!=="running"||document.hidden||!buffer)return null;
+const peers=[...this.voices].filter(s=>s.category===group),limit=group==="magic"?3:group==="impact"?2:group==="swing"?2:group==="ambient"?1:4;
+if(peers.length>=limit){const oldest=peers[0];oldest.volume.gain.cancelScheduledValues(c.currentTime);oldest.volume.gain.setTargetAtTime(0,c.currentTime,.009);try{oldest.stop(c.currentTime+.04);}catch{}}
+if(this.voices.size>=18)return null;
+const source=c.createBufferSource(),volume=c.createGain(),when=c.currentTime+delay,duration=buffer.duration/rate;
+source.buffer=buffer;source.playbackRate.value=rate;source.loop=loop;source.category=group;source.volume=volume;
+volume.gain.setValueAtTime(0,c.currentTime);volume.gain.setValueAtTime(0,when);volume.gain.linearRampToValueAtTime(gain,when+(loop?.8:.014));
+if(!loop){const fade=Math.min(.08,duration*.2);volume.gain.setValueAtTime(gain,when+Math.max(.015,duration-fade));volume.gain.linearRampToValueAtTime(0,when+duration);}
+source.connect(volume);volume.connect(this.master);this.voices.add(source);source.onended=()=>{source.disconnect();volume.disconnect();this.voices.delete(source);if(this.ambientVoice===source)this.ambientVoice=null;};
+source.start(when);if(!loop)source.stop(when+duration+.01);this.stats.played++;this.stats.maxVoices=Math.max(this.stats.maxVoices,this.voices.size);this.stats.lastSample=name;return source;
+}
+music(){if(this.ambientVoice||!this.enabled||!this.wantsPlayback)return;this.ambientVoice=this.play("ambience",{gain:.09,group:"ambient",loop:true});}
+stop(){this.wantsPlayback=false;this.epoch++;clearInterval(this.timer);this.timer=null;for(const id of this.delayed)clearTimeout(id);this.delayed.clear();const c=this.context;for(const source of this.voices){try{source.stop();}catch{}source.disconnect();source.volume?.disconnect();}this.voices.clear();this.ambientVoice=null;c?.suspend().catch(()=>{});}
 set(enabled){this.enabled=enabled;if(enabled)this.unlock();else this.stop();}
 event(type,key){
-if(type==="attack"){if(key==="blade"){this.noise(.12,.055,2600,420);this.tone(260,.10,.018,"triangle",90);}else if(key==="arrow"){this.noise(.07,.025,3900,1600);this.tone(920,.065,.009,"sine",380);}else if(key==="bolt"){this.tone(510,.12,.018,"triangle",940);}else if(key==="lightning"){this.noise(.15,.052,1200,240);this.tone(85,.18,.019,"triangle",45);}else if(key==="frost"){this.noise(.20,.026,3600,1300);this.tone(1200,.17,.006,"sine",560);}}
-else if(type==="impact"){if(!this.context||this.context.currentTime-this.lastImpact<.07)return;this.lastImpact=this.context.currentTime;this.noise(.065,.047,820,190);this.tone(116,.085,.028,"triangle",48);if(key==="blade")this.tone(1450,.035,.005,"sine",530);}
-else if(["level","choose","evolve","chest","magnet"].includes(type)){this.tone(523,.22,.031);this.later(()=>this.tone(659,.23,.020),80);this.later(()=>this.tone(784,.35,.022),160);}
-else if(type==="hurt"){this.noise(.09,.04,430,120);this.tone(92,.15,.042,"triangle",45);}
-else if(type==="ultimate"){this.tone(73,.6,.04,"triangle",44);this.noise(.35,.055,2800,360);this.later(()=>this.tone(392,.6,.023),100);this.later(()=>this.tone(587,.6,.019),170);}
-else if(type==="dash")this.noise(.12,.034,1900,600);
-else if(type==="boss"){this.tone(55,.9,.040,"triangle");this.later(()=>this.tone(82,.8,.023,"triangle"),150);}
+const pitch=()=>.95+Math.random()*.10;
+if(type==="attack"){
+if(key==="blade"){this.play(["swish-a","swish-b","swish-c"][Math.floor(Math.random()*3)],{gain:.48,rate:pitch(),group:"swing"});this.play(Math.random()<.5?"blade-hit-a":"blade-hit-b",{gain:.40,rate:.95+Math.random()*.06,delay:.065,group:"impact"});}
+else if(key==="arrow")this.play("arrow",{gain:.28,rate:1.12+Math.random()*.08,group:"swing"});
+else if(key==="bolt")this.play("magic",{gain:.20,rate:pitch(),group:"magic"});
+else if(key==="lightning")this.play("thunder",{gain:.30,group:"magic"});
+else if(key==="frost")this.play("frost",{gain:.27,group:"magic"});
+}
+else if(type==="impact"){if(["blade","ultimate","orbit"].includes(key))return;const now=this.context?.currentTime||0;if(now-this.lastImpact<.20)return;this.lastImpact=now;this.play("blade-hit-b",{gain:.18,rate:1.1,group:"impact"});}
+else if(["level","choose","evolve","chest","magnet"].includes(type))this.play("reward",{gain:type==="evolve"?.23:.16,group:"reward"});
+else if(type==="select"||type==="reroll")this.play("select",{gain:.18,group:"ui"});
+else if(type==="hurt")this.play("hurt",{gain:.35,rate:.9,group:"impact"});
+else if(type==="ultimate")this.play("ultimate",{gain:.43,group:"magic"});
+else if(type==="dash")this.play("swish-b",{gain:.28,rate:1.32,group:"swing"});
+else if(type==="boss")this.play("boss",{gain:.30,group:"magic"});
 }
 }
