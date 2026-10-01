@@ -4,3 +4,5 @@ Fantasy Sound Effects Library by Little Robot Sound Factory, CC BY 3.0: https://
 Modified: selected, mixed, equalized, normalized, faded and encoded for Rift Keepers.
 
 1.4 sword contact remix: Kenney knifeSlice/knifeSlice2, cloth2/cloth3 and metalPot2/metalPot3; pitch, filtering, mixing and fades.
+
+1.4 sword contact remix: Kenney knifeSlice/knifeSlice2, cloth2/cloth3 and metalPot2/metalPot3; pitch, filtering, mixing and fades.
