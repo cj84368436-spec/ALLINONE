@@ -36,6 +36,10 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm test
+      - name: Use the Ubuntu archive for browser dependencies
+        run: |
+          printf '%s\n' 'https://archive.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
+          printf '%s\n' 'https://security.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-security-mirrors.txt > /dev/null
       - run: npx playwright install --with-deps chromium webkit
       - run: npm run test:e2e
       - run: npm run playthrough

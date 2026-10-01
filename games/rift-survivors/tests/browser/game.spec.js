@@ -12,7 +12,7 @@ await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.g
 await page.locator(".upgrade").first().click();await expect(page.locator("#overlay")).toBeHidden();expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("playing");expect(await page.evaluate(()=>window.__riftTest.game.pending)).toBe(0);});
 test("pause and background stop gameplay until explicit resume",async({page})=>{
 await page.locator("#start").click();await page.locator("#pause").click();await expect(page.locator("#resume")).toBeVisible();const t=await page.evaluate(()=>window.__riftTest.game.time);await page.waitForTimeout(150);expect(await page.evaluate(()=>window.__riftTest.game.time)).toBe(t);await page.locator("#resume").click();
-await page.evaluate(()=>window.dispatchEvent(new Event("blur")));await expect(page.locator("#resume")).toBeVisible();await page.locator("#resume").click();expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("playing");});
+await page.evaluate(()=>window.dispatchEvent(new Event("pagehide")));await expect(page.locator("#resume")).toBeVisible();await page.locator("#resume").click();expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("playing");});
 test("victory rewards once and records survive reload",async({page})=>{
 await page.locator("#start").click();await page.evaluate(()=>{window.__riftTest.game.kills=24;window.__riftTest.finish(true);});await expect(page.locator("#dialog-title")).toContainText("균열을 닫았어요");await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>window.__riftTest.save.coins)).toBe(74);await page.screenshot({path:"test-results/victory.png"});await page.reload();await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#coins")).toHaveText("74");await expect(page.locator("#wins")).toHaveText("1");});
 test("affordable upgrades and sound settings persist",async({page})=>{
@@ -40,7 +40,7 @@ test("portrait short screens can show all upgrade actions without losing the cho
 await page.setViewportSize({width:360,height:640});await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.giveXP(8));await expect(page.locator(".upgrade")).toHaveCount(3);await page.locator("#reroll").click();await page.locator(".upgrade").last().click();await expect(page.locator("#overlay")).toBeHidden();
 });
 test("backgrounding silences audio voices and cancels delayed sound effects",async({page})=>{
-await page.locator("#start").click();await page.locator("#ultimate").click();await page.evaluate(()=>window.dispatchEvent(new Event("blur")));await expect(page.locator("#resume")).toBeVisible();await page.waitForTimeout(200);expect(await page.evaluate(()=>window.__riftTest.audio.timer)).toBeNull();expect(await page.evaluate(()=>window.__riftTest.audio.delayed.size)).toBe(0);expect(await page.evaluate(()=>window.__riftTest.audio.context?.state)).toBe("suspended");
+await page.locator("#start").click();await page.locator("#ultimate").click();await page.evaluate(()=>window.dispatchEvent(new Event("pagehide")));await expect(page.locator("#resume")).toBeVisible();await page.waitForTimeout(200);expect(await page.evaluate(()=>window.__riftTest.audio.timer)).toBeNull();expect(await page.evaluate(()=>window.__riftTest.audio.delayed.size)).toBe(0);expect(await page.evaluate(()=>window.__riftTest.audio.context?.state)).toBe("suspended");
 });
 test("stress scene remains responsive with capped entities and reports frame costs",async({page},testInfo)=>{
 await page.locator("#start").click();await page.evaluate(()=>{const g=window.__riftTest.game;g.player.inv=999;g.spawnCd=999;g.nextElite=999;g.weapons={blade:5,arrow:5,bolt:5,orbit:5};g.passives={power:2,haste:3,heart:2,magnet:2};g.checkEvolution();for(let i=0;i<170;i++){const e=g.spawn(i%3?"shade":"brute");e.hp=e.maxHp=10000;const a=i*Math.PI*2/170,r=100+(i%7)*55;e.x=900+Math.cos(a)*r;e.y=900+Math.sin(a)*r;}});
@@ -114,3 +114,42 @@ await expect(page.locator('[data-hero="'+hero+'"]')).toHaveAttribute("aria-press
 await page.evaluate(()=>{const g=window.__riftTest.game;for(let i=0;i<1000&&!g.result;i++)g.step(1/60);});await expect(page.locator("#dialog-title")).toHaveText(title+" 완료");await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>JSON.stringify(window.__riftTest.save))).toBe(before);expect(await page.evaluate(()=>window.__riftTest.game.hero.id)).toBe(hero);
 });
 }
+
+test("touch and visible focus changes keep movement active; the pause button still pauses",async({page})=>{
+await page.locator("#start").tap();
+await page.evaluate(()=>document.getElementById("world").addEventListener("pointerdown",()=>window.dispatchEvent(new Event("blur")),{once:true}));
+await page.touchscreen.tap(160,430);
+expect(await page.evaluate(()=>document.hidden)).toBe(false);
+expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("playing");
+await expect(page.locator("#overlay")).toBeHidden();
+const before=await page.evaluate(()=>({x:window.__riftTest.game.player.x,time:window.__riftTest.game.time}));
+await page.mouse.move(160,430);await page.mouse.down();await page.mouse.move(240,430,{steps:5});
+await page.evaluate(()=>window.dispatchEvent(new Event("blur")));
+await page.waitForTimeout(250);await page.mouse.up();
+expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(before.x+20);
+expect(await page.evaluate(()=>window.__riftTest.game.time)).toBeGreaterThan(before.time);
+await page.locator("#pause").tap();await expect(page.locator("#resume")).toBeVisible();
+const paused=await page.evaluate(()=>window.__riftTest.game.time);await page.waitForTimeout(150);
+expect(await page.evaluate(()=>window.__riftTest.game.time)).toBe(paused);
+await page.locator("#resume").tap();expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("playing");
+});
+test("hidden visibility stops combat and audio and foreground return requires explicit resume",async({page})=>{
+await page.locator("#start").tap();await page.locator("#ultimate").tap();
+await page.mouse.move(160,430);await page.mouse.down();await page.mouse.move(240,430);
+await page.evaluate(()=>{Object.defineProperty(document,"hidden",{configurable:true,get:()=>true});document.dispatchEvent(new Event("visibilitychange"));});
+await expect(page.locator("#resume")).toBeVisible();
+const paused=await page.evaluate(()=>window.__riftTest.game.time);await page.waitForTimeout(200);
+expect(await page.evaluate(()=>window.__riftTest.game.time)).toBe(paused);
+expect(await page.evaluate(()=>window.__riftTest.audio.timer)).toBeNull();
+expect(await page.evaluate(()=>window.__riftTest.audio.delayed.size)).toBe(0);
+expect(await page.evaluate(()=>window.__riftTest.audio.context?.state)).toBe("suspended");
+await page.mouse.up();
+await page.evaluate(()=>{delete document.hidden;document.dispatchEvent(new Event("visibilitychange"));});
+await expect(page.locator("#resume")).toBeVisible();
+expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("paused");
+await page.locator("#resume").tap();
+const x=await page.evaluate(()=>window.__riftTest.game.player.x);
+await page.mouse.move(160,430);await page.mouse.down();await page.mouse.move(240,430);
+await page.waitForTimeout(250);await page.mouse.up();
+expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(x+20);
+});

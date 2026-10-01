@@ -7,7 +7,7 @@ const edge=document.createElement("canvas");edge.width=w;edge.height=h;const e=e
 return {image:edge,flash:mask,width:w,height:h};
 }
 export const Art={
-version:"1.5.0",ready:false,promise:null,images:new Map(),sprites:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
+version:"1.5.1",ready:false,promise:null,images:new Map(),sprites:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
 load(){
 if(this.ready)return Promise.resolve();if(this.promise)return this.promise;
 this.promise=Promise.all(names.map(name=>{if(this.images.has(name))return Promise.resolve();return new Promise((resolve,reject)=>{
