@@ -89,7 +89,7 @@ const assets=await page.evaluate(()=>{const art=window.__riftTest.renderer;retur
 await page.locator("#start").click();await expect(page.locator("#skills .painted-icon")).toHaveCount(1);expect(await page.locator("#skills .painted-icon").evaluate(img=>img.complete&&img.naturalWidth===128)).toBe(true);
 });
 
-test("sword anticipates, connects once and a missed attack stays silent",async({page})=>{
+test("sword anticipation and contact match damage and recorded impact playback",async({page})=>{
 await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 const setup=await page.evaluate(()=>{const t=window.__riftTest,g=t.game;g.enemies=[];g.events=[];g.spawnCd=999;g.cool.blade=999;const e=g.spawn("brute");Object.assign(e,{x:g.player.x+75,y:g.player.y,hp:500,maxHp:500,speed:0});g.events=[];g.attack("blade",1);g.phase="paused";return {hp:e.hp,elapsed:g.bladeSwing.elapsed};});expect(setup.hp).toBe(500);expect(setup.elapsed).toBe(0);
 await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";for(let i=0;i<8;i++)g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(500);
