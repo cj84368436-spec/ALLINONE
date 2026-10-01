@@ -13,6 +13,19 @@ export class EnemyGrid {
       bucket.push(enemy);
     }
   }
+  move(enemy, oldX, oldY) {
+    const oldKey = Math.floor(oldX / this.size) + "," + Math.floor(oldY / this.size);
+    const key = Math.floor(enemy.x / this.size) + "," + Math.floor(enemy.y / this.size);
+    if (key === oldKey) return;
+    const oldBucket = this.cells.get(oldKey);
+    const index = oldBucket?.indexOf(enemy) ?? -1;
+    if (index < 0) return;
+    oldBucket.splice(index, 1);
+    let bucket = this.cells.get(key);
+    if (!bucket) { bucket = []; this.cells.set(key, bucket); }
+    if (!this.active.includes(bucket)) this.active.push(bucket);
+    bucket.push(enemy);
+  }
   query(minX, minY, maxX, maxY, out = []) {
     out.length = 0;
     for (let x = Math.floor(minX / this.size); x <= Math.floor(maxX / this.size); x++)
