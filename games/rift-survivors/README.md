@@ -84,3 +84,9 @@ npm run check:release
 - [일반 생존 게임](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5)
 
 연습은 점수·보석·영구 기록을 변경하지 않습니다. 기존 검술 영상은 1.4 시점의 기사 검술 영상이며 궁수·마법사 변경을 보여 주는 영상은 아닙니다.
+
+## 터치 조작 수정 — 1.5.1
+
+화면이 보이는 상태에서 포커스가 바뀌어도 게임이 멈추지 않습니다. 화면 터치와 드래그 이동은 계속되고, 일시정지 버튼 또는 실제 백그라운드 전환 시에는 전투·소리가 멈춥니다. 기존 저장 키와 기록을 유지합니다.
+
+[수정된 게임](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5.1) · [자동 검증과 토스 빌드](https://github.com/cj84368436-spec/ALLINONE/actions/runs/36895603237)
