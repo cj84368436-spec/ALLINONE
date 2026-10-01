@@ -1,0 +1,63 @@
+{
+  "version": "1.2.0",
+  "kind": "original AI-assisted painted 2D production assets",
+  "source": {
+    "width": 1254,
+    "height": 1254
+  },
+  "files": [
+    {
+      "name": "knight-idle.webp",
+      "bytes": 20952
+    },
+    {
+      "name": "knight-walk-a.webp",
+      "bytes": 20238
+    },
+    {
+      "name": "knight-walk-b.webp",
+      "bytes": 18776
+    },
+    {
+      "name": "knight-attack.webp",
+      "bytes": 23206
+    },
+    {
+      "name": "ranger.webp",
+      "bytes": 30182
+    },
+    {
+      "name": "mage.webp",
+      "bytes": 30336
+    },
+    {
+      "name": "shade.webp",
+      "bytes": 15662
+    },
+    {
+      "name": "bat.webp",
+      "bytes": 10246
+    },
+    {
+      "name": "brute.webp",
+      "bytes": 26152
+    },
+    {
+      "name": "seer.webp",
+      "bytes": 14334
+    },
+    {
+      "name": "boss.webp",
+      "bytes": 61828
+    },
+    {
+      "name": "ruin.webp",
+      "bytes": 16854
+    },
+    {
+      "name": "forest.webp",
+      "bytes": 216016
+    }
+  ],
+  "totalBytes": 504782
+}
