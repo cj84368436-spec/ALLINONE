@@ -28,3 +28,5 @@
 .ability{border-color:#dfc48a;border-width:2px;box-shadow:inset 0 0 0 4px #0e231acf,inset 0 0 0 5px #ac955855,0 5px 15px #01150f}.ability.ultimate{border-color:#ffe0a1;box-shadow:inset 0 0 0 4px #493c23bd,inset 0 0 0 5px #e3c28066,0 0 21px #ddb55d38,0 5px 16px #01150f}#dialog{border-color:#d8bb7f99;box-shadow:inset 0 0 0 5px #081c1244,inset 0 0 0 6px #d1b76a18,0 20px 75px #000a}.privacy a{color:#dfcf98}#banner{font-family:"RiftTitle",Georgia,serif;font-size:19px}
 @media(max-height:740px){.home-title h1{font-size:45px}.hero canvas{width:67px;height:70px}.home-title{padding-top:20px;min-height:140px}}
 @media(max-height:680px){.home-title h1{font-size:36px;line-height:1.15;margin:9px 0}.hero canvas{width:57px;height:60px}.home-title{min-height:108px;padding-top:12px}.home-title p{font-size:10px}.hero{min-height:96px}}
+
+.practice-link{display:block;text-align:center;text-decoration:none;color:#e2cc94;margin-top:10px}

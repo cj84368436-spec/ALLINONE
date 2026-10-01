@@ -1,4 +1,4 @@
-const names=["knight-idle","knight-walk-a","knight-walk-b","knight-attack","ranger","mage","shade","bat","brute","seer","boss","ruin","forest","gold-slash","grove","icon-blade","icon-arrow","icon-bolt","icon-orbit","icon-lightning","icon-frost"];
+const names=["knight-idle","knight-walk-a","knight-walk-b","knight-attack","ranger","mage","shade","bat","brute","seer","boss","ruin","forest","gold-slash","grove","icon-blade","icon-arrow","icon-bolt","icon-orbit","icon-lightning","icon-frost",...Array.from({length:8},(_,i)=>"knight-strike-"+i)];
 function url(name){return new URL("art/"+name+".webp",document.baseURI).href;}
 function texture(image){
 const pad=4,w=image.naturalWidth+pad*2,h=image.naturalHeight+pad*2;
@@ -7,7 +7,7 @@ const edge=document.createElement("canvas");edge.width=w;edge.height=h;const e=e
 return {image:edge,flash:mask,width:w,height:h};
 }
 export const Art={
-version:"1.3.0",ready:false,promise:null,images:new Map(),sprites:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
+version:"1.4.0",ready:false,promise:null,images:new Map(),sprites:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
 load(){
 if(this.ready)return Promise.resolve();if(this.promise)return this.promise;
 this.promise=Promise.all(names.map(name=>{if(this.images.has(name))return Promise.resolve();return new Promise((resolve,reject)=>{
