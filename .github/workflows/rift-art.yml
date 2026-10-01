@@ -1,4 +1,4 @@
-name: Prepare and verify premium Rift artwork
+name: Prepare and verify animated sword combat
 on:
   push:
     paths:
@@ -23,8 +23,10 @@ jobs:
       - name: Produce compact transparent game textures
         working-directory: games/rift-survivors
         run: |
+          if ! command -v ffmpeg >/dev/null; then sudo apt-get update && sudo apt-get install -y ffmpeg; fi
           npm install --no-save --no-audit --no-fund sharp@0.34.5
           node scripts/prepare-art.mjs
+          node scripts/prepare-blade.mjs
       - name: Capture actual mobile game screens
         working-directory: games/rift-survivors
         run: |
@@ -34,7 +36,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add games/rift-survivors/public/art/ .evidence/rift-1.3/
+          git add games/rift-survivors/public/art/ games/rift-survivors/public/audio/ .evidence/rift-1.4/
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Prepare compact original painterly game assets [skip ci]"
           git pull --rebase origin main
