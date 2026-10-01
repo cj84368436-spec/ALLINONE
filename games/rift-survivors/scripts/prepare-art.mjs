@@ -7,7 +7,7 @@ const rects=[
 ["knight-idle",[0,0,313,418],256],["knight-walk-a",[313,0,314,418],256],["knight-walk-b",[627,0,313,418],256],["knight-attack",[940,0,314,418],256],
 ["ranger",[0,418,327,409],256],["mage",[327,414,309,414],256],["shade",[636,531,253,270],168],["bat",[884,454,370,326],160],
 ["brute",[0,827,346,427],240],["seer",[348,830,277,424],184],["boss",[627,791,423,463],320],["ruin",[1049,834,205,420],256]
-];const manifest={version:"1.4.0",kind:"original AI-assisted painted 2D production assets",source:{width:meta.width,height:meta.height},files:[]};
+];const manifest={version:"1.5.0",kind:"original AI-assisted painted 2D production assets",source:{width:meta.width,height:meta.height},files:[]};
 for(const [name,rect,height] of rects){if(["bat","boss"].includes(name)&&fs.existsSync("art-source/enemies.png"))continue;const [x,y,w,h]=rect.map((v,i)=>Math.round(v/1254*(i%2?meta.height:meta.width)));
 const file=path.join(directory,name+".webp");await sharp(sheet).extract({left:x,top:y,width:Math.min(w,meta.width-x),height:Math.min(h,meta.height-y)}).resize({height,withoutEnlargement:true}).webp({quality:86,alphaQuality:100,effort:6}).toFile(file);manifest.files.push({name:name+".webp",bytes:fs.statSync(file).size});}
 if(fs.existsSync("art-source/enemies.png")){const file="art-source/enemies.png",m=await sharp(file).metadata();for(const [name,left,width,height]of [["bat",0,.57,160],["boss",.575,.425,320]]){const x=Math.round(m.width*left),w=Math.min(m.width-x,Math.round(m.width*width)),target=path.join(directory,name+".webp");const cropped=await sharp(file).extract({left:x,top:0,width:w,height:m.height}).png().toBuffer();await sharp(cropped).trim({threshold:10}).resize({height}).webp({quality:86,alphaQuality:100,effort:6}).toFile(target);manifest.files.push({name:name+".webp",bytes:fs.statSync(target).size});}}
@@ -36,4 +36,5 @@ const target=path.join(directory,"knight-strike-"+i+".webp");await sharp({create
 manifest.knightAnimation={frames:8,width:352,height:288,root:{x:176,y:252},sourceScale:scale};console.log("Knight extraction",JSON.stringify(poses));
 }
 
+if(fs.existsSync(directory+"/manifest.json")){const previous=JSON.parse(fs.readFileSync(directory+"/manifest.json","utf8"));for(const item of previous.files)if(/^(ranger|mage)-(attack|walk)-/.test(item.name)&&fs.existsSync(path.join(directory,item.name)))manifest.files.push({name:item.name,bytes:fs.statSync(path.join(directory,item.name)).size});if(previous.rangedAnimation)manifest.rangedAnimation=previous.rangedAnimation;}
 manifest.totalBytes=manifest.files.reduce((n,f)=>n+f.bytes,0);fs.writeFileSync(path.join(directory,"manifest.json"),JSON.stringify(manifest,null,2));console.log(JSON.stringify(manifest,null,2));
