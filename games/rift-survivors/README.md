@@ -71,4 +71,6 @@ npm run check:release
 
 ## 검술 연습과 검 공격 1.4
 
+[실제 전투 영상과 효과음](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/sword.html?v=1.4)으로 변경된 검술을 볼 수 있습니다.
+
 [15초 검술 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.4&practice=blade)은 같은 게임 코드로 실행하며 점수·보석·영구 기록을 변경하지 않습니다. 검의 준비 동작, 궤적, 실제 접촉 시점과 녹음 명중음을 한 전투 상태로 연결했습니다. 룬 기사는 8개 공격 포즈를 사용하고, 검은 바라보는 방향의 부채꼴 범위를 타격합니다. 강한 공격과 일반 공격에 짧은 정지, 밀림과 잘게 흩어지는 불꽃이 적용됩니다. 검에 맞지 않은 적이나 빗나간 공격에는 명중음이 재생되지 않습니다.
