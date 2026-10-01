@@ -13,7 +13,8 @@
     "test:e2e": "playwright test",
     "check:release": "node scripts/check-release.mjs",
     "screenshots": "node scripts/marketing.mjs",
-    "benchmark": "node scripts/benchmark.mjs"
+    "benchmark": "node scripts/benchmark.mjs",
+    "playthrough": "node scripts/playthrough.mjs"
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^3.1.1"
