@@ -1,0 +1,26 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {Game,HEROES,UPGRADES,cleanSave,purchase,reward} from "../src/core.js";
+test("invalid saves normalize without negative currency or invalid upgrades",()=>{
+for(const raw of ["broken","null","[]","4",null])assert.equal(cleanSave(raw).coins,0);
+const s=cleanSave({coins:-4,best:Infinity,meta:{power:90,heart:-3},settings:{sound:false}});
+assert.equal(s.coins,0);assert.deepEqual(s.meta,{power:5,heart:0,fortune:0});assert.equal(s.settings.sound,false);});
+test("permanent purchases charge once, enforce limits and leave input untouched",()=>{
+const source=cleanSave({coins:100}),r=purchase(source,"power");assert.equal(r.ok,true);assert.equal(r.save.coins,60);assert.equal(r.save.meta.power,1);assert.equal(source.coins,100);assert.equal(purchase(r.save,"power").ok,false);assert.equal(purchase({coins:900,meta:{power:5}},"power").ok,false);assert.equal(purchase(source,"invalid").ok,false);});
+test("three heroes have distinct weapons and receive persistent buffs",()=>{for(const h of HEROES){const g=new Game(h.id,{heart:2,power:3});assert.equal(g.player.maxHp,h.hp+20);assert.deepEqual(g.weapons,{[h.weapon]:1});assert.ok(Math.abs(g.damageScale()-1.18)<1e-9);}});
+test("pause and upgrade freeze simulation; earned levels need separate choices",()=>{
+const g=new Game();g.addXP(20);assert.equal(g.level,3);assert.equal(g.pending,2);assert.equal(g.phase,"upgrade");g.step(.05);assert.equal(g.time,0);assert.equal(g.choose("bogus"),false);g.choose(g.choices[0]);assert.equal(g.phase,"upgrade");g.choose(g.choices[0]);assert.equal(g.phase,"playing");g.pause();g.step(.05);assert.equal(g.time,0);g.resume();g.step(.05);assert.ok(g.time>0);});
+test("offered choices respect weapon slots and level caps",()=>{const g=new Game();g.weapons={blade:5,arrow:2,bolt:2,orbit:2};for(let i=0;i<100;i++)for(const k of g.offer()){assert.notEqual(k,"blade");assert.ok(UPGRADES[k].kind!=="weapon"||k in g.weapons);}});
+test("diagonal movement normalizes, large time steps clamp, and arena bounds hold",()=>{
+const a=new Game(),b=new Game();a.step(.05,{x:1,y:0});b.step(.05,{x:1,y:1});assert.ok(Math.abs(Math.hypot(b.player.x-900,b.player.y-900)-(a.player.x-900))<1e-8);
+b.player.x=1774;b.step(.05,{x:1,y:0});assert.equal(b.player.x,1775);const t=b.time;b.step(100,{x:1,y:0});assert.ok(b.time-t<=.05000001);});
+test("dash preserves a zero axis, grants invulnerability and enforces cooldown",()=>{const g=new Game();assert.equal(g.dash(0,1),true);assert.equal(g.player.dirX,0);assert.equal(g.hurt(20),false);assert.equal(g.dash(1,0),false);g.step(.05);assert.equal(g.player.x,900);assert.ok(g.player.y>900);});
+test("fast projectiles use swept collision and do not damage the same enemy twice",()=>{
+const g=new Game("ranger"),e=g.spawn("shade");Object.assign(e,{x:920,y:900,speed:0,hp:100,maxHp:100});g.cool.arrow=99;g.bullets=[{x:890,y:900,vx:1600,vy:0,r:4,key:"arrow",ttl:1,damage:20,pierce:2,hit:[]}];g.step(.05);assert.equal(e.hp,80);g.step(.05);assert.equal(e.hp,80);});
+test("invulnerability prevents stacked damage and death settles once",()=>{const g=new Game();assert.equal(g.hurt(9),true);assert.equal(g.hurt(9),false);g.player.inv=0;g.hurt(999);assert.equal(g.result.win,false);const r=g.result;g.finish(true);assert.equal(g.result,r);assert.equal(reward(cleanSave(),r).runs,1);});
+test("one boss appears at five minutes; boss defeat produces victory once",()=>{const g=new Game();g.time=299.99;g.step(.05);const boss=g.enemies.find(e=>e.boss);assert.ok(boss);g.spawnBoss();assert.equal(g.enemies.filter(e=>e.boss).length,1);g.hit(boss,99999,g.player);assert.equal(g.result.win,true);assert.ok(g.result.score>=4000);assert.equal(g.events.filter(e=>e.type==="result").length,1);});
+test("ultimate damages nearby enemies, clears bullets and has a cooldown",()=>{const g=new Game(),e=g.spawn("brute");Object.assign(e,{x:1000,y:900,hp:1000});g.shots=[{x:1}];assert.equal(g.ultimate(),true);assert.ok(e.hp<1000);assert.equal(g.shots.length,0);assert.equal(g.ultimate(),false);});
+test("a seeded full-length simulation remains finite with bounded entity counts",()=>{
+const g=new Game("mage",{},1234);g.player.inv=999;g.weapons={blade:5,arrow:5,bolt:5,orbit:5,lightning:5,frost:5};
+for(let i=0;i<20000&&!g.result;i++){if(g.phase==="upgrade")g.choose(g.choices[0]);g.step(1/60,{x:Math.cos(i/120),y:Math.sin(i/120)});assert.ok(Number.isFinite(g.player.hp));assert.ok(g.enemies.length<=132);assert.ok(g.gems.length<=401);}
+assert.equal(g.bossSpawned,true);assert.ok(g.level>1);});
