@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {Game,HEROES,UPGRADES,cleanSave,purchase,reward} from "../src/core.js";
+import {Game,HEROES,UPGRADES,LIMITS,cleanSave,purchase,reward} from "../src/core.js";
 test("invalid saves normalize without negative currency or invalid upgrades",()=>{
 for(const raw of ["broken","null","[]","4",null])assert.equal(cleanSave(raw).coins,0);
 const s=cleanSave({coins:-4,best:Infinity,meta:{power:90,heart:-3},settings:{sound:false}});
@@ -22,5 +22,5 @@ test("one boss appears at five minutes; boss defeat produces victory once",()=>{
 test("ultimate damages nearby enemies, clears bullets and has a cooldown",()=>{const g=new Game(),e=g.spawn("brute");Object.assign(e,{x:1000,y:900,hp:1000});g.shots=[{x:1}];assert.equal(g.ultimate(),true);assert.ok(e.hp<1000);assert.equal(g.shots.length,0);assert.equal(g.ultimate(),false);});
 test("a seeded full-length simulation remains finite with bounded entity counts",()=>{
 const g=new Game("mage",{},1234);g.player.inv=999;g.weapons={blade:5,arrow:5,bolt:5,orbit:5,lightning:5,frost:5};
-for(let i=0;i<20000&&!g.result;i++){if(g.phase==="upgrade")g.choose(g.choices[0]);g.step(1/60,{x:Math.cos(i/120),y:Math.sin(i/120)});assert.ok(Number.isFinite(g.player.hp));assert.ok(g.enemies.length<=132);assert.ok(g.gems.length<=401);}
+for(let i=0;i<20000&&!g.result;i++){if(g.phase==="upgrade")g.choose(g.choices[0]);g.step(1/60,{x:Math.cos(i/120),y:Math.sin(i/120)});assert.ok(Number.isFinite(g.player.hp));assert.ok(g.enemies.length<=LIMITS.enemies);assert.ok(g.gems.length<=LIMITS.gems);}
 assert.equal(g.bossSpawned,true);assert.ok(g.level>1);});
