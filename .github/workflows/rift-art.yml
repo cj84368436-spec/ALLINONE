@@ -1,0 +1,40 @@
+name: Prepare original Rift artwork
+on:
+  push:
+    paths:
+      - '.github/workflows/rift-art.yml'
+      - 'games/rift-survivors/art-source/**'
+      - 'games/rift-survivors/scripts/prepare-art.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rift-art
+  cancel-in-progress: false
+jobs:
+  artwork:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Produce compact transparent game textures
+        working-directory: games/rift-survivors
+        run: |
+          npm install --no-save --no-audit --no-fund sharp@0.34.5
+          node scripts/prepare-art.mjs
+      - name: Save generated production textures
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games/rift-survivors/public/art/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Prepare compact original painterly game assets [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rift-production-art
+          path: games/rift-survivors/public/art/
