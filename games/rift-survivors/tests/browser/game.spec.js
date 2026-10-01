@@ -67,3 +67,24 @@ await page.locator("#start").click();await page.evaluate(()=>{const g=window.__r
 await expect.poll(()=>page.evaluate(()=>window.__riftTest.renderer.feedback.swingUntil)).toBeGreaterThan(0);
 await page.locator("#pause").click();await page.locator("#pause-settings").click();await page.locator("#motion").click();expect(await page.evaluate(()=>window.__riftTest.renderer.reduced)).toBe(true);await page.locator("#settings-close").click();await page.locator("#resume").click();await expect(page.locator("#hud")).toBeVisible();
 });
+
+test("recorded Foley and spell buffers decode into real audio on mobile browsers",async({page})=>{
+const result=await page.evaluate(()=>{const a=window.__riftTest.audio;return [...a.buffers].map(([name,b])=>{const x=b.getChannelData(0);let energy=0,peak=0;for(let i=0;i<x.length;i++){energy+=x[i]*x[i];peak=Math.max(peak,Math.abs(x[i]));}return {name,duration:b.duration,rms:Math.sqrt(energy/x.length),peak};});});
+expect(result).toHaveLength(15);expect(result.every(x=>x.duration>.10&&Number.isFinite(x.rms)&&x.rms>.001&&x.peak>.03)).toBe(true);
+await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
+});
+test("one sword sweep hitting ten enemies plays one whoosh and one impact",async({page})=>{
+await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
+await page.evaluate(()=>{const {game:g,audio:a}=window.__riftTest;g.enemies=[];g.events=[];g.spawnCd=999;g.cool.blade=999;g.player.inv=999;for(let i=0;i<10;i++){const e=g.spawn("brute");e.x=g.player.x+65;e.y=g.player.y+(i-5)*3;e.hp=e.maxHp=500;}g.events=[];window.__audioBefore=a.stats.played;g.attack("blade",1);});
+await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.played-window.__audioBefore)).toBe(2);
+expect(await page.evaluate(()=>window.__riftTest.audio.stats.maxVoices)).toBeLessThanOrEqual(18);
+await page.locator("#pause").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.voices.size)).toBe(0);
+});
+test("missing recorded audio offers a working retry without a broken start screen",async({page})=>{
+await page.route("**/audio/swish-a.mp3",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#home")).toBeHidden();
+await page.unroute("**/audio/swish-a.mp3");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(15);
+});
+test("painted sword texture, scenery, badges and bundled title font are loaded",async({page})=>{
+const assets=await page.evaluate(()=>{const art=window.__riftTest.renderer;return {ready:art.artReady,font:[...document.fonts].some(f=>f.family==="RiftTitle"&&f.status==="loaded")};});expect(assets.ready).toBe(true);expect(assets.font).toBe(true);
+await page.locator("#start").click();await expect(page.locator("#skills .painted-icon")).toHaveCount(1);expect(await page.locator("#skills .painted-icon").evaluate(img=>img.complete&&img.naturalWidth===128)).toBe(true);
+});
