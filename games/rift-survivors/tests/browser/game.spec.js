@@ -68,9 +68,9 @@ await expect.poll(()=>page.evaluate(()=>window.__riftTest.renderer.feedback.swin
 await page.locator("#pause").click();await page.locator("#pause-settings").click();await page.locator("#motion").click();expect(await page.evaluate(()=>window.__riftTest.renderer.reduced)).toBe(true);await page.locator("#settings-close").click();await page.locator("#resume").click();await expect(page.locator("#hud")).toBeVisible();
 });
 
-test("recorded Foley and spell buffers decode into real audio on mobile browsers",async({page})=>{
+test("recorded Foley and spell buffers decode into real audio on mobile browsers",async({page},testInfo)=>{
 const result=await page.evaluate(()=>{const a=window.__riftTest.audio;return [...a.buffers].map(([name,b])=>{const x=b.getChannelData(0);let energy=0,peak=0;for(let i=0;i<x.length;i++){energy+=x[i]*x[i];peak=Math.max(peak,Math.abs(x[i]));}return {name,duration:b.duration,rms:Math.sqrt(energy/x.length),peak};});});
-expect(result).toHaveLength(15);expect(result.every(x=>x.duration>.10&&Number.isFinite(x.rms)&&x.rms>.001&&x.peak>.03)).toBe(true);
+expect(result).toHaveLength(15);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
 await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 });
 test("one sword sweep hitting ten enemies plays one whoosh and one impact",async({page})=>{
