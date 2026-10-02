@@ -43,3 +43,14 @@ Chromium 연속 드래그는 CDP 터치 입력, WebKit 연속 드래그는 DOM �
 ## 이전 기록
 
 [2.1 검증](https://github.com/cj84368436-spec/ALLINONE/blob/712db90b0a72b3deabe15360793b22ee8a90ca5b/games/rift-survivors/docs/VALIDATION.md): 자동 검사 149개, 정상 입력 9회 승리. 3.0은 더 어려운 전투이므로 모든 자동 플레이의 승리를 요구하지 않고 직업마다 정상 입력으로 보스까지 이기는 경로를 확인합니다.
+
+## 최신 등록 자료 패키지
+
+[최신 토스 등록용 파일](https://github.com/cj84368436-spec/ALLINONE/actions/runs/37022935601/artifacts/11233738851)  
+[패키지 검사](https://github.com/cj84368436-spec/ALLINONE/actions/runs/37022935601)
+
+- src·public·HTML·package.json·granite.config.ts가 164개 검사를 통과한 5d3fc6708a594f85310a288f8aec3b1a92925081와 동일한지 git diff로 확인: 통과
+- 최신 검증 문서와 등록 자료를 포함해 Vite·AIT 빌드, DEV 도구 제외, 파일 크기와 등록 이미지 규격을 재확인: 통과
+- rift-keepers.ait: 4,556,967 bytes
+- SHA256: 74e13804af77fd1898766442febdaaa94955cfe0f4d8eced27334f25f43d5a7e
+- 정상 조작의 승패·충돌 벤치마크·102개 브라우저 상세 증거는 위 원본 자동 검사 실행의 아티팩트에 있습니다. 공개 preview 검사는 별도 게시 검사 링크에서 확인합니다.
