@@ -153,3 +153,53 @@ await page.mouse.move(160,430);await page.mouse.down();await page.mouse.move(240
 await page.waitForTimeout(250);await page.mouse.up();
 expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(x+20);
 });
+async function makeTouchDriver(page,browserName){
+ const cdp=browserName==="chromium"?await page.context().newCDPSession(page):null,points=new Map();
+ async function send(type,id,x,y){
+  const old=points.get(id),changed={id,x:x??old?.x,y:y??old?.y},ended=type==="touchend"||type==="touchcancel";
+  if(ended)points.delete(id);else points.set(id,changed);
+  if(cdp)await cdp.send("Input.dispatchTouchEvent",{type:{touchstart:"touchStart",touchmove:"touchMove",touchend:"touchEnd",touchcancel:"touchCancel"}[type],touchPoints:type==="touchcancel"?[]:[...points.values()].map(p=>({...p,radiusX:8,radiusY:8}))});
+  else await page.evaluate(({type,changed,points})=>{const world=document.getElementById("world"),make=p=>new Touch({identifier:p.id,target:world,clientX:p.x,clientY:p.y,pageX:p.x,pageY:p.y,screenX:p.x,screenY:p.y}),touches=points.map(make);world.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,changedTouches:[make(changed)],touches,targetTouches:touches}));},{type,changed,points:[...points.values()]});
+ }
+ return {start:(x,y,id=7)=>send("touchstart",id,x,y),move:(x,y,id=7)=>send("touchmove",id,x,y),end:(id=7)=>send("touchend",id),cancel:(id=7)=>send("touchcancel",id)};
+}
+
+for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight directions, turns, resize, two fingers and cancellation",async({page,browserName},testInfo)=>{
+ await page.locator('[data-hero="'+hero+'"]').tap();await page.locator("#start").tap();
+ await page.evaluate(()=>{const g=window.__riftTest.game;g.player.inv=999;g.spawnCd=g.nextElite=999;g.weapons={};});
+ const touch=await makeTouchDriver(page,browserName);
+ await testInfo.attach("input-method",{body:browserName==="chromium"?"Browser touch input via CDP":"DOM TouchEvent dispatch",contentType:"text/plain"});
+ for(const [dx,dy]of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
+  const before=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
+  await touch.start(195,440);await touch.move(195+dx*60,440+dy*60);await page.waitForTimeout(150);
+  const after=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
+  if(dx)expect((after.x-before.x)*dx).toBeGreaterThan(8);else expect(after.x).toBeCloseTo(before.x,0);
+  if(dy)expect((after.y-before.y)*dy).toBeGreaterThan(8);else expect(after.y).toBeCloseTo(before.y,0);
+  await touch.end();
+ }
+ await touch.start(195,440);await touch.move(100,440);await page.waitForTimeout(120);
+ const left=await page.evaluate(()=>window.__riftTest.game.player.x);
+ await touch.move(300,440);await page.evaluate(()=>window.dispatchEvent(new Event("resize")));await page.waitForTimeout(150);
+ expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(left+8);
+ await touch.start(130,620,9);await touch.move(80,620,9);await touch.end(9);
+ const x=await page.evaluate(()=>window.__riftTest.game.player.x);await page.waitForTimeout(120);
+ expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(x+8);
+ await touch.cancel();await page.waitForTimeout(80);
+ const stopped=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y,d:window.__riftTest.game.player.walkDistance,moving:window.__riftTest.game.player.moving}));
+ await page.waitForTimeout(120);
+ expect(await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y,d:window.__riftTest.game.player.walkDistance,moving:window.__riftTest.game.player.moving}))).toEqual(stopped);expect(stopped.moving).toBe(false);
+ await touch.start(195,440);await touch.move(195,360);await page.waitForTimeout(120);
+ expect(await page.evaluate(()=>window.__riftTest.game.player.y)).toBeLessThan(stopped.y-8);await touch.end();
+});
+test("all heroes change walking leg pixels even during attacks",async({page},testInfo)=>{
+ const results=await page.evaluate(async()=>{
+  const {drawHero}=await import("/src/render.js"),{HEROES}=await import("/src/core.js"),out=[];
+  for(const h of HEROES)for(const attacking of [false,true]){
+   const swing=attacking?{elapsed:.04,tempo:1,angle:0}:null,frames=[];
+   for(const phase of [0,.5]){const c=document.createElement("canvas");c.width=240;c.height=256;const ctx=c.getContext("2d");drawHero(ctx,h,120,170,2.6,1,0,true,attacking,0,swing,true,phase);frames.push({bytes:ctx.getImageData(0,0,240,256).data,png:c.toDataURL("image/png")});}
+   let changed=0;for(let y=155;y<218;y++)for(let x=84;x<157;x++){const i=(y*240+x)*4;if(frames[0].bytes.slice(i,i+4).some((v,k)=>v!==frames[1].bytes[i+k]))changed++;}
+   out.push({hero:h.id,attacking,changed,pngs:frames.map(f=>f.png)});
+  }return out;
+ });
+ for(const r of results){expect(r.changed,r.hero+" walking legs; attack="+r.attacking).toBeGreaterThan(100);for(let i=0;i<2;i++)await testInfo.attach(r.hero+"-walk-"+r.attacking+"-"+i,{body:Buffer.from(r.pngs[i].split(",")[1],"base64"),contentType:"image/png"});}
+});

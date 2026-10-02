@@ -33,3 +33,12 @@ export function joystick(pointerX, pointerY, originX, originY, radius = 43) {
   const strength = distance < 4 ? 0 : Math.min(1, (distance - 4) / (radius - 4));
   return { originX, originY, x: distance ? dx / distance * strength : 0, y: distance ? dy / distance * strength : 0 };
 }
+
+export class MovementStick {
+ constructor(){this.reset();}
+ reset(){this.active=false;this.id=this.source=null;this.x=this.y=this.ox=this.oy=0;this.originClientX=this.originClientY=0;this.keyboard=false;}
+ begin(source,id,x,y,bounds){if(this.active||!Number.isFinite(x)||!Number.isFinite(y))return false;this.active=true;this.source=source;this.id=id;this.originClientX=x;this.originClientY=y;this.x=this.y=0;this.rebase(bounds);return true;}
+ move(source,id,x,y,bounds){if(!this.active||this.source!==source||this.id!==id||!Number.isFinite(x)||!Number.isFinite(y))return false;const a=joystick(x,y,this.originClientX,this.originClientY);this.originClientX=a.originX;this.originClientY=a.originY;this.x=a.x;this.y=a.y;this.rebase(bounds);return true;}
+ rebase(b){this.ox=this.originClientX-b.left;this.oy=this.originClientY-b.top;}
+ end(source,id){if(!this.active||this.source!==source||this.id!==id)return false;this.reset();return true;}
+}

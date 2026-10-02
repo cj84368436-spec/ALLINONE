@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {Game,EVOLUTIONS,LIMITS,cleanSave} from "../src/core.js";
-import {FixedClock,RenderBudget,joystick} from "../src/runtime.js";
+import {FixedClock,RenderBudget,joystick,MovementStick} from "../src/runtime.js";
 import {EnemyGrid} from "../src/spatial.js";
 test("30, 60 and 120 Hz frames simulate the same combat time and movement",()=>{
   const runs=[30,60,120].map(hz=>{const game=new Game();game.spawnCd=999;const clock=new FixedClock();for(let i=0;i<hz*2;i++)clock.advance(1/hz,dt=>game.step(dt,{x:1,y:0}),()=>game.phase==="playing");return game;});
@@ -44,4 +44,24 @@ test("enemy projectiles also use swept collisions; nonfinite deltas do not poiso
 });
 test("knockback across a spatial cell boundary updates projectile candidates",()=>{
   const grid=new EnemyGrid(),enemy={id:1,x:95,y:100,hp:10};grid.rebuild([enemy]);enemy.x=105;grid.move(enemy,95,100);assert.equal(grid.query(96,96,110,110).length,1);assert.equal(grid.query(0,96,95,110).length,0);grid.rebuild([enemy]);assert.equal(grid.query(96,96,110,110).length,1);
+});
+
+test("owned touch input survives resize, ignores other fingers and releases in all directions",()=>{
+ const stick=new MovementStick(),b={left:10,top:20};
+ for(const [dx,dy]of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
+  stick.reset();stick.begin("touch",7,195,440,b);stick.move("touch",7,195+dx*60,440+dy*60,b);
+  if(dx)assert.ok(stick.x*dx>.6);if(dy)assert.ok(stick.y*dy>.6);
+  const x=stick.x,y=stick.y;stick.rebase({left:20,top:50});assert.equal(stick.x,x);assert.equal(stick.y,y);
+  assert.equal(stick.begin("touch",9,100,600,b),false);assert.equal(stick.move("pointer",7,300,440,b),false);assert.equal(stick.end("touch",9),false);
+  assert.equal(stick.end("touch",7),true);assert.equal(stick.active,false);assert.equal(stick.x,0);assert.equal(stick.y,0);
+ }
+});
+test("walking follows travelled distance and stops at rest or a wall without flipping vertical facing",()=>{
+ for(const hero of ["knight","ranger","mage"]){const g=new Game(hero);g.spawnCd=999;g.weapons={};
+  for(let i=0;i<60;i++)g.step(1/60,{x:-1,y:0});
+  assert.ok(Math.abs(g.player.walkDistance-g.player.speed)<1e-6);assert.equal(g.player.facing,-1);assert.equal(g.player.moving,true);
+  g.step(1/60,{x:0,y:-1});assert.equal(g.player.facing,-1);g.step(1/60,{x:0,y:0});assert.equal(g.player.moving,false);
+  const d=g.player.walkDistance;g.step(1/60,{x:0,y:0});assert.equal(g.player.walkDistance,d);
+  g.player.x=25;g.step(1/60,{x:-1,y:0});assert.equal(g.player.walkDistance,d);assert.equal(g.player.moving,false);
+ }
 });
