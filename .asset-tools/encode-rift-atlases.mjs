@@ -1,0 +1,6 @@
+import fs from "node:fs";
+import {createRequire} from "node:module";
+import crypto from "node:crypto";
+const sharp=createRequire("/tmp/rift-assets/package.json")("sharp"),dir="games/rift-survivors/public/art",masters=".evidence/rift-3.0/masters";fs.mkdirSync(masters,{recursive:true});const files=[];
+for(const [name,cols,rows]of [["skill-atlas",6,5],["combat-atlas",6,6]]){const source=dir+"/"+name+".png",input=fs.readFileSync(source),meta=await sharp(input).metadata(),b=await sharp(input).webp({quality:92,alphaQuality:100,effort:6}).toBuffer();fs.writeFileSync(dir+"/"+name+".webp",b);fs.renameSync(source,masters+"/"+name+".png");const raw=await sharp(b).ensureAlpha().raw().toBuffer();let transparent=0;for(let i=3;i<raw.length;i+=4)if(raw[i]<8)transparent++;if(name==="combat-atlas"&&transparent/(raw.length/4)<.05)throw Error("Missing VFX alpha");files.push({name,cols,rows,width:meta.width,height:meta.height,originalBytes:input.length,bytes:b.length,sha256:crypto.createHash("sha256").update(b).digest("hex"),transparentFraction:transparent/(raw.length/4)});}
+fs.writeFileSync(dir+"/atlas-manifest.json",JSON.stringify({version:"3.0.0",method:"Original generated art; whole-image WebP encoding only, no spatial edits. Runtime uses exact grid source rectangles.",files},null,2)+"\n");console.log(JSON.stringify(files,null,2));
