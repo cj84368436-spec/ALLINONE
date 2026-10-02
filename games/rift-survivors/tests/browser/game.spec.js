@@ -70,7 +70,7 @@ await page.locator("#pause").click();await page.locator("#pause-settings").click
 
 test("recorded Foley and spell buffers decode into real audio on mobile browsers",async({page},testInfo)=>{
 const result=await page.evaluate(()=>{const a=window.__riftTest.audio;return [...a.buffers].map(([name,b])=>{const x=b.getChannelData(0);let energy=0,peak=0;for(let i=0;i<x.length;i++){energy+=x[i]*x[i];peak=Math.max(peak,Math.abs(x[i]));}return {name,duration:b.duration,rms:Math.sqrt(energy/x.length),peak};});});
-expect(result).toHaveLength(19);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
+expect(result).toHaveLength(20);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
 await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 });
 test("one sword sweep hitting ten enemies plays one whoosh and one impact",async({page})=>{
@@ -82,7 +82,7 @@ await page.locator("#pause").click();await expect.poll(()=>page.evaluate(()=>win
 });
 test("missing recorded audio offers a working retry without a broken start screen",async({page})=>{
 await page.route("**/audio/swish-a.mp3*",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#home")).toBeHidden();
-await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(19);
+await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(20);
 });
 test("painted sword texture, scenery, badges and bundled title font are loaded",async({page})=>{
 const assets=await page.evaluate(()=>{const art=window.__riftTest.renderer;return {ready:art.artReady,font:[...document.fonts].some(f=>f.family==="RiftTitle"&&f.status==="loaded")};});expect(assets.ready).toBe(true);expect(assets.font).toBe(true);
@@ -214,7 +214,7 @@ await page.locator("#start").click();await page.evaluate(()=>{const g=window.__r
 await page.evaluate(()=>{const g=window.__riftTest.game;g.player.x=g.rift.x;g.player.y=g.rift.y;for(let i=0;i<185&&g.phase==="playing";i++)g.step(1/60);});await expect(page.locator(".upgrade")).toHaveCount(4);expect(await page.evaluate(()=>window.__riftTest.game.seals)).toBe(1);
 });
 test("growth cards show actual stat values and evolution progress on short screens",async({page})=>{
-await page.setViewportSize({width:360,height:640});await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.giveXP(8));await expect(page.locator(".upgrade")).toHaveCount(4);await expect(page.locator(".upgrade").first().locator("small")).toContainText("피해");await expect(page.locator(".upgrade").first().locator("em")).toContainText("/5");await expect(page.locator(".level-dots")).toHaveCount(4);await page.locator(".upgrade").last().click();await expect(page.locator("#overlay")).toBeHidden();
+await page.setViewportSize({width:360,height:640});await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.giveXP(8));await expect(page.locator(".upgrade")).toHaveCount(4);await expect(page.locator(".upgrade").first().locator(".choice-tag")).toHaveText("새 공격");await expect(page.locator(".upgrade").first().locator("small")).not.toHaveText("");await expect(page.locator(".upgrade").first().locator("em")).toContainText("/5");await expect(page.locator(".level-dots")).toHaveCount(4);await page.locator(".upgrade").last().click();await expect(page.locator("#overlay")).toBeHidden();
 });
 for(const [hero,name,kind]of [["knight","태양의 심판","sun-cleave"],["ranger","유성 일제사격","meteor-fan"],["mage","영원의 서리","frost-crown"]]){
 test(hero+" has a named ultimate and its own rendered combat effect",async({page})=>{
@@ -256,4 +256,24 @@ for(const hero of ["knight","ranger","mage"])test(hero+" ultimate changes hundre
  const result=await page.evaluate(async hero=>{const {Game}=await import("/src/core.js");const {Renderer,HERO_SCALE,ENEMY_HEIGHTS}=await import("/src/render.js");const canvas=document.createElement("canvas");canvas.style.cssText="width:390px;height:600px;position:fixed;left:-500px;top:0";document.body.appendChild(canvas);const renderer=new Renderer(canvas);renderer.reduced=true;renderer.setQuality(.65);const g=new Game(hero,{},11);g.weapons={};g.player.inv=999;g.spawnCd=g.nextElite=999;const e=g.spawn("brute");Object.assign(e,{x:g.player.x+90,y:g.player.y,hp:9999,maxHp:9999,speed:0,shoot:999});g.ultimate();for(let i=0;i<25;i++)g.step(1/60);g.fx=g.fx.filter(f=>!["text","burst","corpse","impact","cut-hit","arrow-hit","bolt-hit"].includes(f.kind));
  renderer.draw(g.time,g,g.hero,{active:false});const withFx=renderer.ctx.getImageData(0,0,canvas.width,canvas.height).data, png=canvas.toDataURL("image/png");g.fx=[];g.spellFields=[];g.skillFields=[];g.bullets=[];renderer.draw(g.time,g,g.hero,{active:false});const noFx=renderer.ctx.getImageData(0,0,canvas.width,canvas.height).data;let changed=0;for(let i=0;i<withFx.length;i+=4)if(Math.abs(withFx[i]-noFx[i])+Math.abs(withFx[i+1]-noFx[i+1])+Math.abs(withFx[i+2]-noFx[i+2])>45)changed++;return {changed,png,heroScale:HERO_SCALE,enemyHeight:ENEMY_HEIGHTS.shade};},hero);
  expect(result.changed).toBeGreaterThan(700);expect(result.heroScale).toBe(1.65);expect(result.enemyHeight).toBe(66);await testInfo.attach(hero+"-ultimate-painted",{body:Buffer.from(result.png.split(",")[1],"base64"),contentType:"image/png"});
+});
+
+test("level six and ten reopen discovery, show six equipped attacks and keep touch controls usable",async({page})=>{
+ await page.locator('[data-hero="ranger"]').click();await page.locator("#start").click();
+ await page.evaluate(()=>{const g=window.__riftTest.game;g.weapons={arrow:2,multishot:1,piercing:1,poison:1};g.level=5;g.player.inv=999;g.spawnCd=999;g.addXP(g.need);});
+ await expect(page.locator(".build-summary")).toContainText("무기 4/5");
+ const choices=await page.evaluate(()=>window.__riftTest.game.choices);expect(choices.slice(0,2).sort()).toEqual(["trap","volley"]);
+ await page.locator('[data-choice="0"]').click();
+ await page.evaluate(()=>{const g=window.__riftTest.game;g.level=9;g.addXP(g.need);});
+ await expect(page.locator(".build-summary")).toContainText("무기 5/6");await page.locator('[data-choice="0"]').click();
+ await expect(page.locator("#skills .skill")).toHaveCount(6);
+ expect(await page.evaluate(()=>Object.keys(window.__riftTest.game.weapons).length)).toBe(6);
+ await page.locator("#pause").click();await expect(page.locator("#retire")).toContainText("도전 종료");await expect(page.locator("#dialog")).toContainText("이어서 플레이할 수 없어요"); 
+});
+
+test("ending a run explains and settles its earned gems exactly once",async({page})=>{
+ await page.locator("#start").click();await page.evaluate(()=>{const g=window.__riftTest.game;g.kills=36;g.player.inv=999;g.spawnCd=999;});
+ await page.locator("#pause").click();await expect(page.locator("#retire")).toHaveText("도전 종료 · 보석 +5 정산");
+ await page.locator("#retire").click();await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>window.__riftTest.save.coins)).toBe(5);
+ await page.reload();await expect(page.locator("#coins")).toHaveText("5");
 });
