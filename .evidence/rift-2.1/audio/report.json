@@ -1,0 +1,75 @@
+{
+  "version": "2.1.0",
+  "sources": [
+    {
+      "id": "rpg",
+      "url": "https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "page": "https://kenney.nl/assets/rpg-audio",
+      "sha256": "6dbeaf8544da958d8f2adcb4a4a4b76c1ade34a05f8ab9edccd327da7375f38b"
+    },
+    {
+      "id": "swishes",
+      "url": "https://opengameart.org/sites/default/files/swishes.zip",
+      "author": "artisticdude",
+      "license": "CC0-1.0",
+      "page": "https://opengameart.org/content/swishes-sound-pack",
+      "sha256": "7980215241b739a787dcf26f660ce510bb237900968789395a86911619795693"
+    },
+    {
+      "id": "steel",
+      "url": "https://opengameart.org/sites/default/files/knifesharpener2.flac",
+      "author": "The Berklee College of Music (submitted by qubodup)",
+      "license": "CC-BY-3.0",
+      "page": "https://opengameart.org/content/knife-sharpening-slice-2",
+      "sha256": "1e644bab76a5f52e78c1084b6cb953c992f6968db8accdaf007511d9053d7be5"
+    },
+    {
+      "id": "thunder",
+      "url": "https://opengameart.org/sites/default/files/Thunder%2C%20Very%20Close%2C%20Rain%2C%2001.wav",
+      "author": "InspectorJ (www.jshaw.co.uk)",
+      "license": "CC-BY-3.0",
+      "page": "https://opengameart.org/content/thunder-very-close-rain-01",
+      "sha256": "b62c7184cf3241862698a596c0c824cfd0717a6cec0089436d46270fe94cb00a"
+    }
+  ],
+  "samples": {
+    "swish-a": {
+      "before": {
+        "bytes": 4554,
+        "peak": 0.66778564453125,
+        "rms": 0.15436277112463534
+      },
+      "after": {
+        "bytes": 6883,
+        "peak": 0.622283935546875,
+        "rms": 0.0959157611652595
+      }
+    },
+    "blade-hit-a": {
+      "before": {
+        "bytes": 7567,
+        "peak": 0.413055419921875,
+        "rms": 0.05359111725764809
+      },
+      "after": {
+        "bytes": 7395,
+        "peak": 0.641143798828125,
+        "rms": 0.11776551637877554
+      }
+    },
+    "thunder": {
+      "before": {
+        "bytes": 24285,
+        "peak": 0.588958740234375,
+        "rms": 0.10725776036641764
+      },
+      "after": {
+        "bytes": 69570,
+        "peak": 0.5601806640625,
+        "rms": 0.08794141680481031
+      }
+    }
+  }
+}

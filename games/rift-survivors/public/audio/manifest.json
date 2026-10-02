@@ -1,35 +1,35 @@
 {
-  "version": "1.5.0",
+  "version": "2.1.0",
   "files": [
     {
       "name": "swish-a.mp3",
-      "bytes": 4554,
-      "duration": 0.235102,
-      "sha256": "dfd47fa5931604678a2d5979e3a203fe589264623c1bb8643f33ad1b149f97e4"
+      "bytes": 6883,
+      "duration": 0.313469,
+      "sha256": "9b5eb4d59218e75edbd9346abc925c7fc9f45ae705091cd2b52b9b904c127eec"
     },
     {
       "name": "swish-b.mp3",
-      "bytes": 3718,
-      "duration": 0.182857,
-      "sha256": "49a64b1b135a6b6fd893e431c3f923dfbbb2bcd84b21494a982bcbe65c0ea867"
+      "bytes": 6883,
+      "duration": 0.313469,
+      "sha256": "4d21d73565551cf924a96b2bf9bb4250afa7a39379e555e3f9eb9fd75d0c671c"
     },
     {
       "name": "swish-c.mp3",
-      "bytes": 4554,
-      "duration": 0.235102,
-      "sha256": "a28a8a40ea6b398fae0f8f7299bbc7ec81ac6a96d6f1cda3333036ecf64e5964"
+      "bytes": 6883,
+      "duration": 0.313469,
+      "sha256": "a5a8528c4b1904da71c321c7ed8b6d3a733b55b5ce3bc29d4b30f928d9c8532a"
     },
     {
       "name": "blade-hit-a.mp3",
-      "bytes": 7567,
-      "duration": 0.444082,
-      "sha256": "d52208b9f1ecde0a9fad3b76fc5fa8a8172595b0e2c2566db6563256da623ce9"
+      "bytes": 7395,
+      "duration": 0.339592,
+      "sha256": "570247f1a2cf5355e2be76f7a423ef253fe6b64892d6c7bd24099ac88522e6b7"
     },
     {
       "name": "blade-hit-b.mp3",
-      "bytes": 7567,
-      "duration": 0.444082,
-      "sha256": "242c0a5fe98588e4202ecec69784c5d97c99ee0655e19dae498c40ebedab1118"
+      "bytes": 7395,
+      "duration": 0.339592,
+      "sha256": "635c9135ab1ae339989fcd131d905d56065b91e7473c5f69ffa07540bd61147f"
     },
     {
       "name": "arrow.mp3",
@@ -51,9 +51,9 @@
     },
     {
       "name": "thunder.mp3",
-      "bytes": 24285,
-      "duration": 1.48898,
-      "sha256": "7d974f1fcafcc39cabbab7d400d1b1f88c542649cff2d7353046a24ca416536d"
+      "bytes": 69570,
+      "duration": 3.448163,
+      "sha256": "b2fc64f939ac595de967deb203d55e5b66174b0ec8096dcada1e50d5c05030d2"
     },
     {
       "name": "ultimate.mp3",

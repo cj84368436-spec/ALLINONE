@@ -8,3 +8,11 @@ Modified: selected, mixed, equalized, normalized, faded and encoded for Rift Kee
 1.4 sword contact remix: Kenney knifeSlice/knifeSlice2, cloth2/cloth3 and metalPot2/metalPot3; pitch, filtering, mixing and fades.
 
 1.5 ranged mixes: artisticdude swish-c derived from swish-9 (CC0); Kenney creak2, cloth2, knifeSlice/knifeSlice2 (CC0); Little Robot Sound Factory Spell_00/Spell_01 (CC BY 3.0). Edited, pitched, filtered, mixed, faded and normalized into separate arrow/bolt release and contact samples.
+
+Rift Keepers 2.1 class audio remix:
+Knife sharpening slice 2 — The Berklee College of Music (submitted by qubodup), CC BY 3.0.
+https://opengameart.org/content/knife-sharpening-slice-2
+Thunder, Very Close, Rain, 01.wav — InspectorJ (www.jshaw.co.uk), CC BY 3.0.
+https://opengameart.org/content/thunder-very-close-rain-01
+License: https://creativecommons.org/licenses/by/3.0/
+Edits: trim, high-pass, equalization, layered Kenney knife and artisticdude swish Foley, compression, fades and MP3 encoding. Original CC0 sources credited above.
