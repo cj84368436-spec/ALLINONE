@@ -1,0 +1,359 @@
+{
+  "runtime": "39715ec6d3b2a3048abfa98690eecc6fe8ede7a8",
+  "method": "Actual core and spatial source executed in the functions V8 runtime with the existing rule-based playthrough policy. Only normal movement, dash, ultimate and offered choices. The only configuration change is spawnDistance matching main.js at each viewport height. No native iPhone or human play involved. These are extra review probes, separate from the GitHub Actions Node run.",
+  "scenarios": [
+    {
+      "height": 844,
+      "spawnDistance": 388.24,
+      "runs": [
+        {
+          "hero": "knight",
+          "seed": 11,
+          "timeSeconds": 220,
+          "level": 18,
+          "kills": 651,
+          "win": false,
+          "remainingHp": 0,
+          "skills": [
+            "blade",
+            "whirlwind",
+            "rend"
+          ],
+          "evolutions": [
+            "blade"
+          ]
+        },
+        {
+          "hero": "knight",
+          "seed": 22,
+          "timeSeconds": 322,
+          "level": 26,
+          "kills": 1377,
+          "win": true,
+          "remainingHp": 118.40000000000002,
+          "skills": [
+            "blade",
+            "whirlwind",
+            "rend",
+            "orbit"
+          ],
+          "evolutions": [
+            "blade",
+            "rend",
+            "whirlwind"
+          ]
+        },
+        {
+          "hero": "knight",
+          "seed": 33,
+          "timeSeconds": 317,
+          "level": 26,
+          "kills": 1375,
+          "win": true,
+          "remainingHp": 123.20000000000002,
+          "skills": [
+            "blade",
+            "whirlwind",
+            "rend",
+            "orbit"
+          ],
+          "evolutions": [
+            "blade",
+            "rend",
+            "whirlwind"
+          ]
+        },
+        {
+          "hero": "ranger",
+          "seed": 11,
+          "timeSeconds": 314,
+          "level": 25,
+          "kills": 1378,
+          "win": true,
+          "remainingHp": 71.19999999999973,
+          "skills": [
+            "arrow",
+            "multishot",
+            "poison"
+          ],
+          "evolutions": [
+            "arrow",
+            "poison",
+            "multishot"
+          ]
+        },
+        {
+          "hero": "ranger",
+          "seed": 22,
+          "timeSeconds": 307,
+          "level": 25,
+          "kills": 1367,
+          "win": true,
+          "remainingHp": 86.6,
+          "skills": [
+            "arrow",
+            "multishot",
+            "poison",
+            "trap"
+          ],
+          "evolutions": [
+            "arrow",
+            "poison",
+            "multishot"
+          ]
+        },
+        {
+          "hero": "ranger",
+          "seed": 33,
+          "timeSeconds": 306,
+          "level": 26,
+          "kills": 1366,
+          "win": true,
+          "remainingHp": 98.6,
+          "skills": [
+            "arrow",
+            "multishot",
+            "poison",
+            "trap"
+          ],
+          "evolutions": [
+            "arrow",
+            "multishot",
+            "poison"
+          ]
+        },
+        {
+          "hero": "mage",
+          "seed": 11,
+          "timeSeconds": 244,
+          "level": 19,
+          "kills": 842,
+          "win": false,
+          "remainingHp": 0,
+          "skills": [
+            "bolt",
+            "fireball",
+            "frost"
+          ],
+          "evolutions": [
+            "bolt"
+          ]
+        },
+        {
+          "hero": "mage",
+          "seed": 22,
+          "timeSeconds": 320,
+          "level": 25,
+          "kills": 1376,
+          "win": true,
+          "remainingHp": 102,
+          "skills": [
+            "bolt",
+            "frost",
+            "fireball",
+            "lightning"
+          ],
+          "evolutions": [
+            "bolt",
+            "fireball"
+          ]
+        },
+        {
+          "hero": "mage",
+          "seed": 33,
+          "timeSeconds": 316,
+          "level": 26,
+          "kills": 1379,
+          "win": true,
+          "remainingHp": 18,
+          "skills": [
+            "bolt",
+            "fireball",
+            "frost",
+            "meteor",
+            "lightning"
+          ],
+          "evolutions": [
+            "bolt",
+            "fireball"
+          ]
+        }
+      ]
+    },
+    {
+      "height": 640,
+      "spawnDistance": 330,
+      "runs": [
+        {
+          "hero": "knight",
+          "seed": 11,
+          "timeSeconds": 202,
+          "level": 16,
+          "kills": 550,
+          "win": false,
+          "remainingHp": 0,
+          "skills": [
+            "blade",
+            "whirlwind",
+            "rend"
+          ],
+          "evolutions": [
+            "blade"
+          ]
+        },
+        {
+          "hero": "knight",
+          "seed": 22,
+          "timeSeconds": 329,
+          "level": 26,
+          "kills": 1387,
+          "win": true,
+          "remainingHp": 125.60000000000005,
+          "skills": [
+            "blade",
+            "whirlwind",
+            "rend",
+            "orbit"
+          ],
+          "evolutions": [
+            "blade",
+            "whirlwind",
+            "rend"
+          ]
+        },
+        {
+          "hero": "knight",
+          "seed": 33,
+          "timeSeconds": 318,
+          "level": 26,
+          "kills": 1337,
+          "win": true,
+          "remainingHp": 125.60000000000008,
+          "skills": [
+            "blade",
+            "rend",
+            "whirlwind",
+            "slam",
+            "orbit"
+          ],
+          "evolutions": [
+            "blade",
+            "whirlwind",
+            "rend"
+          ]
+        },
+        {
+          "hero": "ranger",
+          "seed": 11,
+          "timeSeconds": 45,
+          "level": 4,
+          "kills": 47,
+          "win": false,
+          "remainingHp": 0,
+          "skills": [
+            "arrow"
+          ],
+          "evolutions": []
+        },
+        {
+          "hero": "ranger",
+          "seed": 22,
+          "timeSeconds": 311,
+          "level": 26,
+          "kills": 1375,
+          "win": true,
+          "remainingHp": 85.6,
+          "skills": [
+            "arrow",
+            "multishot",
+            "poison",
+            "trap",
+            "piercing"
+          ],
+          "evolutions": [
+            "arrow",
+            "poison",
+            "multishot"
+          ]
+        },
+        {
+          "hero": "ranger",
+          "seed": 33,
+          "timeSeconds": 255,
+          "level": 21,
+          "kills": 935,
+          "win": false,
+          "remainingHp": 0,
+          "skills": [
+            "arrow",
+            "multishot",
+            "poison"
+          ],
+          "evolutions": [
+            "arrow",
+            "poison",
+            "multishot"
+          ]
+        },
+        {
+          "hero": "mage",
+          "seed": 11,
+          "timeSeconds": 313,
+          "level": 26,
+          "kills": 1376,
+          "win": true,
+          "remainingHp": 114,
+          "skills": [
+            "bolt",
+            "frost",
+            "fireball",
+            "lightning"
+          ],
+          "evolutions": [
+            "bolt",
+            "fireball"
+          ]
+        },
+        {
+          "hero": "mage",
+          "seed": 22,
+          "timeSeconds": 321,
+          "level": 26,
+          "kills": 1379,
+          "win": true,
+          "remainingHp": 140,
+          "skills": [
+            "bolt",
+            "lightning",
+            "frost",
+            "fireball"
+          ],
+          "evolutions": [
+            "bolt",
+            "fireball",
+            "lightning"
+          ]
+        },
+        {
+          "hero": "mage",
+          "seed": 33,
+          "timeSeconds": 317,
+          "level": 25,
+          "kills": 1381,
+          "win": true,
+          "remainingHp": 86,
+          "skills": [
+            "bolt",
+            "frost",
+            "fireball",
+            "meteor",
+            "lightning"
+          ],
+          "evolutions": [
+            "bolt"
+          ]
+        }
+      ]
+    }
+  ]
+}
