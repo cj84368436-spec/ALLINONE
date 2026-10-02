@@ -72,8 +72,8 @@ if(f.kind==="quake"){c.globalAlpha=1;tile(0,f.r*2.1,f.r*1.45,-.45,.9);c.save();c
 if(f.kind==="trap-burst"){c.globalAlpha=1;tile(5,f.r*2.3,f.r*1.8);return true;}
 if(f.kind==="cut-hit"){c.globalAlpha=1;tile(0,85,65,(f.angle||0)-.3,.9,Math.min(5,2+Math.floor(u*4)));return true;}
 if(f.kind==="bolt-hit"){c.globalAlpha=1;tile(4,75,75,0,.95);return true;}
-if(f.kind==="impact"){c.globalAlpha=1;tile(0,65,55,(f.angle||0)-.3,.8,Math.min(5,2+Math.floor(u*4)));return true;}
-if(f.kind==="burst"){c.globalAlpha=1;const poison=["poison","poison-dot","trap"].includes(f.key),magic=["bolt","nova","frost"].includes(f.key);tile(poison?5:magic?4:0,55,50,0,.6);return true;}
+if(f.kind==="impact"){c.globalAlpha=1;const row=f.key==="lightning"?3:["fireball","meteor"].includes(f.key)?2:["frost","nova","bolt"].includes(f.key)||f.key==="ultimate"&&g.hero.id==="mage"?4:["poison","poison-dot","trap"].includes(f.key)?5:0;tile(row,row?80:65,row?75:55,row?0:(f.angle||0)-.3,.8,Math.min(5,2+Math.floor(u*4)));return true;}
+if(f.kind==="burst"){c.globalAlpha=1;const poison=["poison","poison-dot","trap"].includes(f.key),magic=["bolt","nova","frost"].includes(f.key);tile(poison?5:magic?4:["fireball","meteor"].includes(f.key)?2:f.key==="lightning"?3:0,55,50,0,.6);return true;}
 if(f.kind==="corpse"){const height=(ENEMY_HEIGHTS[f.sprite]||66)*(f.elite?1.35:1);c.globalAlpha=a*.55;drawSprite(c,f.sprite,x,y+u*5,height,1,0,Math.sin(f.x)*u*.12);return true;}
 if(f.kind==="frost-storm"){c.globalAlpha=1;tile(4,f.r*1.85,f.r*1.4,0,f.ultimate?.64:.5,Math.min(4,1+Math.floor(u*4)));if(!this.reduced)for(let i=0;i<10;i++){const q=i*2.4+t,dist=Math.sqrt(hash(i,f.x))*f.r;star(c,x+Math.cos(q)*dist,y+Math.sin(q)*dist*.7-u*35,2.2,"#e2f7ff");}return true;}
 if(f.kind==="line"){c.globalAlpha=1;const dx=f.x2-f.x,dy=f.y2-f.y,len=Math.hypot(dx,dy),nx=len?-dy/len:0,ny=len?dx/len:0,n=Math.max(5,Math.min(16,Math.floor(len/22))),points=[[f.x,f.y]];
