@@ -41,12 +41,6 @@ jobs:
           printf '%s\n' 'https://archive.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
           printf '%s\n' 'https://security.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-security-mirrors.txt > /dev/null
       - run: npx playwright install --with-deps chromium webkit
-      - run: npm run test:e2e
-      - run: npm run playthrough
-      - run: npm run benchmark
-      - run: npm run build
-      - run: npm run check:release
-      - run: npm run screenshots
       - name: Capture actual mobile art review
         run: |
           npm install --prefix /tmp/rift-review sharp --no-audit --no-fund
@@ -61,6 +55,12 @@ jobs:
           git commit -m "Store verified Rift 2.0 visual review [skip ci]"
           git pull --rebase
           git push
+      - run: npm run test:e2e
+      - run: npm run playthrough
+      - run: npm run benchmark
+      - run: npm run build
+      - run: npm run check:release
+      - run: npm run screenshots
       - name: Optional Toss console TEST upload
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_toss }}
         env:

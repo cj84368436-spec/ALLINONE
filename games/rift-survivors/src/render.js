@@ -78,7 +78,7 @@ else if(f.kind==="frost-crown"||f.kind==="rift-seal"){const ice=f.kind==="frost-
 else if(f.kind==="ghost"&&!this.reduced){c.globalAlpha=a*.28;drawHero(c,g.hero,f.x,f.y,2.6,f.face,t,true);}
 c.restore();}
 draw(t,g,hero,joy){if(Art.ready&&!this.artReady)this.makeGround();if(g)t=g.time;const c=this.ctx,w=this.w,h=this.h,p=g?.player,cx=p?.x||900,cy=p?.y||900;this.ground(cx,cy,t,g?this.zoom:1);if(g){c.fillStyle="#0914210c";c.fillRect(0,0,w,h);}
-if(!g){const stageY=h*.42,stageSize=Math.min(230,h*.28);const grad=c.createLinearGradient(0,0,0,h);grad.addColorStop(0,"#061321d9");grad.addColorStop(.30,"#09182470");grad.addColorStop(.51,"#0a182dcc");grad.addColorStop(.64,"#0a182dfa");grad.addColorStop(1,"#0a182d");c.fillStyle=grad;c.fillRect(0,0,w,h);
+if(!g){const bounds=this.canvas.getBoundingClientRect(),label=document.querySelector(".home-title p")?.getBoundingClientRect(),content=document.querySelector(".home-content")?.getBoundingClientRect(),top=label?label.bottom-bounds.top:h*.22,bottom=content?content.top-bounds.top:h*.56,stageSize=Math.min(230,Math.max(85,bottom-top-28)),stageY=(top+bottom)/2+stageSize*.24;const grad=c.createLinearGradient(0,0,0,h);grad.addColorStop(0,"#061321d9");grad.addColorStop(.30,"#09182470");grad.addColorStop(.51,"#0a182dcc");grad.addColorStop(.64,"#0a182dfa");grad.addColorStop(1,"#0a182d");c.fillStyle=grad;c.fillRect(0,0,w,h);
 this.glow(w/2,stageY-25,stageSize*1.7,hero.id==="knight"?"gold":hero.id==="ranger"?"mint":"blue",.22);
 ellipse(c,w/2,stageY+stageSize*.23,stageSize*.56,stageSize*.13,"#020d1980");c.strokeStyle="#b69c6250";c.lineWidth=1;c.beginPath();c.ellipse(w/2,stageY+stageSize*.22,stageSize*.57,stageSize*.15,0,0,TAU);c.stroke();
 drawHero(c,hero,w/2,stageY,stageSize/34,1,t);return;}

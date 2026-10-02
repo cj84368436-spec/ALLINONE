@@ -1,5 +1,5 @@
 {
-  "version": "1.5.0",
+  "version": "2.0.0",
   "kind": "original AI-assisted painted 2D production assets",
   "source": {
     "width": 1254,
@@ -225,6 +225,10 @@
     {
       "name": "mage-walk-3.webp",
       "bytes": 26844
+    },
+    {
+      "name": "courtyard.webp",
+      "bytes": 117080
     }
   ],
   "knightAnimation": {
@@ -253,5 +257,6 @@
     },
     "attackScale": 0.8380281690140845,
     "walkScale": 0.54337899543379
-  }
+  },
+  "note": "Original AI-assisted painted courtyard ground, encoded from .art-source/rift-courtyard.png; earlier character sheets and animation assets retained. Ground texture is a runtime material, not a game-screen mockup."
 }
