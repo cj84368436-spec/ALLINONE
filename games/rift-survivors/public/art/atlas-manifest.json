@@ -1,0 +1,28 @@
+{
+  "version": "3.0.0",
+  "method": "Original generated art; whole-image WebP encoding only, no spatial edits. Runtime uses exact grid source rectangles.",
+  "files": [
+    {
+      "name": "skill-atlas",
+      "cols": 6,
+      "rows": 5,
+      "width": 1374,
+      "height": 1145,
+      "originalBytes": 3257142,
+      "bytes": 699350,
+      "sha256": "a34982b7aeab3611307555a9823747e2ca26efd284da5e08bcafa19139f594de",
+      "transparentFraction": 0
+    },
+    {
+      "name": "combat-atlas",
+      "cols": 6,
+      "rows": 6,
+      "width": 1254,
+      "height": 1254,
+      "originalBytes": 2650861,
+      "bytes": 1041316,
+      "sha256": "7d2e893ff6d138cc63e07d0dbc8ecc611194957a109ab74b0c2a8ae20fefd538",
+      "transparentFraction": 0.4588894485016369
+    }
+  ]
+}
