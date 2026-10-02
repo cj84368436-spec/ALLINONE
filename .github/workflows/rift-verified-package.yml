@@ -1,4 +1,4 @@
-name: Package verified Rift 2.1 release
+name: Package verified Rift 3.0 release
 on:
   push:
     paths:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      TOSS_APP_NAME: rift-keepers
+      TOSS_APP_NAME: ${{ vars.TOSS_APP_NAME || 'rift-keepers' }}
     defaults:
       run:
         working-directory: games/rift-survivors
@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - name: Confirm the tested runtime is unchanged
         working-directory: .
-        run: git diff --exit-code 45a228eb255c6033e59e621267b05d020b20346b HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/granite.config.ts
+        run: git diff --exit-code 5d3fc6708a594f85310a288f8aec3b1a92925081 HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/granite.config.ts
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
