@@ -1,0 +1,19 @@
+{
+  "source": {
+    "url": "https://opengameart.org/sites/default/files/swishes.zip",
+    "author": "artisticdude",
+    "license": "CC0-1.0",
+    "page": "https://opengameart.org/content/swishes-sound-pack",
+    "sha256": "7980215241b739a787dcf26f660ce510bb237900968789395a86911619795693"
+  },
+  "item": {
+    "name": "arrow-flight.mp3",
+    "bytes": 10825,
+    "duration": 0.496327,
+    "sha256": "c58bbdbe461ae9bd7b27bac4396f82efc21842f720e070a63b1eccb296c56288"
+  },
+  "metrics": {
+    "peak": 0.6474609375,
+    "rms": 0.054252461497058924
+  }
+}

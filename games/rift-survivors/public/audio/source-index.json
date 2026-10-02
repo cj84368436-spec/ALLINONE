@@ -921,5 +921,20 @@
       }
     ],
     "edits": "Steel friction and knife Foley high-pass mix; field-recorded close thunder with bass, dynamic compression and 3.4 second tail."
+  },
+  "arrowFlight": {
+    "version": "3.1.0",
+    "source": {
+      "url": "https://opengameart.org/sites/default/files/swishes.zip",
+      "author": "artisticdude",
+      "license": "CC0-1.0",
+      "page": "https://opengameart.org/content/swishes-sound-pack",
+      "sha256": "7980215241b739a787dcf26f660ce510bb237900968789395a86911619795693"
+    },
+    "inputs": [
+      "swish-2.wav",
+      "swish-12.wav"
+    ],
+    "edits": "Air-only recorded Foley: high pass 750/1900 Hz, pitch layers, 45 ms offset, normalization, 18 ms attack and 160 ms tail."
   }
 }

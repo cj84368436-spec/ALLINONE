@@ -16,3 +16,6 @@ Thunder, Very Close, Rain, 01.wav — InspectorJ (www.jshaw.co.uk), CC BY 3.0.
 https://opengameart.org/content/thunder-very-close-rain-01
 License: https://creativecommons.org/licenses/by/3.0/
 Edits: trim, high-pass, equalization, layered Kenney knife and artisticdude swish Foley, compression, fades and MP3 encoding. Original CC0 sources credited above.
+
+Rift Keepers 3.1 arrow flight: swish-2.wav / swish-12.wav by artisticdude, CC0 1.0. https://opengameart.org/content/swishes-sound-pack
+Edits: layered recorded air swishes, high-pass EQ, pitch, delay, normalization and fades. Flight has a separate sample from bow release and target contact.

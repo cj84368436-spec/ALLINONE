@@ -1,5 +1,5 @@
 {
-  "version": "2.1.0",
+  "version": "3.1.0",
   "files": [
     {
       "name": "swish-a.mp3",
@@ -114,6 +114,12 @@
       "bytes": 6860,
       "duration": 0.391837,
       "sha256": "a03aedd629103fb6fb7eda09efb081d3ce42b179ce7033a8953ba3386df720c0"
+    },
+    {
+      "name": "arrow-flight.mp3",
+      "bytes": 10825,
+      "duration": 0.496327,
+      "sha256": "c58bbdbe461ae9bd7b27bac4396f82efc21842f720e070a63b1eccb296c56288"
     }
   ],
   "sources": [
@@ -136,7 +142,7 @@
       "page": "https://opengameart.org/content/fantasy-sound-effects-library"
     }
   ],
-  "totalBytes": 756569,
+  "totalBytes": 820158,
   "bladeMix": "Recorded knife edge, low pitched cloth impact and quiet metal resonance; no chopped-wood layer. Contact playback is driven by combat contact events.",
-  "rangedMix": "Separate release and contact mixes: recorded swish/creak for bow, cloth/knife edge for arrow contact, Fantasy Spell_00/Spell_01 for frost release and shatter. No synthesized tones or noise."
+  "rangedMix": "Separate quiet bow release, recorded aerodynamic flight whoosh and quieter target contact. Flight uses uncut CC0 swish-2/swish-12 Foley with airy EQ, pitch layers and 160 ms tail; no oscillator or synthesized noise."
 }
