@@ -16,7 +16,7 @@ on:
         required: false
         default: false
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: rift-survivors-${{ github.ref }}
   cancel-in-progress: true
@@ -47,6 +47,20 @@ jobs:
       - run: npm run build
       - run: npm run check:release
       - run: npm run screenshots
+      - name: Capture actual mobile art review
+        run: |
+          npm install --prefix /tmp/rift-review sharp --no-audit --no-fund
+          node scripts/design-review.mjs
+      - name: Store reviewable screenshots
+        working-directory: .
+        run: |
+          git config user.name "Rift visual verification"
+          git config user.email "actions@users.noreply.github.com"
+          git add .evidence/rift-2.0
+          git diff --cached --quiet && exit 0
+          git commit -m "Store verified Rift 2.0 visual review [skip ci]"
+          git pull --rebase
+          git push
       - name: Optional Toss console TEST upload
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.upload_to_toss }}
         env:

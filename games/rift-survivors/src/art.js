@@ -1,4 +1,4 @@
-const names=["knight-idle","knight-walk-a","knight-walk-b","knight-attack","ranger","mage","shade","bat","brute","seer","boss","ruin","forest","gold-slash","grove","icon-blade","icon-arrow","icon-bolt","icon-orbit","icon-lightning","icon-frost",...Array.from({length:8},(_,i)=>"knight-strike-"+i),...["ranger","mage"].flatMap(h=>[...Array.from({length:8},(_,i)=>h+"-attack-"+i),...Array.from({length:4},(_,i)=>h+"-walk-"+i)])];
+const names=["courtyard","knight-idle","knight-walk-a","knight-walk-b","knight-attack","ranger","mage","shade","bat","brute","seer","boss","ruin","forest","gold-slash","grove","icon-blade","icon-arrow","icon-bolt","icon-orbit","icon-lightning","icon-frost",...Array.from({length:8},(_,i)=>"knight-strike-"+i),...["ranger","mage"].flatMap(h=>[...Array.from({length:8},(_,i)=>h+"-attack-"+i),...Array.from({length:4},(_,i)=>h+"-walk-"+i)])];
 function url(name){return new URL("art/"+name+".webp",document.baseURI).href;}
 function texture(image){
 const pad=4,w=image.naturalWidth+pad*2,h=image.naturalHeight+pad*2;
@@ -7,13 +7,13 @@ const edge=document.createElement("canvas");edge.width=w;edge.height=h;const e=e
 return {image:edge,flash:mask,width:w,height:h};
 }
 export const Art={
-version:"1.5.2",ready:false,promise:null,images:new Map(),sprites:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
+version:"2.0.0",ready:false,promise:null,images:new Map(),sprites:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
 load(){
 if(this.ready)return Promise.resolve();if(this.promise)return this.promise;
 this.promise=Promise.all(names.map(name=>{if(this.images.has(name))return Promise.resolve();return new Promise((resolve,reject)=>{
 const img=new Image(),timer=setTimeout(()=>fail(),20000);
 function fail(){clearTimeout(timer);img.onload=img.onerror=null;reject(new Error("Artwork unavailable: "+name));}
-img.onload=()=>{clearTimeout(timer);this.images.set(name,img);if(name!=="forest")this.sprites.set(name,texture(img));resolve();};img.onerror=fail;img.src=this.urls[name];
+img.onload=()=>{clearTimeout(timer);this.images.set(name,img);if(name!=="forest"&&name!=="courtyard")this.sprites.set(name,texture(img));resolve();};img.onerror=fail;img.src=this.urls[name];
 });})).then(async()=>{if("FontFace"in window){try{const font=new FontFace("RiftTitle",'url("'+new URL("art/title.woff2",document.baseURI).href+'")',{weight:"700"});await font.load();document.fonts.add(font);}catch{}}this.ready=true;}).catch(error=>{this.promise=null;throw error;});return this.promise;
 },
 sprite(name){return this.sprites.get(name);}

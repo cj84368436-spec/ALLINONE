@@ -35,7 +35,9 @@ else if(type==="impact"){if(["blade","arrow","bolt","ultimate","orbit"].includes
 else if(["level","choose","evolve","chest","magnet"].includes(type))this.play("reward",{gain:type==="evolve"?.23:.16,group:"reward"});
 else if(type==="select"||type==="reroll")this.play("select",{gain:.18,group:"ui"});
 else if(type==="hurt")this.play("hurt",{gain:.35,rate:.9,group:"impact"});
-else if(type==="ultimate")this.play("ultimate",{gain:.43,group:"magic"});
+else if(type==="ultimate"){this.duck();this.play(key==="arrow"?"arrow-release":key==="bolt"?"frost":"ultimate",{gain:key==="arrow"?.55:.43,rate:key==="arrow"?.82:1,group:"magic"});if(key==="blade")this.play("blade-hit-a",{gain:.35,rate:.72,delay:.045,group:"impact"});}
+else if(type==="rift-open")this.play("magic",{gain:.14,rate:.75,group:"magic"});
+else if(type==="rift-sealed")this.play("reward",{gain:.25,group:"reward"});
 else if(type==="dash")this.play("swish-b",{gain:.28,rate:1.32,group:"swing"});
 else if(type==="boss")this.play("boss",{gain:.30,group:"magic"});
 }

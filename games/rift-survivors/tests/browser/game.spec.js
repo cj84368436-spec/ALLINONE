@@ -209,3 +209,16 @@ test("all heroes change walking leg pixels even during attacks",async({page},tes
  });
  for(const r of results){expect(r.changed,r.hero+" walking legs; attack="+r.attacking).toBeGreaterThan(100);for(let i=0;i<2;i++)await testInfo.attach(r.hero+"-walk-"+r.attacking+"-"+i,{body:Buffer.from(r.pngs[i].split(",")[1],"base64"),contentType:"image/png"});}
 });
+
+test("rift objective is readable, pauses with the run and rewards a completed seal",async({page})=>{
+await page.locator("#start").click();await page.evaluate(()=>{const g=window.__riftTest.game;g.spawnCd=999;g.nextElite=999;g.enemies=[];g.weapons={};g.time=34.99;g.step(1/60);});await expect(page.locator("#encounter")).toBeVisible();await expect(page.locator("#rift-status")).toContainText("3초");await page.locator("#pause").click();const life=await page.evaluate(()=>window.__riftTest.game.rift.life);await page.waitForTimeout(150);expect(await page.evaluate(()=>window.__riftTest.game.rift.life)).toBe(life);await page.locator("#resume").click();
+await page.evaluate(()=>{const g=window.__riftTest.game;g.player.x=g.rift.x;g.player.y=g.rift.y;for(let i=0;i<185&&g.phase==="playing";i++)g.step(1/60);});await expect(page.locator(".upgrade")).toHaveCount(3);expect(await page.evaluate(()=>window.__riftTest.game.seals)).toBe(1);
+});
+test("growth cards show actual stat values and evolution progress on short screens",async({page})=>{
+await page.setViewportSize({width:360,height:640});await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.giveXP(8));await expect(page.locator(".upgrade")).toHaveCount(3);await expect(page.locator(".upgrade").first().locator("small")).toContainText("피해");await expect(page.locator(".upgrade").first().locator("em")).toContainText("/5");await expect(page.locator(".level-dots")).toHaveCount(3);await page.locator(".upgrade").last().click();await expect(page.locator("#overlay")).toBeHidden();
+});
+for(const [hero,name,kind]of [["knight","태양의 심판","sun-cleave"],["ranger","유성 일제사격","meteor-fan"],["mage","영원의 서리","frost-crown"]]){
+test(hero+" has a named ultimate and its own rendered combat effect",async({page})=>{
+await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start").click();await expect(page.locator("#ultimate small")).toHaveText(name);await page.evaluate(()=>{const g=window.__riftTest.game;g.spawnCd=999;g.nextElite=999;g.enemies=[];});await page.locator("#ultimate").click();expect(await page.evaluate(kind=>window.__riftTest.game.fx.some(f=>f.kind===kind),kind)).toBe(true);await expect(page.locator("#ultimate")).toBeDisabled();
+});
+}
