@@ -1,0 +1,48 @@
+name: Package verified Rift 2.1 release
+on:
+  push:
+    paths:
+      - '.github/workflows/rift-verified-package.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TOSS_APP_NAME: rift-keepers
+    defaults:
+      run:
+        working-directory: games/rift-survivors
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Confirm the tested runtime is unchanged
+        working-directory: .
+        run: git diff --exit-code 45a228eb255c6033e59e621267b05d020b20346b HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/granite.config.ts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm run build
+      - run: npm run check:release
+      - name: Use the Ubuntu archive for browser dependencies
+        run: |
+          printf '%s\n' 'https://archive.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
+          printf '%s\n' 'https://security.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-security-mirrors.txt > /dev/null
+      - run: npx playwright install --with-deps chromium
+      - run: npm run screenshots
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rift-keepers-toss-release
+          path: |
+            games/rift-survivors/*.ait
+            games/rift-survivors/dist/
+            games/rift-survivors/docs/
+            games/rift-survivors/public/
+            games/rift-survivors/package-lock.json
+            games/rift-survivors/release/
+            games/rift-survivors/README.md
+          if-no-files-found: error
