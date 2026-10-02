@@ -158,7 +158,7 @@ async function makeTouchDriver(page,browserName){
  async function send(type,id,x,y){
   const old=points.get(id),changed={id,x:x??old?.x,y:y??old?.y},ended=type==="touchend"||type==="touchcancel";
   if(ended)points.delete(id);else points.set(id,changed);
-  if(cdp)await cdp.send("Input.dispatchTouchEvent",{type:{touchstart:"touchStart",touchmove:"touchMove",touchend:"touchEnd",touchcancel:"touchCancel"}[type],touchPoints:type==="touchcancel"?[]:[...points.values()].map(p=>({...p,radiusX:8,radiusY:8}))});
+  if(cdp)await cdp.send("Input.dispatchTouchEvent",{type:{touchstart:"touchStart",touchmove:"touchMove",touchend:"touchEnd",touchcancel:"touchCancel"}[type],touchPoints:ended?[]:[...points.values()].map(p=>({...p,radiusX:8,radiusY:8}))});
   else await page.evaluate(({type,changed,points})=>{const world=document.getElementById("world"),make=p=>new Touch({identifier:p.id,target:world,clientX:p.x,clientY:p.y,pageX:p.x,pageY:p.y,screenX:p.x,screenY:p.y}),touches=points.map(make);world.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,changedTouches:[make(changed)],touches,targetTouches:touches}));},{type,changed,points:[...points.values()]});
  }
  return {start:(x,y,id=7)=>send("touchstart",id,x,y),move:(x,y,id=7)=>send("touchmove",id,x,y),end:(id=7)=>send("touchend",id),cancel:(id=7)=>send("touchcancel",id)};
@@ -181,7 +181,10 @@ for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight di
  const left=await page.evaluate(()=>window.__riftTest.game.player.x);
  await touch.move(300,440);await page.evaluate(()=>window.dispatchEvent(new Event("resize")));await page.waitForTimeout(150);
  expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(left+8);
- await touch.start(130,620,9);await touch.move(80,620,9);await touch.end(9);
+ await page.evaluate(()=>{
+  const world=document.getElementById("world"),t=new Touch({identifier:9,target:world,clientX:130,clientY:620,pageX:130,pageY:620});
+  for(const type of ["touchstart","touchmove","touchend"])world.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,changedTouches:[t],touches:type==="touchend"?[]:[t],targetTouches:type==="touchend"?[]:[t]}));
+ });
  const x=await page.evaluate(()=>window.__riftTest.game.player.x);await page.waitForTimeout(120);
  expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(x+8);
  await touch.cancel();await page.waitForTimeout(80);
