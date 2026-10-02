@@ -35,3 +35,23 @@
 .skill-codex p{font-size:12px;line-height:1.45;margin:4px 0;color:#b9cedb}
 .skill-codex small{font-size:10px;color:#d9bc89}
 @media(max-height:700px){.upgrade{min-height:88px;padding:9px}.upgrade small{font-size:11px}.upgrade em{font-size:9px}.skill-behavior{font-size:10px}.upgrade .glyph{width:36px;height:36px}.build-summary{margin-top:10px}}
+
+/* Production skill illustrations: one cached atlas, full-size tiles. */
+.rune-icon.painted-skill{display:block;position:relative;overflow:hidden;isolation:isolate;border-radius:5px;background:#071424;flex-shrink:0}
+.painted-skill img{position:absolute!important;display:block;width:600%!important;height:500%!important;max-width:none!important;object-fit:fill;pointer-events:none;user-select:none}
+.upgrade-list{gap:9px}
+.upgrade{min-height:112px;padding:12px 10px;gap:12px;border-color:#8e78564f;background:linear-gradient(125deg,#2b3c504f,#101f32)}
+.upgrade .glyph{width:66px;height:66px;border:0;border-radius:8px;box-shadow:0 3px 14px #0006;overflow:hidden}
+.upgrade .glyph .rune-icon.painted-skill{width:66px;height:66px}
+.upgrade strong{font-size:15px}
+.upgrade small{font-size:11px;line-height:1.45;color:#e5ceb0}
+.skill-behavior{font-size:11px;line-height:1.45;color:#a9bfce}
+.choice-tag{color:#e7c18a;letter-spacing:.04em}
+.skill-codex .glyph{width:52px;height:52px;border:0;padding:0}
+.skill-codex .rune-icon.painted-skill{width:52px;height:52px}
+#skills .painted-skill{width:31px;height:31px}
+.ability span .painted-skill{width:37px;height:37px}
+.ability.ready{border-color:#cfb072;box-shadow:0 0 17px #c7994930,inset 0 1px #eddcb042}
+.ability.ultimate.ready{box-shadow:0 0 22px #9a6a433b,inset 0 1px #eddcb055}
+@media(max-height:700px){.upgrade{min-height:104px;padding:10px}.upgrade .glyph,.upgrade .glyph .rune-icon.painted-skill{width:58px;height:58px}.skill-behavior{font-size:10px}.upgrade strong{font-size:14px}.upgrade-list{gap:8px}}
+@media(prefers-reduced-motion:reduce){.upgrade,.ability{transition:none}}

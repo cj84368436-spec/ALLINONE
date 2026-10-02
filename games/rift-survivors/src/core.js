@@ -1,26 +1,26 @@
 import {EnemyGrid} from "./spatial.js";
 export const HEROES=[
-{id:"knight",name:"룬 기사",tag:"회오리·출혈·검기로 근접 난전을 지배해요",weapon:"blade",role:"근접 · 제압",ultimateName:"태양의 심판",ultimateDesc:"주변 적을 강하게 베고 1.2초 기절시켜요",color:"#ffd18b",hp:120,speed:155},
+{id:"knight",name:"룬 기사",tag:"회오리·출혈·검기로 근접 난전을 지배해요",weapon:"blade",role:"근접 · 받는 피해 20% 감소",ultimateName:"태양의 심판",ultimateDesc:"주변 적을 강하게 베고 1.2초 기절시켜요",color:"#ffd18b",hp:120,speed:155},
 {id:"ranger",name:"별빛 궁수",tag:"다중 화살·독·덫으로 적의 접근을 막아요",weapon:"arrow",role:"원거리 · 관통",ultimateName:"유성 일제사격",ultimateDesc:"적을 향해 관통 화살 9발을 펼쳐 쏴요",color:"#86e7b5",hp:95,speed:180},
 {id:"mage",name:"서리 마법사",tag:"화염·번개·얼음으로 넓은 지역을 제어해요",weapon:"bolt",role:"마법 · 지역 제어",ultimateName:"영원의 서리",ultimateDesc:"4초 동안 서리 지대로 적을 붙잡아요",color:"#9ec4ff",hp:100,speed:160}];
 export const CLASS_SKILLS={knight:["blade","whirlwind","cleave","slam","rend","orbit"],ranger:["arrow","multishot","piercing","poison","trap","volley"],mage:["bolt","fireball","lightning","frost","meteor","nova"]};
 const weaponRows=[
-["blade","룬의 검","#ffd18b","전방의 적을 넓게 베어요",19,.85],
-["whirlwind","칼날 회오리","#ffdaa1","이동하며 주변을 연속으로 베어요",8,3],
+["blade","룬의 검","#ffd18b","전방의 적을 넓게 베어요",23,.85],
+["whirlwind","칼날 회오리","#ffdaa1","이동하며 주변을 연속으로 베어요",9,3],
 ["cleave","황금 검기","#ffe5b2","넓은 검기가 전방의 적을 꿰뚫어요",27,2.1],
 ["slam","대지 강타","#f5ac74","발밑에 충격파를 일으켜 적을 기절시켜요",35,3.6],
 ["rend","핏빛 가르기","#f49b9b","전방을 베고 3초 동안 출혈을 일으켜요",20,2.6],
 ["orbit","칼날 방벽","#f0cf92","회전하는 검들이 접근하는 적을 베어요",10,.32],
-["arrow","별빛 화살","#86e7b5","가까운 적에게 빠르게 화살을 쏴요",12,.58],
-["multishot","다중 사격","#b4f0cf","넓은 부채꼴로 여러 발의 화살을 쏴요",12,1.4],
+["arrow","별빛 화살","#86e7b5","가까운 적에게 빠르게 화살을 쏴요",12,.70],
+["multishot","다중 사격","#b4f0cf","넓은 부채꼴로 여러 발의 화살을 쏴요",9,1.75],
 ["piercing","관통 사격","#dbf6ba","빠르고 강한 화살로 일렬의 적을 꿰뚫어요",32,1.8],
 ["poison","맹독 화살","#b6e978","화살에 맞은 적에게 4초 동안 독 피해를 줘요",9,1.3],
 ["trap","가시 덫","#b9c793","발밑에 덫을 설치해 접근하는 적을 묶어요",35,3.3],
 ["volley","화살 폭우","#9ff3c5","표시된 지역에 2초 동안 화살이 쏟아져요",13,4],
-["bolt","마력 창","#9ec4ff","적을 관통하는 마력탄을 쏴요",16,.88],
-["fireball","폭발 화염구","#ffb483","적에게 닿으면 폭발해 주변에도 피해를 줘요",30,1.8],
+["bolt","마력 창","#9ec4ff","적을 관통하는 마력탄을 쏴요",20,.88],
+["fireball","폭발 화염구","#ffb483","적에게 닿으면 폭발해 주변에도 피해를 줘요",36,1.8],
 ["lightning","번개 사슬","#e0ebff","가까운 적들 사이로 번개가 이어져요",22,2.2],
-["frost","눈보라","#8be4f5","적이 있는 지역에 3초 동안 눈보라를 만들어요",9,4.1],
+["frost","눈보라","#8be4f5","적이 있는 지역에 3초 동안 눈보라를 만들어요",11,4.1],
 ["meteor","운석 낙하","#ffc18d","표시된 지역에 운석을 떨어뜨려 큰 피해를 줘요",72,5],
 ["nova","서리 폭발","#c1efff","사방으로 얼음 파편을 발사해 적을 얼려요",17,3.2]];
 const passiveRows=[
@@ -57,8 +57,8 @@ const evolutionRows=[
 export const EVOLUTIONS=Object.fromEntries(evolutionRows.map(([key,passive,name,desc])=>[key,{passive,name,desc}]));
 export function skillStats(g,key,lv=g.weapons[key]||1,evolved=!!g.evolved[key]){
 const area=1+(g.passives.focus||0)*.08,base=(1+.32*(lv-1))*(evolved?1.4:1),damage=SKILL_BASE[key].damage*base*g.damageScale();
-const radius={blade:112+lv*13+(evolved?55:0),whirlwind:90+lv*7+(evolved?30:0),slam:135+lv*10+(evolved?40:0),rend:120+lv*8+(evolved?40:0),trap:80+lv*8+(evolved?40:0),volley:95+lv*10+(evolved?40:0),fireball:65+lv*6+(evolved?30:0),frost:105+lv*10+(evolved?55:0),meteor:105+lv*8+(evolved?45:0)};
-return {damage,base,r:(radius[key]||0)*area,area,cooldown:SKILL_BASE[key].cooldown*(1-(g.passives.haste||0)*.09)*(lv===5?.8:1),
+const radius={blade:90+lv*9+(evolved?28:0),whirlwind:90+lv*7+(evolved?30:0),slam:135+lv*10+(evolved?40:0),rend:120+lv*8+(evolved?40:0),trap:80+lv*8+(evolved?40:0),volley:95+lv*10+(evolved?40:0),fireball:65+lv*6+(evolved?30:0),frost:105+lv*10+(evolved?55:0),meteor:105+lv*8+(evolved?45:0)};
+return {damage,base,r:(radius[key]||0)*area,area,cooldown:SKILL_BASE[key].cooldown*(1-(g.passives.haste||0)*.07)*(lv===5?.8:1),
 count:key==="multishot"?(evolved?9:3+Math.floor(lv/2)*2):key==="lightning"?(evolved?8:3+Math.floor(lv/2)):key==="nova"?(evolved?16:8+lv):1,
 duration:(key==="whirlwind"?(evolved?1.7:1.05):key==="frost"?(evolved?4.5:3):key==="volley"?(evolved?3:2):0)*area};
 }
@@ -81,7 +81,7 @@ volley:"회당 "+d+" · 범위 "+n(s.r)+" · "+s.duration.toFixed(1)+"초",
 fireball:"폭발 "+d+" · 범위 "+n(s.r),lightning:"연쇄 "+s.count+"명 · 피해 "+d,
 frost:"회당 "+d+" · 범위 "+n(s.r)+" · "+s.duration.toFixed(1)+"초",
 meteor:"피해 "+d+" · 범위 "+n(s.r),nova:"파편 "+s.count+"개 · 피해 "+d}[key];
-}else stat={power:"전체 피해 +"+(next*15)+"%",haste:"공격 간격 −"+(next*9)+"%",boots:"이동 속도 +"+(next*8)+"%",
+}else stat={power:"전체 피해 +"+(next*15)+"%",haste:"공격 간격 −"+(next*7)+"%",boots:"이동 속도 +"+(next*8)+"%",
 heart:"최대 체력 +15 · 즉시 회복 30",magnet:"수집 범위 "+(85+next*25+g.meta.fortune*8),
 crit:"치명타 확률 "+(next*8)+"% · 피해 175%",leech:"처치 시 체력 +"+(.8+next*.4).toFixed(1)+" · 1초 간격",
 focus:"영역 범위·지속 +"+(next*8)+"%",heal:"체력 35 회복"}[key];
@@ -107,13 +107,13 @@ constructor(id="knight",meta={},seed=Date.now()){
 this.seed=seed>>>0;this.hero=HEROES.find(h=>h.id===id)||HEROES[0];this.meta=cleanSave({meta}).meta;const hp=this.hero.hp+this.meta.heart*10;
 this.player={x:900,y:900,r:13,hp,maxHp:hp,speed:this.hero.speed,inv:0,dash:0,dashCd:0,ultCd:0,dirX:1,dirY:0,facing:1,moving:false,walkDistance:0};
 this.ultimateState=null;this.bossReinforcement=0;this.rift=null;this.nextRift=35;this.seals=0;this.chapter=0;this.spellFields=[];this.skillFields=[];this.skillTasks=[];this.skillPose=null;this.practice=false;this.bladeSwing=null;this.rangedAttacks={};this.swingId=0;this.rangedId=0;this.lastRangedContact={};this.hitPause=0;this.hitStopEnabled=true;this.phase="playing";this.time=0;this.level=1;this.xp=0;this.need=8;this.pending=0;this.kills=0;this.score=0;this.weapons={[this.hero.weapon]:1};this.passives={};this.cool={};this.enemies=[];this.bullets=[];this.shots=[];this.gems=[];this.hazards=[];this.fx=[];this.events=[];this.spawnCd=.3;this.bossSpawned=false;this.nextElite=40;this.counter=0;this.choices=[];this.result=null;this.spawnDistance=500;this.evolved={};this.rerolls=3;this.pickups=[];this.nextMagnet=90;this.grid=new EnemyGrid();this.candidates=[];this.metrics={collisionChecks:0};}
-effect(f){if(this.fx.length>=LIMITS.fx){if(f.kind==="text"||f.kind==="burst")return;this.fx.shift();}this.fx.push(f);}
+effect(f){const decorative=["text","burst","corpse","impact","cut-hit","arrow-hit","bolt-hit"];if(this.fx.length>=LIMITS.fx){if(decorative.includes(f.kind))return;const index=this.fx.findIndex(x=>decorative.includes(x.kind));if(index>=0)this.fx.splice(index,1);else{const safe=this.fx.findIndex(x=>!["sun-cleave","meteor-fan","frost-crown"].includes(x.kind));if(safe<0)return;this.fx.splice(safe,1);}}this.fx.push(f);}
 checkEvolution(){for(const [key,u]of Object.entries(EVOLUTIONS))if(this.weapons[key]>=5&&(this.passives[u.passive]||0)>=2&&!this.evolved[key]){this.evolved[key]=true;this.cool[key]=0;this.emit("evolve",{key,name:u.name});}}
 reroll(){if(this.phase!=="upgrade"||this.rerolls<=0)return false;const before=this.choices;this.rerolls--;this.choices=this.offer();for(let i=0;i<4&&this.choices.join()===before.join();i++)this.choices=this.offer();this.emit("reroll");return true;}
 rand(){this.seed=(1664525*this.seed+1013904223)>>>0;return this.seed/4294967296;}
 emit(type,data={}){this.events.push({type,...data});}
 damageScale(){return 1+(this.passives.power||0)*.15+this.meta.power*.06;}
-xpNeeded(lv){return 8+(lv-1)*4;}
+xpNeeded(lv){return 8+(lv-1)*4+Math.max(0,lv-7)*3;}
 addXP(n){if(this.practice||this.phase==="result")return;this.xp+=n;while(this.xp>=this.need){this.xp-=this.need;this.level++;this.pending++;this.need=this.xpNeeded(this.level);}if(this.pending&&this.phase==="playing"){this.phase="upgrade";this.choices=this.offer();this.emit("level",{level:this.level});}}
 offer(){const slots=Object.keys(this.weapons).length,allowed=CLASS_SKILLS[this.hero.id];
 const pool=Object.keys(UPGRADES).filter(k=>{const u=UPGRADES[k],lv=this.weapons[k]||this.passives[k]||0;return lv<5&&(u.kind!=="weapon"||allowed.includes(k)&&(lv>0||slots<4));});
@@ -133,7 +133,7 @@ p.ultCd=38;p.inv=Math.max(p.inv,1.1);this.shots=[];this.ultimateState={key,age:0
 this.effect({kind:key==="blade"?"sun-cleave":key==="arrow"?"meteor-fan":"frost-crown",x:p.x,y:p.y-12,r:key==="blade"?260:key==="arrow"?420:205,angle,ttl:1.2,max:1.2,color:key==="blade"?"#ffdb90":key==="arrow"?"#aaffc7":"#ccefff"});
 this.emit("ultimate",{key,hero:this.hero.id,name:this.hero.ultimateName});return true;}
 advanceUltimate(dt){const s=this.ultimateState;if(!s)return;s.age+=dt;const p=this.player;
-if(s.key==="arrow"){const due=s.age>=.18?Math.min(3,1+Math.floor((s.age-.18)/.20)):0;while(s.waves<due){const wave=s.waves++;this.damageKey="ultimate";for(let i=0;i<7&&this.bullets.length<LIMITS.bullets;i++){const a=s.angle+(i-3)*.12+(wave-1)*.035;this.bullets.push({x:p.x+Math.cos(a)*22,y:p.y+Math.sin(a)*22,vx:Math.cos(a)*690,vy:Math.sin(a)*690,r:6,key:"arrow",ttl:1.3,damage:(22+this.level*2)*this.damageScale(),pierce:4,evolved:true,ultimate:true,hit:[]});}this.emit("ultimate-impact",{key:s.key,wave});}}
+if(s.key==="arrow"){const due=s.age>=.18?Math.min(3,1+Math.floor((s.age-.18)/.20)):0;while(s.waves<due){const wave=s.waves++;this.skillPose={elapsed:.13,tempo:1,angle:s.angle,duration:.34};this.damageKey="ultimate";for(let i=0;i<7&&this.bullets.length<LIMITS.bullets;i++){const a=s.angle+(i-3)*.12+(wave-1)*.035;this.bullets.push({x:p.x+Math.cos(a)*22,y:p.y+Math.sin(a)*22,vx:Math.cos(a)*690,vy:Math.sin(a)*690,r:6,key:"arrow",ttl:1.3,damage:(22+this.level*2)*this.damageScale(),pierce:4,evolved:true,ultimate:true,hit:[]});}this.emit("ultimate-impact",{key:s.key,wave});}}
 else if(!s.released&&s.age>=.30){s.released=true;this.damageKey="ultimate";const field={key:"ultimate",x:s.x,y:s.y,r:s.key==="blade"?260:205};
 for(const e of this.enemies)if(e.hp>0&&d2(e,field)<(field.r+e.r)**2){if(s.key==="blade")e.stagger=Math.max(e.stagger||0,1.2);else{e.slow=Math.max(e.slow,3);e.root=Math.max(e.root||0,1);}this.hit(e,(s.key==="blade"?80+this.level*4:40+this.level*3)*this.damageScale(),field);}
 if(s.key==="bolt")this.spellFields=[{x:s.x,y:s.y,r:205,ttl:4,tick:.5}];
@@ -148,25 +148,25 @@ if(r.progress>=3){const x=r.x,y=r.y;this.rift=null;this.seals++;p.hp=Math.min(p.
 else if(r.life<=0){this.rift=null;this.emit("rift-expired");}}}
 for(const field of this.spellFields){field.ttl-=dt;field.tick-=dt;if(field.tick<=0){field.tick+=.5;this.damageKey="ultimate";for(const e of this.enemies)if(e.hp>0&&d2(e,field)<(field.r+e.r)**2){e.slow=Math.max(e.slow,1);this.hit(e,(12+this.level*2)*this.damageScale(),field);}this.effect({kind:"frost-storm",x:field.x,y:field.y,r:field.r,ultimate:true,color:"#bdefff",ttl:.55,max:.55});}}
 this.spellFields=this.spellFields.filter(f=>f.ttl>0);}
-hurt(n){if(this.practice)return false;const p=this.player;if(p.inv>0||this.phase!=="playing")return false;p.hp=Math.max(0,p.hp-n);p.inv=.7;this.emit("hurt",{n});if(p.hp<=0)this.finish(false);return true;}
+hurt(n){if(this.practice)return false;if(this.hero.id==="knight")n*=.8;const p=this.player;if(p.inv>0||this.phase!=="playing")return false;p.hp=Math.max(0,p.hp-n);p.inv=.7;this.emit("hurt",{n});if(p.hp<=0)this.finish(false);return true;}
 hit(e,n,origin){if(e.hp<=0)return;const critical=!["bleed","poison-dot"].includes(this.damageKey)&&(this.passives.crit||0)>0&&this.rand()<(this.passives.crit||0)*.08;if(critical)n*=1.75;e.hp-=n;e.flash=.12;const blade=this.resolvingBlade===true,projectile=this.contactProjectile;e.hitKind=blade?"blade":this.damageKey;if(blade&&!e.boss)e.stagger=Math.max(e.stagger||0,.085);if(origin&&!e.boss){const oldX=e.x,oldY=e.y,[x,y]=norm(e.x-origin.x,e.y-origin.y);e.x+=x*(blade?17:8);e.y+=y*(blade?17:8);if(this.projectilePass)this.grid.move(e,oldX,oldY);}this.effect({kind:"text",x:e.x,y:e.y-29,n:Math.round(n),critical,color:"#fff1c8",ttl:.5,max:.5});if((this.impactCount||0)<6){this.impactCount=(this.impactCount||0)+1;this.effect({kind:blade?"cut-hit":projectile?(["arrow","multishot","piercing","poison"].includes(projectile.key)?"arrow-hit":projectile.key==="cleave"?"cut-hit":"bolt-hit"):["frost","nova"].includes(this.damageKey)?"bolt-hit":"impact",x:e.x,y:e.y-18,angle:projectile?Math.atan2(projectile.vy,projectile.vx):Math.atan2(e.y-(origin?.y||0),e.x-(origin?.x||0)),evolved:!!projectile?.evolved,color:UPGRADES[this.damageKey]?.color||"#ffe1a0",ttl:blade?.32:projectile?.32:.23,max:blade?.32:projectile?.32:.23});}if(projectile&&this.time-(this.lastRangedContact[projectile.key]??-1)>.085){this.lastRangedContact[projectile.key]=this.time;this.emit("projectile-contact",{key:projectile.key,strong:n>=45,evolved:!!projectile.evolved,angle:Math.atan2(projectile.vy,projectile.vx)});}if(!blade&&!projectile&&this.time-(this.impactSoundAt??-1)>.085){this.impactSoundAt=this.time;this.emit("impact",{strong:n>=45,key:this.damageKey||this.hero.weapon});}
 if(e.hp<=0){if(this.passives.leech&&this.time-(this.lastLeech??-1)>=1){this.lastLeech=this.time;this.player.hp=Math.min(this.player.maxHp,this.player.hp+.8+this.passives.leech*.4);}this.kills++;this.score+=e.boss?1000:e.elite?60:e.kind==="brute"?15:10;if(!e.boss&&!this.practice){this.gems.push({x:e.x,y:e.y,value:e.elite?8:e.kind==="brute"?3:1,heal:!e.elite&&this.rand()<.02,attract:false});if(e.elite&&this.pickups.length<LIMITS.pickups)this.pickups.push({kind:"chest",x:e.x,y:e.y,value:18});}this.effect({kind:"corpse",x:e.x,y:e.y,sprite:e.kind,boss:!!e.boss,elite:!!e.elite,r:e.r,color:e.color,ttl:.42,max:.42});this.effect({kind:"burst",x:e.x,y:e.y,key:this.damageKey,color:e.color,ttl:.32,max:.32});if(e.boss)this.finish(true);}}
 finish(win){if(this.result)return;this.phase="result";this.result={win,seals:this.seals,kills:this.kills,level:this.level,time:Math.floor(this.time),score:this.score+Math.floor(this.time)*2+(win?3000:0),coins:this.practice?0:Math.floor(this.kills/12)+this.level*2+(win?70:0)};this.emit("result",{result:this.result});}
 spawn(kind,elite=false){const p=this.player,a=this.rand()*Math.PI*2,r=this.spawnDistance+this.rand()*70;let x=clamp(p.x+Math.cos(a)*r,24,1776),y=clamp(p.y+Math.sin(a)*r,24,1776);if(!this.practice&&Math.hypot(x-p.x,y-p.y)<260){x=p.x<900?1750:50;y=p.y<900?1750:50;}
-const defs={shade:[25,85,13,"#c7a6e8"],bat:[17,120,10,"#a8b6e8"],brute:[62,60,20,"#e7ab8c"],seer:[36,70,14,"#98d2b0"]},d=defs[kind]||defs.shade,hp=this.practice?(kind==="brute"?90:50):(d[0]+this.time*.085)*(elite?4:1);
+const defs={shade:[25,100,13,"#c7a6e8"],bat:[17,155,10,"#a8b6e8"],brute:[62,70,20,"#e7ab8c"],seer:[36,85,14,"#98d2b0"]},d=defs[kind]||defs.shade,hp=this.practice?(kind==="brute"?90:50):(d[0]+this.time*.085)*(elite?4:1);
 const e={id:++this.counter,x,y,kind,r:d[2]*(elite?1.4:1),hp,maxHp:hp,speed:d[1]*(elite?1.1:1),color:d[3],elite,slow:0,flash:0,shoot:1.5+this.rand()};this.enemies.push(e);return e;}
-spawnBoss(){if(this.bossSpawned)return;this.bossSpawned=true;this.bossReinforcement=this.time+12;this.rift=null;this.enemies=[];this.shots=[];this.hazards=[];const p=this.player,e={id:++this.counter,x:clamp(p.x,80,1720),y:clamp(p.y-320,80,1720),kind:"boss",r:40,hp:2800,maxHp:2800,speed:52,color:"#c998ed",boss:true,slow:0,flash:0,shoot:2,storm:4};this.enemies.push(e);p.inv=2;this.emit("boss");return e;}
+spawnBoss(){if(this.bossSpawned)return;this.bossSpawned=true;this.bossReinforcement=this.time+12;this.rift=null;this.enemies=[];this.shots=[];this.hazards=[];const p=this.player,e={id:++this.counter,x:clamp(p.x,80,1720),y:clamp(p.y-320,80,1720),kind:"boss",r:40,hp:5600,maxHp:5600,speed:52,color:"#c998ed",boss:true,slow:0,flash:0,shoot:2,storm:4};this.enemies.push(e);p.inv=2;this.emit("boss");return e;}
 nearest(range=650){let nearest=null,best=range**2;for(const e of this.enemies)if(e.hp>0){const ds=d2(e,this.player);if(ds<best){best=ds;nearest=e;}}return nearest;}
 attack(key,lv){this.damageKey=key;const p=this.player,scale=this.damageScale(),target=this.nearest(),evo=!!this.evolved[key],base=(1+.32*(lv-1))*(evo?1.4:1);if(!target&&key!=="frost")return;
-if(key==="blade"){if(this.bladeSwing)return;const r=skillStats(this,key,lv,evo).r;if(this.enemies.some(e=>e.hp>0&&d2(e,p)<(r+e.r+12)**2)){const angle=Math.atan2(target.y-p.y,target.x-p.x);this.bladeSwing={id:++this.swingId,elapsed:0,r,angle,damage:19*base*scale,evolved:evo,started:false,contact:false};this.emit("blade-windup",{key,angle,id:this.swingId});}}
-else if(key==="arrow"||key==="bolt"){if(this.rangedAttacks[key])return;const angle=Math.atan2(target.y-p.y,target.x-p.x),tempo=(1-(this.passives.haste||0)*.09)*(lv===5?.8:1),timing=RANGED_TIMING[key];this.rangedAttacks[key]={id:++this.rangedId,key,lv,elapsed:0,angle,targetId:target.id,tempo,releaseAt:timing.release*tempo,duration:timing.duration*tempo,evolved:evo,damage:(key==="arrow"?12:16)*base*scale,released:false};this.emit("projectile-windup",{key,angle,id:this.rangedId});}
+if(key==="blade"){if(this.bladeSwing)return;const r=skillStats(this,key,lv,evo).r;if(this.enemies.some(e=>e.hp>0&&d2(e,p)<(r+e.r+12)**2)){const angle=Math.atan2(target.y-p.y,target.x-p.x);this.bladeSwing={id:++this.swingId,elapsed:0,r,angle,damage:23*base*scale,evolved:evo,started:false,contact:false};this.emit("blade-windup",{key,angle,id:this.swingId});}}
+else if(key==="arrow"||key==="bolt"){if(this.rangedAttacks[key])return;const angle=Math.atan2(target.y-p.y,target.x-p.x),tempo=(1-(this.passives.haste||0)*.07)*(lv===5?.8:1),timing=RANGED_TIMING[key];this.rangedAttacks[key]={id:++this.rangedId,key,lv,elapsed:0,angle,targetId:target.id,tempo,releaseAt:timing.release*tempo,duration:timing.duration*tempo,evolved:evo,damage:(key==="arrow"?12:20)*base*scale,released:false};this.emit("projectile-windup",{key,angle,id:this.rangedId});}
 else if(key==="orbit"){const r=(64+lv*6+(evo?20:0))*(1+(this.passives.focus||0)*.08),n=evo?6:2+Math.floor(lv/2);for(let i=0;i<n;i++){const a=this.time*2.6+i*Math.PI*2/n,o={x:p.x+Math.cos(a)*r,y:p.y+Math.sin(a)*r};for(const e of this.enemies)if(e.hp>0&&d2(e,o)<(e.r+16)**2)this.hit(e,10*base*scale,p);}}
 else if(SKILL_BASE[key]&&this.skillTasks.length<LIMITS.tasks){const angle=target?Math.atan2(target.y-p.y,target.x-p.x):Math.atan2(p.dirY,p.dirX),stats=skillStats(this,key,lv,evo);
 this.skillPose={elapsed:0,tempo:1,angle,duration:this.hero.id==="mage"?.54:.4};
 this.skillTasks.push({key,lv,evolved:evo,angle,targetId:target?.id,x:target?.x??p.x,y:target?.y??p.y,delay:this.hero.id==="knight"?.14:this.hero.id==="ranger"?.13:.20,stats});
 this.emit("skill-windup",{key,angle});}}
 applyStatus(e,key,damage,duration,origin){if(e.hp<=0)return;e.statuses||={};const old=e.statuses[key];e.statuses[key]={key,damage:Math.max(old?.damage||0,damage),ttl:Math.max(old?.ttl||0,duration),tick:old?.tick??.5,x:origin.x,y:origin.y};}
-addField(f){if(this.skillFields.length>=LIMITS.fields)this.skillFields.shift();this.skillFields.push(f);}
+addField(f){if(f.key!=="trap")this.skillFields=this.skillFields.filter(x=>x.key!==f.key);if(this.skillFields.length>=LIMITS.fields)this.skillFields.shift();this.skillFields.push(f);}
 areaHit(field,damage,{slow=0,stagger=0,root=0}={}){this.damageKey=field.key;for(const e of this.enemies)if(e.hp>0&&d2(e,field)<(field.r+e.r)**2){e.slow=Math.max(e.slow||0,slow);e.stagger=Math.max(e.stagger||0,stagger);e.root=Math.max(e.root||0,root);this.hit(e,damage,field);if(this.phase==="result")return;}}
 launchSkill(t){const p=this.player,{key,lv,evolved:evo,stats:s}=t;this.damageKey=key;
 const target=this.enemies.find(e=>e.id===t.targetId&&e.hp>0)||this.nearest(),angle=target?Math.atan2(target.y-p.y,target.x-p.x):t.angle;
@@ -222,7 +222,7 @@ if(this.time>=300&&!this.bossSpawned)this.spawnBoss();if(!this.bossSpawned){this
 if(this.bossSpawned&&this.time>=this.bossReinforcement){this.bossReinforcement+=12;for(let i=0;i<7&&this.enemies.length<LIMITS.enemies;i++)this.spawn(i<2?"bat":"shade");this.emit("reinforcements");}
 if(!this.bossSpawned&&this.time>=this.nextMagnet){this.nextMagnet+=90;if(this.pickups.length<LIMITS.pickups)this.pickups.push({kind:"magnet",x:clamp(p.x+140,25,1775),y:p.y,value:0});this.emit("supply");}
 for(const [key,lv]of Object.entries(this.weapons)){this.cool[key]=(this.cool[key]||0)-dt;if(this.cool[key]<=0){this.attack(key,lv);this.cool[key]=skillStats(this,key,lv).cooldown;}if(this.phase==="result")return;}
-for(const e of this.enemies){if(e.hp<=0)continue;e.slow=Math.max(0,e.slow-dt);e.flash=Math.max(0,e.flash-dt);e.shoot-=dt;e.stagger=Math.max(0,(e.stagger||0)-dt);e.root=Math.max(0,(e.root||0)-dt);const [dx,dy]=norm(p.x-e.x,p.y-e.y),dist=Math.hypot(p.x-e.x,p.y-e.y),phase2=e.boss&&e.hp<e.maxHp*.5,speed=e.speed*(e.stagger>0||e.root>0?0:1)*(e.slow>0?.45:1)*(phase2?1.4:1);if(e.elite&&!e.boss){
+for(const e of this.enemies){if(e.hp<=0)continue;e.slow=Math.max(0,e.slow-dt);e.flash=Math.max(0,e.flash-dt);e.shoot-=dt;e.stagger=Math.max(0,(e.stagger||0)-dt);e.root=Math.max(0,(e.root||0)-dt);const [dx,dy]=norm(p.x-e.x,p.y-e.y),dist=Math.hypot(p.x-e.x,p.y-e.y),phase2=e.boss&&e.hp<e.maxHp*.5,speed=e.speed*(this.practice?1:1+Math.min(300,this.time)*.00055)*(e.stagger>0||e.root>0?0:1)*(e.slow>0?.45:1)*(phase2?1.4:1);if(e.elite&&!e.boss){
 if(e.charge){const charge=e.charge;charge.age+=dt;if(charge.age>=.7&&charge.age<1.02&&e.root<=0&&e.stagger<=0){e.x=clamp(e.x+Math.cos(charge.angle)*350*dt,24,1776);e.y=clamp(e.y+Math.sin(charge.angle)*350*dt,24,1776);}if(charge.age>=1.02)e.charge=null;}
 else if(e.shoot<=0&&dist<330&&e.stagger<=0){e.shoot=3.8;e.charge={age:0,angle:Math.atan2(p.y-e.y,p.x-e.x)};}
 }

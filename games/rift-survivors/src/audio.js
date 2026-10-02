@@ -49,7 +49,8 @@ else if(type==="impact"){if(["blade","arrow","bolt","ultimate","orbit","bleed","
 else if(["level","choose","evolve","chest","magnet"].includes(type))this.play("reward",{gain:type==="evolve"?.23:.16,group:"reward"});
 else if(type==="select"||type==="reroll")this.play("select",{gain:.18,group:"ui"});
 else if(type==="hurt")this.play("hurt",{gain:.35,rate:.9,group:"impact"});
-else if(type==="ultimate"){this.duck();this.play(key==="arrow"?"arrow-release":key==="bolt"?"frost":"ultimate",{gain:key==="arrow"?.55:.43,rate:key==="arrow"?.82:1,group:"magic"});if(key==="blade")this.play("blade-hit-a",{gain:.35,rate:1.04,delay:.045,group:"impact"});}
+else if(type==="ultimate"){this.duck();this.play(key==="blade"?"swish-c":key==="arrow"?"arrow-release":"magic",{gain:key==="blade"?.42:.28,rate:key==="bolt"?.82:1,group:"magic"});}
+else if(type==="ultimate-impact"){this.duck();if(key==="blade"){this.play("ultimate",{gain:.44,group:"magic"});this.play("blade-hit-a",{gain:.54,rate:1.04,group:"impact"});}else if(key==="arrow")this.play("arrow-release",{gain:.48,rate:1.05,group:"swing"});else{this.play("frost",{gain:.5,group:"magic"});this.play("thunder",{gain:.20,rate:1.12,group:"thunder"});}}
 else if(type==="rift-open")this.play("magic",{gain:.14,rate:.75,group:"magic"});
 else if(type==="rift-sealed")this.play("reward",{gain:.25,group:"reward"});
 else if(type==="dash")this.play("swish-b",{gain:.28,rate:1.32,group:"swing"});
