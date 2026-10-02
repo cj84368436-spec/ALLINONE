@@ -20,3 +20,18 @@
 @media(max-height:740px){.home-title{padding-top:10px;min-height:134px}.home-title h1{font-size:30px}.hero{min-height:89px}.hero canvas{width:56px;height:58px}.home-content{padding-top:9px}.record{padding-top:10px}.hero-description{margin:9px 0!important;font-size:10px!important}.home-title p{font-size:11px}}
 @media(max-height:680px){.screen{padding-top:calc(var(--safe-top) + 10px);padding-bottom:calc(var(--safe-bottom) + 8px)}.home-top{min-height:36px}.home-top .icon-button{width:36px;height:36px}.home-title{min-height:105px;padding-top:6px}.home-title h1{font-size:27px;margin:5px 0}.home-title .eyebrow{font-size:8px}.hero{min-height:78px;padding-top:3px}.hero canvas{width:48px;height:49px}.hero strong{font-size:11px}.hero-description strong{display:none}.primary{min-height:49px;padding:13px 16px}.home-actions{margin-top:7px}.secondary{min-height:39px;padding:10px}.record{padding-top:9px;font-size:9px}.text-button{font-size:10px;min-height:31px;padding:8px}#dialog{padding:19px 14px}#dialog h2{font-size:22px}.upgrade{min-height:92px;padding:10px 9px}.upgrade .glyph{width:39px;height:39px}.upgrade-list{gap:7px}.upgrade strong{font-size:13px}.upgrade small{font-size:10px}.upgrade em{font-size:8px}.choice-tag{margin-bottom:3px}.encounter{padding:8px 10px}#banner{font-size:14px}.bottom-hud{bottom:calc(var(--safe-bottom) + 18px)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.primary:active{transform:none}}@keyframes breathe{50%{opacity:.5}}
+
+/* Class skill growth and readable four-choice cards. */
+.home-actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.home-actions .secondary{font-size:12px;padding-left:5px;padding-right:5px}
+.skill-behavior{display:block;color:#92aec0;font-size:10px;line-height:1.35;margin-top:3px}
+.upgrade-list{gap:7px;margin-top:11px}
+.upgrade{min-height:96px;padding:10px}
+.skill-codex{display:flex;flex-direction:column;gap:9px;margin:16px 0}
+.skill-codex article{display:flex;gap:12px;align-items:center;border:1px solid #708a9d35;border-radius:10px;padding:12px;background:#1c30455c}
+.skill-codex .glyph{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:1px solid #c2a36c55;border-radius:9px;background:#071729}
+.skill-codex .rune-icon{width:32px;height:32px}
+.skill-codex strong{font-size:14px;color:#f0e9d5}
+.skill-codex p{font-size:12px;line-height:1.45;margin:4px 0;color:#b9cedb}
+.skill-codex small{font-size:10px;color:#d9bc89}
+@media(max-height:700px){.upgrade{min-height:88px;padding:9px}.upgrade small{font-size:11px}.upgrade em{font-size:9px}.skill-behavior{font-size:10px}.upgrade .glyph{width:36px;height:36px}.build-summary{margin-top:10px}}
