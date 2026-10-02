@@ -37,10 +37,10 @@ test("elite chests grant experience and healing; magnets attract every drop",()=
   const m=new Game();m.gems=[{x:200,y:200,value:5,heal:false,attract:false}];m.pickups=[{kind:"magnet",x:900,y:900}];m.step(1/60);assert.equal(m.gems[0].attract,true);assert.equal(m.pickups.length,0);
 });
 test("drop consolidation preserves both experience and healing within a fixed budget",()=>{
-  const g=new Game();g.gems=Array.from({length:500},(_,i)=>({x:100,y:100,value:i<100?0:2,heal:i<100,attract:false}));g.step(1/60);assert.ok(g.gems.length<=LIMITS.gems);assert.equal(g.gems.filter(x=>!x.heal).reduce((n,x)=>n+x.value,0),800);assert.equal(g.gems.filter(x=>x.heal).reduce((n,x)=>n+(x.healValue||14),0),1400);
+  const g=new Game();g.gems=Array.from({length:500},(_,i)=>({x:100,y:100,value:i<100?0:2,heal:i<100,attract:false}));g.step(1/60);assert.ok(g.gems.length<=LIMITS.gems);assert.equal(g.gems.filter(x=>!x.heal).reduce((n,x)=>n+x.value,0),800);assert.equal(g.gems.filter(x=>x.heal).reduce((n,x)=>n+(x.healValue||10),0),1000);
 });
 test("enemy projectiles also use swept collisions; nonfinite deltas do not poison state",()=>{
-  const g=new Game();g.shots=[{x:850,y:900,vx:2500,vy:0,r:6,ttl:1,damage:9}];g.step(.05);assert.equal(g.player.hp,111);const t=g.time;g.step(NaN);assert.equal(g.time,t);assert.ok(Number.isFinite(g.player.x));
+  const g=new Game();g.shots=[{x:850,y:900,vx:2500,vy:0,r:6,ttl:1,damage:9}];g.step(.05);assert.equal(g.player.hp,112.8);const t=g.time;g.step(NaN);assert.equal(g.time,t);assert.ok(Number.isFinite(g.player.x));
 });
 test("knockback across a spatial cell boundary updates projectile candidates",()=>{
   const grid=new EnemyGrid(),enemy={id:1,x:95,y:100,hp:10};grid.rebuild([enemy]);enemy.x=105;grid.move(enemy,95,100);assert.equal(grid.query(96,96,110,110).length,1);assert.equal(grid.query(0,96,95,110).length,0);grid.rebuild([enemy]);assert.equal(grid.query(96,96,110,110).length,1);

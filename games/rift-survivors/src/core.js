@@ -1,8 +1,8 @@
 import {EnemyGrid} from "./spatial.js";
 export const HEROES=[
 {id:"knight",name:"룬 기사",tag:"회오리·출혈·검기로 근접 난전을 지배해요",weapon:"blade",role:"근접 · 받는 피해 20% 감소",ultimateName:"태양의 심판",ultimateDesc:"주변 적을 강하게 베고 1.2초 기절시켜요",color:"#ffd18b",hp:120,speed:155},
-{id:"ranger",name:"별빛 궁수",tag:"다중 화살·독·덫으로 적의 접근을 막아요",weapon:"arrow",role:"원거리 · 관통",ultimateName:"유성 일제사격",ultimateDesc:"적을 향해 관통 화살 9발을 펼쳐 쏴요",color:"#86e7b5",hp:95,speed:180},
-{id:"mage",name:"서리 마법사",tag:"화염·번개·얼음으로 넓은 지역을 제어해요",weapon:"bolt",role:"마법 · 지역 제어",ultimateName:"영원의 서리",ultimateDesc:"4초 동안 서리 지대로 적을 붙잡아요",color:"#9ec4ff",hp:100,speed:160}];
+{id:"ranger",name:"별빛 궁수",tag:"다중 화살·독·덫으로 적의 접근을 막아요",weapon:"arrow",role:"원거리 · 관통",ultimateName:"유성 일제사격",ultimateDesc:"적을 향해 관통 화살 21발을 세 번 나눠 쏴요",color:"#86e7b5",hp:95,speed:180},
+{id:"mage",name:"서리 마법사",tag:"화염·번개·얼음으로 넓은 지역을 제어해요",weapon:"bolt",role:"마법 · 지역 제어",ultimateName:"영원의 서리",ultimateDesc:"4초 동안 서리 지대로 적을 붙잡아요",color:"#9ec4ff",hp:110,speed:175}];
 export const CLASS_SKILLS={knight:["blade","whirlwind","cleave","slam","rend","orbit"],ranger:["arrow","multishot","piercing","poison","trap","volley"],mage:["bolt","fireball","lightning","frost","meteor","nova"]};
 const weaponRows=[
 ["blade","룬의 검","#ffd18b","전방의 적을 넓게 베어요",23,.85],
@@ -17,7 +17,7 @@ const weaponRows=[
 ["poison","맹독 화살","#b6e978","화살에 맞은 적에게 4초 동안 독 피해를 줘요",9,1.3],
 ["trap","가시 덫","#b9c793","발밑에 덫을 설치해 접근하는 적을 묶어요",35,3.3],
 ["volley","화살 폭우","#9ff3c5","표시된 지역에 2초 동안 화살이 쏟아져요",13,4],
-["bolt","마력 창","#9ec4ff","적을 관통하는 마력탄을 쏴요",20,.88],
+["bolt","마력 창","#9ec4ff","적을 관통하고 잠시 얼리는 마력탄을 쏴요",20,.88],
 ["fireball","폭발 화염구","#ffb483","적에게 닿으면 폭발해 주변에도 피해를 줘요",36,1.8],
 ["lightning","번개 사슬","#e0ebff","가까운 적들 사이로 번개가 이어져요",22,2.2],
 ["frost","눈보라","#8be4f5","적이 있는 지역에 3초 동안 눈보라를 만들어요",11,4.1],
@@ -204,7 +204,7 @@ enablePractice(key=this.hero.weapon){this.practice=true;if(!CLASS_SKILLS[this.he
 advanceRanged(dt){const p=this.player;for(const [key,s]of Object.entries(this.rangedAttacks)){s.elapsed+=dt;
 if(!s.released&&s.elapsed+1e-9>=s.releaseAt){s.released=true;const target=this.enemies.find(e=>e.id===s.targetId&&e.hp>0)||this.nearest();if(target)s.angle=Math.atan2(target.y-p.y,target.x-p.x);
 const count=s.evolved&&key==="arrow"?5:1+(s.lv>=3?1:0)+(s.lv>=5?1:0),v=key==="arrow"?480:370;let launched=0;
-for(let i=0;i<count&&this.bullets.length<LIMITS.bullets;i++){const angle=s.angle+(i-(count-1)/2)*.13;this.bullets.push({x:p.x+Math.cos(angle)*20,y:p.y+Math.sin(angle)*20,vx:Math.cos(angle)*v,vy:Math.sin(angle)*v,r:key==="arrow"?4:s.evolved?10:6,key,ttl:1.8,damage:s.damage,pierce:key==="bolt"?(s.evolved?8:1+Math.floor(s.lv/2)):(s.evolved?3:Math.floor(s.lv/3)),evolved:s.evolved,hit:[]});launched++;}
+for(let i=0;i<count&&this.bullets.length<LIMITS.bullets;i++){const angle=s.angle+(i-(count-1)/2)*.13;this.bullets.push({x:p.x+Math.cos(angle)*20,y:p.y+Math.sin(angle)*20,vx:Math.cos(angle)*v,vy:Math.sin(angle)*v,r:key==="arrow"?4:s.evolved?10:6,key,ttl:1.8,damage:s.damage,freeze:key==="bolt"?.3:0,pierce:key==="bolt"?(s.evolved?8:1+Math.floor(s.lv/2)):(s.evolved?3:Math.floor(s.lv/3)),evolved:s.evolved,hit:[]});launched++;}
 if(launched){this.effect({kind:key+"-release",x:p.x+Math.cos(s.angle)*24,y:p.y+Math.sin(s.angle)*24-24,angle:s.angle,evolved:s.evolved,color:key==="arrow"?"#baf4bf":"#ade8ff",ttl:key==="arrow"?.24:.36,max:key==="arrow"?.24:.36});this.emit("projectile-release",{key,angle:s.angle,id:s.id,evolved:s.evolved,count:launched});}}
 if(s.elapsed+1e-9>=s.duration)delete this.rangedAttacks[key];}}
 
@@ -240,6 +240,6 @@ for(const h of this.hazards){h.delay-=dt;if(h.delay<=0){h.life-=dt;if(d2(h,p)<(h
 for(const item of this.pickups){if(d2(item,p)<32**2){item.dead=true;if(item.kind==="magnet"){for(const gem of this.gems)gem.attract=true;this.emit("magnet");}else{this.addXP(item.value);p.hp=Math.min(p.maxHp,p.hp+20);this.emit("chest");}}}this.pickups=this.pickups.filter(item=>!item.dead);
 const collect=85+(this.passives.magnet||0)*25+this.meta.fortune*8;
 for(const gem of this.gems){const ds=d2(gem,p);if(ds<collect**2)gem.attract=true;if(gem.attract){const [x,y]=norm(p.x-gem.x,p.y-gem.y);gem.x+=x*390*dt;gem.y+=y*390*dt;}if(ds<20**2||d2(gem,p)<20**2){gem.dead=true;if(gem.heal){p.hp=Math.min(p.maxHp,p.hp+(gem.healValue||10));this.emit("heal");}else this.addXP(gem.value);}}
-this.gems=this.gems.filter(g=>!g.dead);if(this.gems.length>LIMITS.gems){const xp=this.gems.filter(g=>!g.heal),heals=this.gems.filter(g=>g.heal);if(heals.length>40){const merged=heals.splice(0,heals.length-39);heals.push({x:merged[0].x,y:merged[0].y,value:0,heal:true,healValue:merged.reduce((n,g)=>n+(g.healValue||14),0),attract:false});}const excess=xp.splice(0,Math.max(0,xp.length-(LIMITS.gems-1-heals.length)));if(excess.length)xp.push({x:clamp(p.x+100,25,1775),y:p.y,value:excess.reduce((s,g)=>s+g.value,0),heal:false,attract:false});this.gems=[...heals,...xp];}
+this.gems=this.gems.filter(g=>!g.dead);if(this.gems.length>LIMITS.gems){const xp=this.gems.filter(g=>!g.heal),heals=this.gems.filter(g=>g.heal);if(heals.length>40){const merged=heals.splice(0,heals.length-39);heals.push({x:merged[0].x,y:merged[0].y,value:0,heal:true,healValue:merged.reduce((n,g)=>n+(g.healValue||10),0),attract:false});}const excess=xp.splice(0,Math.max(0,xp.length-(LIMITS.gems-1-heals.length)));if(excess.length)xp.push({x:clamp(p.x+100,25,1775),y:p.y,value:excess.reduce((s,g)=>s+g.value,0),heal:false,attract:false});this.gems=[...heals,...xp];}
 this.enemies=this.enemies.filter(e=>e.hp>0);this.bullets=this.bullets.filter(b=>b.ttl>0);this.shots=this.shots.filter(b=>b.ttl>0);this.hazards=this.hazards.filter(h=>h.life>0);for(const f of this.fx)f.ttl-=dt;this.fx=this.fx.filter(f=>f.ttl>0).slice(-LIMITS.fx);
 }}

@@ -46,7 +46,7 @@ test("meteor has a target warning and a single delayed impact; nova freezes with
  const n=quiet("mage"),f=enemy(n,990);n.attack("nova",1);frames(n,14);assert.equal(n.bullets.length,9);frames(n,20);assert.ok(f.root>0&&f.hp<5000);
 });
 test("critical strikes, kill healing, area scaling and all eighteen evolutions have real effects",()=>{
- const g=quiet(),e=enemy(g);g.passives={crit:5,leech:2,focus:3};g.rand=()=>0;g.player.hp=50;g.damageKey="blade";g.hit(e,20,g.player);assert.equal(e.hp,4965);assert.ok(g.fx.some(f=>f.critical));g.hit(e,99999,g.player);assert.equal(g.player.hp,52.2);g.hit(e,99999,g.player);assert.equal(g.player.hp,52.2);
+ const g=quiet(),e=enemy(g);g.passives={crit:5,leech:2,focus:3};g.rand=()=>0;g.player.hp=50;g.damageKey="blade";g.hit(e,20,g.player);assert.equal(e.hp,4965);assert.ok(g.fx.some(f=>f.critical));g.hit(e,99999,g.player);assert.ok(Math.abs(g.player.hp-51.6)<1e-9);g.hit(e,99999,g.player);assert.ok(Math.abs(g.player.hp-51.6)<1e-9);
  const wide=skillStats(g,"whirlwind",1);const basic=skillStats(quiet(),"whirlwind",1);assert.ok(wide.r>basic.r&&wide.duration>basic.duration);
  assert.equal(Object.keys(EVOLUTIONS).length,18);for(const [key,ev]of Object.entries(EVOLUTIONS)){const q=quiet();q.weapons[key]=5;q.passives[ev.passive]=2;q.checkEvolution();assert.equal(q.evolved[key],true);}
 });

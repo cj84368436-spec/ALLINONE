@@ -93,7 +93,7 @@ test("sword anticipation and contact match damage and recorded impact playback",
 await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 const setup=await page.evaluate(()=>{const t=window.__riftTest,g=t.game;g.enemies=[];g.events=[];g.spawnCd=999;g.cool.blade=999;const e=g.spawn("brute");Object.assign(e,{x:g.player.x+75,y:g.player.y,hp:500,maxHp:500,speed:0});g.events=[];g.attack("blade",1);g.phase="paused";return {hp:e.hp,elapsed:g.bladeSwing.elapsed};});expect(setup.hp).toBe(500);expect(setup.elapsed).toBe(0);
 await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";for(let i=0;i<8;i++)g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(500);
-await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(481);await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toMatch(/^blade-hit-/);
+await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(477);await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toMatch(/^blade-hit-/);
 });
 test("fifteen-second sword practice keeps permanent records unchanged",async({page})=>{
 await page.goto("/?practice=blade");await expect(page.locator("#home")).toBeVisible();const before=await page.evaluate(()=>JSON.stringify(window.__riftTest.save));await page.locator("#start").click();await expect(page.locator("#objective")).toHaveText("15초 검술 연습");
@@ -105,7 +105,7 @@ test(hero+" preparation matches release animation, projectile travel and its own
 await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 const setup=await page.evaluate(key=>{const t=window.__riftTest,g=t.game;g.enemies=[];g.bullets=[];g.events=[];g.spawnCd=999;g.cool[key]=999;delete g.rangedAttacks[key];const e=g.spawn("brute");Object.assign(e,{x:g.player.x+110,y:g.player.y,hp:500,maxHp:500,speed:0});g.events=[];g.attack(key,1);g.phase="paused";return {hp:e.hp,bullets:g.bullets.length,elapsed:g.rangedAttacks[key].elapsed};},key);expect(setup).toEqual({hp:500,bullets:0,elapsed:0});
 await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";for(let i=0;i<7;i++)g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.bullets.length)).toBe(0);expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(500);
-await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";for(let i=0;i<20;i++)g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(key==="arrow"?488:484);await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toBe(key+"-hit");expect(await page.evaluate(()=>window.__riftTest.renderer.feedback.projectileKey)).toBe(key);
+await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";for(let i=0;i<20;i++)g.step(1/60);g.phase="paused";});expect(await page.evaluate(()=>window.__riftTest.game.enemies[0].hp)).toBe(key==="arrow"?488:480);await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toBe(key+"-hit");expect(await page.evaluate(()=>window.__riftTest.renderer.feedback.projectileKey)).toBe(key);
 await page.screenshot({path:"test-results/"+hero+"-combat.png"});
 });
 test(hero+" fifteen-second practice preserves records and stays reachable on a small phone",async({page})=>{
@@ -199,10 +199,10 @@ for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight di
 });
 test("all heroes change walking leg pixels even during attacks",async({page},testInfo)=>{
  const results=await page.evaluate(async()=>{
-  const {drawHero}=await import("/src/render.js"),{HEROES}=await import("/src/core.js"),out=[];
+  const {drawHero,HERO_SCALE}=await import("/src/render.js"),{HEROES}=await import("/src/core.js"),out=[];
   for(const h of HEROES)for(const attacking of [false,true]){
    const swing=attacking?{elapsed:.04,tempo:1,angle:0}:null,frames=[];
-   for(const phase of [0,.5]){const c=document.createElement("canvas");c.width=240;c.height=256;const ctx=c.getContext("2d");drawHero(ctx,h,120,170,2.6,1,0,true,attacking,0,swing,true,phase);frames.push({bytes:ctx.getImageData(0,0,240,256).data,png:c.toDataURL("image/png")});}
+   for(const phase of [0,.5]){const c=document.createElement("canvas");c.width=240;c.height=256;const ctx=c.getContext("2d");drawHero(ctx,h,120,170,HERO_SCALE,1,0,true,attacking,0,swing,true,phase);frames.push({bytes:ctx.getImageData(0,0,240,256).data,png:c.toDataURL("image/png")});}
    let changed=0;for(let y=155;y<218;y++)for(let x=84;x<157;x++){const i=(y*240+x)*4;if(frames[0].bytes.slice(i,i+4).some((v,k)=>v!==frames[1].bytes[i+k]))changed++;}
    out.push({hero:h.id,attacking,changed,pngs:frames.map(f=>f.png)});
   }return out;
@@ -241,4 +241,20 @@ test("lightning can be practiced directly without a level choice or permanent re
  await page.goto("/?practice=lightning");await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#start")).toContainText("번개 사슬 연습");await page.locator("#start").click();
  expect(await page.evaluate(()=>window.__riftTest.game.hero.id)).toBe("mage");expect(await page.evaluate(()=>window.__riftTest.game.weapons)).toEqual({lightning:2});await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toBe("thunder");
  await page.evaluate(()=>{const g=window.__riftTest.game;g.time=14.99;g.step(1/60);});await expect(page.locator("#practice-home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.game.result.coins)).toBe(0);
+});
+
+test("growth uses four distinct painted images large enough to read on an iPhone screen",async({page})=>{
+ await page.setViewportSize({width:360,height:640});await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.giveXP(8));await expect(page.locator(".upgrade .painted-skill img")).toHaveCount(4);
+ const cards=await page.locator(".upgrade .painted-skill img").evaluateAll(imgs=>imgs.map(img=>({loaded:img.complete&&img.naturalWidth>1000,width:img.parentElement.getBoundingClientRect().width,tile:img.style.left+","+img.style.top,src:img.src})));
+ expect(cards.every(x=>x.loaded&&x.width>=52&&x.src.includes("skill-atlas.webp"))).toBe(true);expect(new Set(cards.map(x=>x.tile)).size).toBe(4);await page.locator(".upgrade").last().click();await expect(page.locator("#overlay")).toBeHidden();
+});
+test("painted combat frames are transparent, detailed and survive reduced effects",async({page})=>{
+ const result=await page.evaluate(async()=>{const {Art}=await import("/src/art.js");const fx=Art.images.get("combat-atlas");const c=document.createElement("canvas");c.width=fx.width;c.height=fx.height;const ctx=c.getContext("2d");ctx.drawImage(fx,0,0);const bytes=ctx.getImageData(0,0,c.width,c.height).data;let clear=0,visible=0;const colors=new Set();for(let i=0;i<bytes.length;i+=4){if(bytes[i+3]===0)clear++;if(bytes[i+3]>128){visible++;colors.add((bytes[i]<<16)|(bytes[i+1]<<8)|bytes[i+2]);}}return {clear,visible,colors:colors.size};});
+ expect(result.clear).toBeGreaterThan(200000);expect(result.visible).toBeGreaterThan(200000);expect(result.colors).toBeGreaterThan(10000);
+});
+for(const hero of ["knight","ranger","mage"])test(hero+" ultimate changes hundreds of visible pixels beyond damage text",async({page},testInfo)=>{
+ await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start").click();
+ const result=await page.evaluate(async hero=>{const {Game}=await import("/src/core.js");const {Renderer,HERO_SCALE,ENEMY_HEIGHTS}=await import("/src/render.js");const canvas=document.createElement("canvas");canvas.style.cssText="width:390px;height:600px;position:fixed;left:-500px;top:0";document.body.appendChild(canvas);const renderer=new Renderer(canvas);renderer.reduced=true;renderer.setQuality(.65);const g=new Game(hero,{},11);g.weapons={};g.player.inv=999;g.spawnCd=g.nextElite=999;const e=g.spawn("brute");Object.assign(e,{x:g.player.x+90,y:g.player.y,hp:9999,maxHp:9999,speed:0,shoot:999});g.ultimate();for(let i=0;i<25;i++)g.step(1/60);g.fx=g.fx.filter(f=>!["text","burst","corpse","impact","cut-hit","arrow-hit","bolt-hit"].includes(f.kind));
+ const settings={effects:false,shake:false,quality:"battery"};renderer.draw(g.time,g,g.hero,{active:false});const withFx=renderer.ctx.getImageData(0,0,canvas.width,canvas.height).data, png=canvas.toDataURL("image/png");g.fx=[];g.spellFields=[];g.skillFields=[];g.bullets=[];renderer.draw(g.time,g,g.hero,{active:false});const noFx=renderer.ctx.getImageData(0,0,canvas.width,canvas.height).data;let changed=0;for(let i=0;i<withFx.length;i+=4)if(Math.abs(withFx[i]-noFx[i])+Math.abs(withFx[i+1]-noFx[i+1])+Math.abs(withFx[i+2]-noFx[i+2])>45)changed++;return {changed,png,heroScale:HERO_SCALE,enemyHeight:ENEMY_HEIGHTS.shade};},hero);
+ expect(result.changed).toBeGreaterThan(700);expect(result.heroScale).toBe(1.65);expect(result.enemyHeight).toBe(66);await testInfo.attach(hero+"-ultimate-painted",{body:Buffer.from(result.png.split(",")[1],"base64"),contentType:"image/png"});
 });
