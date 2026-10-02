@@ -3,12 +3,12 @@
 토스 앱 안에서 실행하는 한국어 2D 생존 액션 게임입니다. Apps in Toss WebView SDK 3.x를 사용하며 별도 Unity, Unreal, Xcode 프로젝트가 필요하지 않습니다.
 
 - 룬 기사 / 별빛 궁수 / 서리 마법사
-- 드래그 이동, 자동 공격, 회피, 별빛 폭풍
+- 드래그 이동, 자동 공격, 회피, 영웅별 필살기
 - 레벨업 3지선다와 다시 뽑기 3회, 무기 4개, 무기 6종 진화
 - 5분 생존 후 2단계 보스전
 - 보석 보상, 영구 강화, 최고 점수 저장
 - 사운드, 일시정지, 종료 확인, Safe Area, 자동/60FPS 목표/배터리 절약 모드
-- 손그림풍 기사·궁수·마법사와 숲 배경, 황금 참격·명중 반응·녹음한 휘두름·명중·마법 효과음
+- 손그림풍 기사·궁수·마법사와 별빛 유적 배경, 황금 참격·명중 반응·녹음한 휘두름·명중·마법 효과음
 - 이번 버전에는 로그인 화면, 실제 돈 결제, 광고 없음
 
 ## 출시 파일 받기
@@ -57,11 +57,19 @@ npm run check:release
 
 버전 1.1.0의 변화와 측정 방법은 [docs/PERFORMANCE.md](docs/PERFORMANCE.md)를 참고하세요. 자동 검증에는 Chromium과 WebKit을 사용하며 실제 iPhone 토스 QR 테스트는 별도로 필요합니다.
 
+## 2.0 — 별빛 유적과 새로운 전투
+
+[최신 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=2.0.0-courtyard)
+
+회청색 유적 바닥과 남색·금빛 UI, 가운데 영웅 전신을 새로 구성했습니다. 기사는 태양의 심판, 궁수는 유성 일제사격, 마법사는 영원의 서리로 서로 다른 전투를 수행합니다. 전투 중 선택형 균열을 봉인하면 회복·성장·필살기 재충전을 얻습니다. 분마다 추가 편대와 방향을 예고하는 정예 돌진이 등장합니다. 성장 카드에는 다음 실제 수치와 진화 연결을 표시합니다.
+
+사용자의 비개발자 요청을 해석하는 개발자·게임 디자이너·아트 디렉터 역할과 기준은 [docs/DESIGN-2.0.md](docs/DESIGN-2.0.md)에 정리했습니다. 이전 조작과 저장 키를 유지합니다.
+
 ## 바로 플레이하는 미리보기
 
 [균열의 수호자 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/)
 
-이 링크는 1.5 게임의 플레이 체험용입니다. 기록은 이 브라우저에 따로 저장됩니다. 토스용 .ait와 실제 콘솔 등록/출시 과정은 별도로 유지합니다. 미리보기 소스는 preview/index.html에 있고, 실행용 사본은 본인 GitHub Pages의 play/rift-keepers/index.html 경로에서 제공합니다.
+이 링크는 2.0 게임의 플레이 체험용입니다. 기록은 이 브라우저에 따로 저장됩니다. 토스용 .ait와 실제 콘솔 등록/출시 과정은 별도로 유지합니다. 미리보기 소스는 preview/index.html에 있고, 실행용 사본은 본인 GitHub Pages의 play/rift-keepers/index.html 경로에서 제공합니다.
 
 ## 디자인과 사운드 1.4
 
@@ -97,6 +105,6 @@ npm run check:release
 
 세 영웅의 걷기는 실제 이동 거리로 진행하고 정지하면 멈춥니다. 기사는 걷기 2개 그림, 궁수·마법사는 각 4개 그림을 사용하며 이동 중 공격에서도 하체 걸음을 유지합니다.
 
-[최신 수정본](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5.2-touch2) · [107개 자동 검사와 토스 빌드](https://github.com/cj84368436-spec/ALLINONE/actions/runs/36954484372)
+[1.5.2 수정본](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5.2-touch2) · [107개 자동 검사와 토스 빌드](https://github.com/cj84368436-spec/ALLINONE/actions/runs/36954484372)
 
 Chrome 연속 드래그는 브라우저 터치 입력으로, WebKit 드래그는 터치 이벤트 시뮬레이션으로 확인했습니다. 실제 iPhone/Toss에서의 직접 검증 및 콘솔 출시 상태는 docs/VALIDATION.md에 구분합니다.
