@@ -1,0 +1,29 @@
+name: Prepare Rift courtyard artwork
+on:
+  push:
+    paths:
+      - '.art-source/rift-courtyard.png'
+      - '.github/workflows/rift-art-prepare.yml'
+permissions:
+  contents: write
+jobs:
+  art:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix /tmp/rift-art sharp --no-audit --no-fund
+      - name: Encode runtime terrain
+        run: |
+          node --input-type=module -e 'import sharp from "/tmp/rift-art/node_modules/sharp/lib/index.js"; await sharp(".art-source/rift-courtyard.png").resize(768,768).webp({quality:85}).toFile("games/rift-survivors/public/art/courtyard.webp");'
+      - name: Store production artwork
+        run: |
+          git config user.name "Rift artwork build"
+          git config user.email "actions@users.noreply.github.com"
+          git add games/rift-survivors/public/art/courtyard.webp
+          git diff --cached --quiet && exit 0
+          git commit -m "Encode original courtyard artwork [skip ci]"
+          git pull --rebase
+          git push
