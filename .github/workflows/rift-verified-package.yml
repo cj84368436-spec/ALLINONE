@@ -1,4 +1,4 @@
-name: Package verified Rift 3.0 release
+name: Package verified Rift 3.1 release
 on:
   push:
     paths:
@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - name: Confirm the tested runtime is unchanged
         working-directory: .
-        run: git diff --exit-code 5d3fc6708a594f85310a288f8aec3b1a92925081 HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/granite.config.ts
+        run: git diff --exit-code ea7094d093de7bd9ce9a59440fd37d469a130f45 HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/granite.config.ts
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
