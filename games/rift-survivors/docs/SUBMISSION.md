@@ -15,7 +15,7 @@ SDK: Apps in Toss WebView 3.x
 - release/icon.png: 600 × 600 PNG 아이콘
 - release/home.png, gameplay.png, skills.png: 각 636 × 1048 PNG 게임 화면 3장
 - release/thumbnail.png: 1932 × 828 PNG 게임 썸네일
-- release/performance.json: 기존 코드와의 합성 충돌 성능 측정
+- 성능·정상 조작 완주·브라우저 상세 보고서: [자동 검증 실행](https://github.com/cj84368436-spec/ALLINONE/actions/runs/36998174914)의 release 및 test-evidence 아티팩트를 함께 참고
 - release/build-manifest.json: appName, 버전, 파일 크기와 SHA256
 - dist: 같은 소스에서 빌드한 토스 내부 웹 콘텐츠
 - docs: 제출 문구, 데이터 안내, 검증 상태
