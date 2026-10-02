@@ -17,7 +17,7 @@ jobs:
       - run: npm install --prefix /tmp/rift-art sharp --no-audit --no-fund
       - name: Encode runtime terrain
         run: |
-          node --input-type=module -e 'import sharp from "/tmp/rift-art/node_modules/sharp/lib/index.js"; await sharp(".art-source/rift-courtyard.png").resize(768,768).webp({quality:85}).toFile("games/rift-survivors/public/art/courtyard.webp");'
+          node -e 'const sharp=require("/tmp/rift-art/node_modules/sharp"); sharp(".art-source/rift-courtyard.png").resize(768,768).webp({quality:85}).toFile("games/rift-survivors/public/art/courtyard.webp").catch(e=>{console.error(e);process.exit(1)});'
       - name: Store production artwork
         run: |
           git config user.name "Rift artwork build"
