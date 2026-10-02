@@ -1,7 +1,7 @@
 import {EnemyGrid} from "./spatial.js";
 export const HEROES=[
 {id:"knight",name:"룬 기사",tag:"회오리·출혈·검기로 근접 난전을 지배해요",weapon:"blade",role:"근접 · 제압",ultimateName:"태양의 심판",ultimateDesc:"주변 적을 강하게 베고 1.2초 기절시켜요",color:"#ffd18b",hp:120,speed:155},
-{id:"ranger",name:"별빛 궁수",tag:"다중 사격·독·덫으로 적의 접근을 막아요",weapon:"arrow",role:"원거리 · 관통",ultimateName:"유성 일제사격",ultimateDesc:"적을 향해 관통 화살 9발을 펼쳐 쏴요",color:"#86e7b5",hp:95,speed:180},
+{id:"ranger",name:"별빛 궁수",tag:"다중 화살·독·덫으로 적의 접근을 막아요",weapon:"arrow",role:"원거리 · 관통",ultimateName:"유성 일제사격",ultimateDesc:"적을 향해 관통 화살 9발을 펼쳐 쏴요",color:"#86e7b5",hp:95,speed:180},
 {id:"mage",name:"서리 마법사",tag:"화염·번개·얼음으로 넓은 지역을 제어해요",weapon:"bolt",role:"마법 · 지역 제어",ultimateName:"영원의 서리",ultimateDesc:"4초 동안 서리 지대로 적을 붙잡아요",color:"#9ec4ff",hp:100,speed:160}];
 export const CLASS_SKILLS={knight:["blade","whirlwind","cleave","slam","rend","orbit"],ranger:["arrow","multishot","piercing","poison","trap","volley"],mage:["bolt","fireball","lightning","frost","meteor","nova"]};
 const weaponRows=[
