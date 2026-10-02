@@ -17,9 +17,9 @@ for(const event of ["backEvent","homeEvent"]){try{this.unsub.push(graniteEvent.a
 Screen.setOrientation({type:"portrait"}).catch(()=>{});
 return cleanSave(raw);}
 save(value){if(!this.key)return Promise.reject(new Error("저장소 준비 전"));const data=JSON.stringify(cleanSave(value)),key=this.key;
-const task=this.queue.catch(()=>{}).then(()=>LOCAL?localStorage.setItem(key,data):timeout(Storage.setItem(key,data)));
-this.queue=task;task.catch(()=>this.onSaveError());return task;}
+const task=this.queue.catch(()=>{}).then(()=>LOCAL?localStorage.setItem(key,data):Storage.setItem(key,data));
+this.queue=task;const result=timeout(task);result.catch(()=>this.onSaveError());return result;}
 awake(enabled){if(!LOCAL)Screen.setAwakeMode({enabled}).catch(()=>{});}
-async close(){await this.queue.catch(()=>{});if(!LOCAL){await Screen.setAwakeMode({enabled:false}).catch(()=>{});await Screen.close();}}
+async close(){await this.queue.catch(()=>{});if(!LOCAL){await Screen.setAwakeMode({enabled:false}).catch(()=>{});await Screen.close();return true;}return false;}
 dispose(){for(const fn of this.unsub)if(typeof fn==="function")try{fn();}catch{}this.unsub=[];this.awake(false);}
 }

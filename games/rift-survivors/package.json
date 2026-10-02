@@ -1,6 +1,6 @@
 {
   "name": "rift-keepers-toss",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "private": true,
   "type": "module",
   "engines": {
@@ -14,7 +14,9 @@
     "check:release": "node scripts/check-release.mjs",
     "screenshots": "node scripts/marketing.mjs",
     "benchmark": "node scripts/benchmark.mjs",
-    "playthrough": "node scripts/playthrough.mjs"
+    "playthrough": "node scripts/playthrough.mjs",
+    "preview:build": "node scripts/build-preview.mjs",
+    "preview:check": "node scripts/build-preview.mjs --check"
   },
   "dependencies": {
     "@apps-in-toss/web-framework": "^3.1.1"

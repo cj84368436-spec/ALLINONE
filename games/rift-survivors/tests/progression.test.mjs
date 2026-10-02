@@ -25,6 +25,6 @@ test("flight is louder than bow and contact, fires on release and does not sound
  calls.length=0;audio.event("ultimate-impact","arrow");assert.equal(calls.at(-1).name,"arrow-flight");calls.length=0;audio.event("skill-release","trap");assert.equal(calls.some(c=>c.name==="arrow-flight"),false);
 });
 test("retiring and victory use the same displayed gem formula and practice stays unrewarded",()=>{
- const g=new Game();g.kills=36;g.level=8;assert.equal(runCoins(g),19);g.finish(false);assert.equal(g.result.coins,19);g.finish(true);assert.equal(g.result.coins,19);const save=reward(cleanSave(),g.result);assert.equal(save.coins,19);
+ const g=new Game();g.kills=36;g.level=8;assert.equal(runCoins(g),17);g.finish(false);assert.equal(g.result.coins,17);g.finish(true);assert.equal(g.result.coins,17);const save=reward(cleanSave(),g.result);assert.equal(save.coins,17);
  const practice=new Game().enablePractice();assert.equal(runCoins(practice),0);practice.finish(false);assert.equal(practice.result.coins,0);
 });

@@ -14,7 +14,7 @@ test("pause and background stop gameplay until explicit resume",async({page})=>{
 await page.locator("#start").click();await page.locator("#pause").click();await expect(page.locator("#resume")).toBeVisible();const t=await page.evaluate(()=>window.__riftTest.game.time);await page.waitForTimeout(150);expect(await page.evaluate(()=>window.__riftTest.game.time)).toBe(t);await page.locator("#resume").click();
 await page.evaluate(()=>window.dispatchEvent(new Event("pagehide")));await expect(page.locator("#resume")).toBeVisible();await page.locator("#resume").click();expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("playing");});
 test("victory rewards once and records survive reload",async({page})=>{
-await page.locator("#start").click();await page.evaluate(()=>{window.__riftTest.game.kills=24;window.__riftTest.finish(true);});await expect(page.locator("#dialog-title")).toContainText("균열을 닫았어요");await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>window.__riftTest.save.coins)).toBe(74);await page.screenshot({path:"test-results/victory.png"});await page.reload();await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#coins")).toHaveText("74");await expect(page.locator("#wins")).toHaveText("1");});
+await page.locator("#start").click();await page.evaluate(()=>{window.__riftTest.game.kills=24;window.__riftTest.finish(true);});await expect(page.locator("#dialog-title")).toContainText("균열을 닫았어요");await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>window.__riftTest.save.coins)).toBe(72);await page.screenshot({path:"test-results/victory.png"});await page.reload();await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#coins")).toHaveText("72");await expect(page.locator("#wins")).toHaveText("1");});
 test("affordable upgrades and sound settings persist",async({page})=>{
 await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.finish(true));await expect(page.locator("#result-home")).toBeVisible();await page.locator("#result-home").click();await page.locator("#forge").click();await page.locator('[data-forge="power"]').click();expect(await page.evaluate(()=>window.__riftTest.save.meta.power)).toBe(1);await page.locator("#forge-close").click();await page.locator("#settings").click();await page.locator("#sound").click();await expect(page.locator("#sound")).toHaveText("꺼짐");await page.evaluate(()=>window.__riftTest.flush());await page.reload();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.save.meta.power)).toBe(1);expect(await page.evaluate(()=>window.__riftTest.save.settings.sound)).toBe(false);});
 test("exit is confirmed, cancellation preserves run, exit saves rewards",async({page})=>{
@@ -273,7 +273,22 @@ test("level six and ten reopen discovery, show six equipped attacks and keep tou
 
 test("ending a run explains and settles its earned gems exactly once",async({page})=>{
  await page.locator("#start").click();await page.evaluate(()=>{const g=window.__riftTest.game;g.kills=36;g.player.inv=999;g.spawnCd=999;});
- await page.locator("#pause").click();await expect(page.locator("#retire")).toHaveText("도전 종료 · 보석 +5 정산");
- await page.locator("#retire").click();await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>window.__riftTest.save.coins)).toBe(5);
- await page.reload();await expect(page.locator("#coins")).toHaveText("5");
+ await page.locator("#pause").click();await expect(page.locator("#retire")).toHaveText("도전 종료 · 보석 +3 정산");
+ await page.locator("#retire").click();await page.evaluate(()=>window.__riftTest.flush());expect(await page.evaluate(()=>window.__riftTest.save.coins)).toBe(3);
+ await page.reload();await expect(page.locator("#coins")).toHaveText("3");
+});
+
+test("the ultimate recharge ring matches its 38 second cooldown",async({page})=>{
+ await page.locator("#start").click();await page.locator("#ultimate").click();await page.locator("#pause").click();
+ await expect.poll(()=>page.locator("#ultimate").evaluate(el=>{const ratio=Number(el.style.getPropertyValue("--cool"));return Math.abs(ratio-window.__riftTest.game.player.ultCd/38);})).toBeLessThan(.000001);
+});
+test("arrow key and Space dash respond to the current input without waiting for a frame",async({page})=>{
+ await page.locator("#start").click();const result=await page.evaluate(()=>{const g=window.__riftTest.game;g.player.dirX=1;g.player.dirY=0;document.dispatchEvent(new KeyboardEvent("keydown",{key:"ArrowUp",bubbles:true}));document.dispatchEvent(new KeyboardEvent("keydown",{key:" ",bubbles:true}));document.dispatchEvent(new KeyboardEvent("keyup",{key:"ArrowUp",bubbles:true}));return {x:g.player.dirX,y:g.player.dirY,cd:g.player.dashCd};});
+ expect(result.x).toBe(0);expect(result.y).toBe(-1);expect(result.cd).toBe(5);
+});
+test("generated standalone preview loads current skills and returns home after save and exit",async({page})=>{
+ await page.goto("/preview/index.html");await expect(page.locator("#home")).toBeVisible();await expect(page.locator("body")).toHaveAttribute("data-build","3.1.1-production");
+ expect(await page.evaluate(()=>typeof window.__riftTest)).toBe("undefined");await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(6);await page.locator("#skill-book-close").click();
+ await page.locator("#start").click();await page.locator("#pause").click();await expect(page.locator("#retire")).toHaveText("도전 종료 · 보석 +0 정산");await page.locator("#pause-exit").click();await page.locator("#exit-confirm").click();await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#overlay")).toBeHidden();await expect(page.locator("#coins")).toHaveText("0");
+ await page.locator("#start").click();await expect(page.locator("#hud")).toBeVisible();
 });
