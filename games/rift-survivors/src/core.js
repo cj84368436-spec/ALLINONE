@@ -124,10 +124,11 @@ for(let i=pool.length-1;i>0;i--){const j=Math.floor(this.rand()*(i+1));[pool[i],
 pool.sort((a,b)=>(this.offerCounts[a]||0)-(this.offerCounts[b]||0));
 const chosen=[],add=k=>{if(k&&!chosen.includes(k)&&chosen.length<4)chosen.push(k);};
 const discoveries=pool.filter(k=>UPGRADES[k].kind==="weapon"&&!this.weapons[k]);
-add(discoveries[0]);add(discoveries[1]);
+add(discoveries[0]);
 add(pool.find(k=>UPGRADES[k].kind==="weapon"&&this.weapons[k]));
 add(pool.find(k=>Object.keys(this.weapons).some(w=>EVOLUTIONS[w]?.passive===k&&(this.passives[k]||0)<2&&!this.evolved[w])));
-for(const key of pool)add(key);
+add(pool.find(k=>UPGRADES[k].kind==="passive"&&!chosen.includes(k)));
+add(discoveries[1]);for(const key of pool)add(key);
 for(const key of chosen)this.offerCounts[key]=(this.offerCounts[key]||0)+1;
 return chosen;}
 choose(key){if(this.phase!=="upgrade"||!this.choices.includes(key))return false;const u=UPGRADES[key];if(u?.kind==="weapon"&&(!CLASS_SKILLS[this.hero.id].includes(key)||(this.weapons[key]||0)>=5||!this.weapons[key]&&Object.keys(this.weapons).length>=weaponSlots(this.level)))return false;if(!u)this.player.hp=Math.min(this.player.maxHp,this.player.hp+35);else if(u.kind==="weapon"){this.weapons[key]=(this.weapons[key]||0)+1;this.cool[key]=0;}else{this.passives[key]=(this.passives[key]||0)+1;if(key==="heart"){this.player.maxHp+=15;this.player.hp=Math.min(this.player.maxHp,this.player.hp+30);}}

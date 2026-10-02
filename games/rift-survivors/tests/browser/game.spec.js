@@ -262,7 +262,7 @@ test("level six and ten reopen discovery, show six equipped attacks and keep tou
  await page.locator('[data-hero="ranger"]').click();await page.locator("#start").click();
  await page.evaluate(()=>{const g=window.__riftTest.game;g.weapons={arrow:2,multishot:1,piercing:1,poison:1};g.level=5;g.player.inv=999;g.spawnCd=999;g.addXP(g.need);});
  await expect(page.locator(".build-summary")).toContainText("무기 4/5");
- const choices=await page.evaluate(()=>window.__riftTest.game.choices);expect(choices.slice(0,2).sort()).toEqual(["trap","volley"]);
+ const choices=await page.evaluate(()=>window.__riftTest.game.choices);expect(["trap","volley"]).toContain(choices[0]);expect(choices.filter(k=>["arrow","multishot","piercing","poison","trap","volley"].includes(k))).toHaveLength(2);
  await page.locator('[data-choice="0"]').click();
  await page.evaluate(()=>{const g=window.__riftTest.game;g.level=9;g.addXP(g.need);});
  await expect(page.locator(".build-summary")).toContainText("무기 5/6");await page.locator('[data-choice="0"]').click();

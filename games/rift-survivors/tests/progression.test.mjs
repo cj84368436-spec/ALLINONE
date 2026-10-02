@@ -6,8 +6,8 @@ import {Audio} from "../src/audio.js";
 test("knight starts with 130 HP and retains its meta-health bonus and melee reduction",()=>{
  const g=new Game("knight",{heart:2});assert.equal(HEROES[0].hp,130);assert.equal(g.player.hp,150);assert.equal(g.player.maxHp,150);g.hurt(10);assert.equal(g.player.hp,142);assert.equal(new Game("ranger").player.hp,95);assert.equal(new Game("mage").player.hp,110);
 });
-test("new attacks rotate fairly and two discoveries accompany an owned attack and evolution rune",()=>{
- for(const hero of HEROES){const g=new Game(hero.id,{},42),seen=new Set();for(let i=0;i<3;i++){const choices=g.offer();assert.equal(choices.length,4);assert.equal(new Set(choices).size,4);assert.ok(choices.includes(hero.weapon));for(const key of choices.slice(0,2)){assert.equal(UPGRADES[key].kind,"weapon");assert.equal(g.weapons[key],undefined);seen.add(key);}}assert.equal(seen.size,5);}
+test("new attacks rotate fairly and discoveries accompany an owned attack and varied growth runes",()=>{
+ for(const hero of HEROES){const g=new Game(hero.id,{},42),seen=new Set();for(let i=0;i<5;i++){const choices=g.offer();assert.equal(choices.length,4);assert.equal(new Set(choices).size,4);assert.ok(choices.includes(hero.weapon));for(const key of choices.slice(0,1)){assert.equal(UPGRADES[key].kind,"weapon");assert.equal(g.weapons[key],undefined);seen.add(key);}}assert.equal(seen.size,5);}
 });
 test("legal level progression opens a fifth and sixth attack without exceeding class slots",()=>{
  assert.equal(weaponSlots(5),4);assert.equal(weaponSlots(6),5);assert.equal(weaponSlots(9),5);assert.equal(weaponSlots(10),6);
