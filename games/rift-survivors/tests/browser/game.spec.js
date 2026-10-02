@@ -180,7 +180,7 @@ for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight di
  }
  await touch.start(195,440);await touch.move(100,440);await page.waitForTimeout(120);
  const left=await page.evaluate(()=>window.__riftTest.game.player.x);
- await touch.move(300,440);await page.evaluate(()=>window.dispatchEvent(new Event("resize")));await page.waitForTimeout(150);
+ await touch.move(300,440);await page.keyboard.down("ArrowLeft");await page.evaluate(()=>window.dispatchEvent(new Event("resize")));await page.waitForTimeout(150);
  expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(left+8);
  await page.evaluate(()=>{
   const world=document.getElementById("world"),t={identifier:9,target:world,clientX:130,clientY:620,pageX:130,pageY:620};

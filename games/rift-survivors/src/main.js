@@ -42,7 +42,7 @@ const elapsed=last?Math.max(0,(ts-last)/1000):0;last=ts;clock=ts/1000;metrics.fr
 if(document.hidden){simulation.reset();requestAnimationFrame(frame);return;}
 if(game?.phase==="playing"&&budget.observe(elapsed*1000))renderer.setQuality(budget.scale);
 const begun=performance.now();
-if(game){let x=joy.x,y=joy.y;const kx=(keys.has("d")||keys.has("arrowright")?1:0)-(keys.has("a")||keys.has("arrowleft")?1:0),ky=(keys.has("s")||keys.has("arrowdown")?1:0)-(keys.has("w")||keys.has("arrowup")?1:0);joy.keyboard=!!(kx||ky);if(joy.keyboard){x=kx;y=ky;}
+if(game){let x=joy.x,y=joy.y;const kx=(keys.has("d")||keys.has("arrowright")?1:0)-(keys.has("a")||keys.has("arrowleft")?1:0),ky=(keys.has("s")||keys.has("arrowdown")?1:0)-(keys.has("w")||keys.has("arrowup")?1:0);joy.keyboard=!!(kx||ky)&&!joy.active;if(joy.keyboard){x=kx;y=ky;}
 metrics.steps+=simulation.advance(elapsed,dt=>game.step(dt,{x,y}),()=>game?.phase==="playing");
 for(const e of game.events.splice(0)){audio.event(e.type,e.key,e);renderer.react(e,game);if(e.type==="boss")banner("균열의 군주가 깨어났어요",3);if(e.type==="elite")banner("강력한 적이 나타났어요",2);if(e.type==="evolve")banner(e.name+" · 진화!",2.5);if(e.type==="chest")banner("정예 보상 · 경험치와 회복",1.8);if(e.type==="magnet")banner("모든 경험치를 끌어당겨요",1.8);if(e.type==="supply")banner("푸른 인력 상자가 나타났어요",1.8);}
 if(!exiting){if(game.phase==="upgrade"&&dialogKind!=="upgrade"&&dialogKind!=="exit")showUpgrade();if(game.phase==="result"&&dialogKind!=="result"&&dialogKind!=="exit")showResult();}
