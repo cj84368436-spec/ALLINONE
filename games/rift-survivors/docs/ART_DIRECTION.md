@@ -3,7 +3,7 @@
 The game uses a blue stone courtyard, navy and gold UI, distinct painted heroes and violet corrupted enemies.
 
 - Thirty original illustrated attack, growth rune and ultimate icons share a cached WebP atlas. Source rows are sampled separately to prevent adjacent illustrations showing through. Short portrait screens use four 54px images in a 2×2 growth grid.
-- A transparent 36-frame WebP atlas animates gold cuts, whirlwinds, fire, electricity, ice and poison. Primary effects remain visible with reduced effects and battery rendering; only decorative details are limited.
+- A transparent 36-frame WebP atlas, cached into softly fading per-cell canvases, animates gold cuts, whirlwinds, fire, electricity, ice and poison. Whirlwinds and frost storms draw behind actors. Primary effects remain visible with reduced effects and battery rendering; only decorative details are limited.
 - Knight ultimate: a descending celestial blade followed by a painted ground cut, with damage at 0.30 seconds.
 - Ranger ultimate: three timed waves of seven penetrating arrows, visible projectile trails and contact feedback.
 - Mage ultimate: ice pillars and a four-second frost field. The overlay is translucent and the field draws underneath actors so enemies and the hero remain readable.
