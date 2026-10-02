@@ -159,7 +159,7 @@ async function makeTouchDriver(page,browserName){
   const old=points.get(id),changed={id,x:x??old?.x,y:y??old?.y},ended=type==="touchend"||type==="touchcancel";
   if(ended)points.delete(id);else points.set(id,changed);
   if(cdp)await cdp.send("Input.dispatchTouchEvent",{type:{touchstart:"touchStart",touchmove:"touchMove",touchend:"touchEnd",touchcancel:"touchCancel"}[type],touchPoints:ended?[]:[...points.values()].map(p=>({...p,radiusX:8,radiusY:8}))});
-  else await page.evaluate(({type,changed,points})=>{const world=document.getElementById("world"),make=p=>new Touch({identifier:p.id,target:world,clientX:p.x,clientY:p.y,pageX:p.x,pageY:p.y,screenX:p.x,screenY:p.y}),touches=points.map(make);world.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,changedTouches:[make(changed)],touches,targetTouches:touches}));},{type,changed,points:[...points.values()]});
+  else await page.evaluate(({type,changed,points})=>{const world=document.getElementById("world"),make=p=>({identifier:p.id,target:world,clientX:p.x,clientY:p.y,pageX:p.x,pageY:p.y,screenX:p.x,screenY:p.y}),touches=points.map(make),event=new Event(type,{bubbles:true,cancelable:true});Object.defineProperties(event,{changedTouches:{value:[make(changed)]},touches:{value:touches},targetTouches:{value:touches}});world.dispatchEvent(event);},{type,changed,points:[...points.values()]});
  }
  return {start:(x,y,id=7)=>send("touchstart",id,x,y),move:(x,y,id=7)=>send("touchmove",id,x,y),end:(id=7)=>send("touchend",id),cancel:(id=7)=>send("touchcancel",id)};
 }
@@ -169,10 +169,10 @@ for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight di
  await page.evaluate(()=>{const g=window.__riftTest.game;g.player.inv=999;g.spawnCd=g.nextElite=999;g.weapons={};});
  await page.keyboard.down("ArrowLeft");
  const touch=await makeTouchDriver(page,browserName);
- await testInfo.attach("input-method",{body:browserName==="chromium"?"Browser touch input via CDP":"DOM TouchEvent dispatch",contentType:"text/plain"});
+ await testInfo.attach("input-method",{body:browserName==="chromium"?"Browser touch input via CDP":"Simulated touch events via DOM dispatch",contentType:"text/plain"});
  for(const [dx,dy]of [[1,0],[-1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
   const before=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
-  await touch.start(195,440);await touch.move(195+dx*60,440+dy*60);await page.waitForTimeout(150);
+  await touch.start(195,440);expect(await page.evaluate(()=>window.__riftTest.input.source)).toBe("touch");await touch.move(195+dx*60,440+dy*60);await page.waitForTimeout(150);
   const after=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
   if(dx)expect((after.x-before.x)*dx).toBeGreaterThan(8);else expect(after.x).toBeCloseTo(before.x,0);
   if(dy)expect((after.y-before.y)*dy).toBeGreaterThan(8);else expect(after.y).toBeCloseTo(before.y,0);
@@ -183,8 +183,8 @@ for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight di
  await touch.move(300,440);await page.evaluate(()=>window.dispatchEvent(new Event("resize")));await page.waitForTimeout(150);
  expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(left+8);
  await page.evaluate(()=>{
-  const world=document.getElementById("world"),t=new Touch({identifier:9,target:world,clientX:130,clientY:620,pageX:130,pageY:620});
-  for(const type of ["touchstart","touchmove","touchend"])world.dispatchEvent(new TouchEvent(type,{bubbles:true,cancelable:true,changedTouches:[t],touches:type==="touchend"?[]:[t],targetTouches:type==="touchend"?[]:[t]}));
+  const world=document.getElementById("world"),t={identifier:9,target:world,clientX:130,clientY:620,pageX:130,pageY:620};
+  for(const type of ["touchstart","touchmove","touchend"]){const event=new Event(type,{bubbles:true,cancelable:true});Object.defineProperties(event,{changedTouches:{value:[t]},touches:{value:type==="touchend"?[]:[t]},targetTouches:{value:type==="touchend"?[]:[t]}});world.dispatchEvent(event);}
  });
  const x=await page.evaluate(()=>window.__riftTest.game.player.x);await page.waitForTimeout(120);
  expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(x+8);

@@ -55,8 +55,8 @@ if(ts-lastDraw>=1000/fps-1){const drawStart=performance.now();renderer.draw(cloc
 requestAnimationFrame(frame);
 }
 
-const world=$("world"),touchInput="ontouchstart" in window;
-function beginMovement(source,id,x,y){if(game?.phase!=="playing"||!joy.begin(source,id,x,y,world.getBoundingClientRect()))return false;if(source==="touch"){keys.clear();joy.keyboard=false;}$("move-hint").textContent="";audio.unlock();return true;}
+const world=$("world"),touchInput="TouchEvent" in window;
+function beginMovement(source,id,x,y){if(game?.phase!=="playing"||!joy.begin(source,id,x,y,world.getBoundingClientRect()))return false;keys.clear();joy.keyboard=false;$("move-hint").textContent="";audio.unlock();return true;}
 function moveMovement(source,id,x,y){return joy.move(source,id,x,y,world.getBoundingClientRect());}
 function endMovement(source,id){if(joy.end(source,id))keys.clear();}
 world.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"&&touchInput)return;if(beginMovement("pointer",e.pointerId,e.clientX,e.clientY)){if(e.cancelable)e.preventDefault();try{world.setPointerCapture(e.pointerId);}catch{}}});
@@ -75,6 +75,6 @@ function background(){simulation.reset();last=0;resetInput();audio.stop();platfo
 document.addEventListener("visibilitychange",()=>{if(document.hidden)background();});window.addEventListener("pagehide",()=>{background();});window.addEventListener("pageshow",()=>{last=0;simulation.reset();renderer.resize();});window.addEventListener("blur",()=>{keys.clear();joy.keyboard=false;if(document.hidden&&game?.phase==="playing")background();});window.addEventListener("resize",()=>{renderer.resize();if(game){if(!game.practice)game.spawnDistance=Math.max(470,Math.min(650,renderer.h*.6));if(joy.active)joy.rebase(world.getBoundingClientRect());}});
 async function boot(){$("retry").hidden=true;$("boot-message").textContent="모험을 준비하고 있어요";try{const loaded=await Promise.all([platform.init(requestExit),Art.load(),audio.prepare()]);save=loaded[0];renderer.makeGround();renderer.resize();renderer.reduced=save.settings.reduced||window.matchMedia("(prefers-reduced-motion: reduce)").matches;audio.enabled=save.settings.sound;budget.set(save.settings.performance);renderer.setQuality(budget.scale);ready=true;renderHeroes();$("boot").classList.add("hidden");showHome();if(practiceHero){$("start").firstChild.textContent=practiceTitle+" 시작 ";$("hero-description").textContent=hero.name+"의 움직임과 타격을 15초 동안 연습해요";}}catch{ready=false;$("boot-message").textContent="게임을 불러오지 못했어요. 연결을 확인하고 다시 시도해 주세요.";$("retry").hidden=false;}}
 $("retry").onclick=boot;
-if(import.meta.env.DEV)window.__riftTest={get game(){return game;},metrics,budget,renderer,audio,simulation,get save(){return save;},giveXP:n=>game?.addXP(n),spawnBoss:()=>game?.spawnBoss(),finish:win=>game?.finish(win),requestExit,showSettings,showForge,async flush(){await platform.queue;}};
+if(import.meta.env.DEV)window.__riftTest={get game(){return game;},input:joy,metrics,budget,renderer,audio,simulation,get save(){return save;},giveXP:n=>game?.addXP(n),spawnBoss:()=>game?.spawnBoss(),finish:win=>game?.finish(win),requestExit,showSettings,showForge,async flush(){await platform.queue;}};
 for(const [id,key]of [["dash","dash"],["ultimate","ultimate"]])$(id).querySelector("span").innerHTML=iconMarkup(key);$("settings").innerHTML=iconMarkup("settings");$("pause").innerHTML=iconMarkup("pause");
 requestAnimationFrame(frame);boot();

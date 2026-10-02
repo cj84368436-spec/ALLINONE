@@ -471,8 +471,8 @@ if(ts-lastDraw>=1000/fps-1){const drawStart=performance.now();renderer.draw(cloc
 requestAnimationFrame(frame);
 }
 
-const world=$("world"),touchInput="ontouchstart" in window;
-function beginMovement(source,id,x,y){if(game?.phase!=="playing"||!joy.begin(source,id,x,y,world.getBoundingClientRect()))return false;if(source==="touch"){keys.clear();joy.keyboard=false;}$("move-hint").textContent="";audio.unlock();return true;}
+const world=$("world"),touchInput="TouchEvent" in window;
+function beginMovement(source,id,x,y){if(game?.phase!=="playing"||!joy.begin(source,id,x,y,world.getBoundingClientRect()))return false;keys.clear();joy.keyboard=false;$("move-hint").textContent="";audio.unlock();return true;}
 function moveMovement(source,id,x,y){return joy.move(source,id,x,y,world.getBoundingClientRect());}
 function endMovement(source,id){if(joy.end(source,id))keys.clear();}
 world.addEventListener("pointerdown",e=>{if(e.pointerType==="touch"&&touchInput)return;if(beginMovement("pointer",e.pointerId,e.clientX,e.clientY)){if(e.cancelable)e.preventDefault();try{world.setPointerCapture(e.pointerId);}catch{}}});
