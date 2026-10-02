@@ -181,7 +181,7 @@ else if(key==="fireball")shot(angle,{speed:310,r:12,ttl:2.3,explosion:s.r});
 else if(key==="lightning"){let o=p;const used=new Set();for(let i=0;i<s.count;i++){let next=null,best=(i?190*s.area:520)**2;for(const e of this.enemies)if(e.hp>0&&!used.has(e.id)){const ds=d2(e,o);if(ds<best){best=ds;next=e;}}if(!next)break;used.add(next.id);this.effect({kind:"line",x:o.x,y:o.y-18,x2:next.x,y2:next.y-18,color:"#dfeaff",ttl:.36,max:.36});this.hit(next,s.damage*(1-i*.045),o);o=next;}}
 else if(key==="frost")this.addField(field({delay:.25,ttl:s.duration+.25}));
 else if(key==="meteor")this.addField(field({delay:.7,ttl:1.3}));
-else if(key==="nova"){for(let i=0;i<s.count;i++)shot(angle+i*Math.PI*2/s.count,{speed:340,r:6,ttl:.85,freeze:evo?1.4:.7,pierce:evo?2:0});this.effect({kind:"frost-crown",x:p.x,y:p.y,r:140*s.area,color:"#bdefff",ttl:.5,max:.5});}
+else if(key==="nova"){for(let i=0;i<s.count;i++)shot(angle+i*Math.PI*2/s.count,{speed:340,r:6,ttl:.85*s.area,freeze:evo?1.4:.7,pierce:evo?2:0});this.effect({kind:"frost-crown",x:p.x,y:p.y,r:140*s.area,color:"#bdefff",ttl:.5,max:.5});}
 this.emit("skill-release",{key,angle,evolved:evo});}
 advanceSkills(dt){const p=this.player;
 if(this.skillPose){this.skillPose.elapsed+=dt;if(this.skillPose.elapsed>=this.skillPose.duration)this.skillPose=null;}
@@ -195,7 +195,7 @@ if(f.key==="whirlwind"&&this.hero.id==="knight")this.skillPose={elapsed:.1,tempo
 if(this.phase==="result")return;}
 this.skillFields=this.skillFields.filter(f=>f.ttl>0);
 for(const e of this.enemies){for(const [key,dot]of Object.entries(e.statuses||{})){const alive=dot.ttl>0;dot.ttl-=dt;dot.tick-=dt;if(alive&&dot.tick<=0){dot.tick+=.5;this.damageKey=key;this.hit(e,dot.damage,dot);}if(dot.ttl<=0||e.hp<=0)delete e.statuses[key];}if(this.phase==="result")return;}}
-enablePractice(){this.practice=true;const key=this.hero.weapon;this.weapons={[key]:2};this.spawnDistance=key==="blade"?160:230;this.spawnCd=.7;this.nextElite=999;this.nextMagnet=999;this.cool[key]=.25;for(let i=0;i<5;i++){const e=this.spawn(i%3?"shade":"brute"),a=-1.3+i*.65,r=key==="blade"?105+i*7:185+i*9;e.x=this.player.x+Math.cos(a)*r;e.y=this.player.y+Math.sin(a)*r;}return this;}
+enablePractice(key=this.hero.weapon){this.practice=true;if(!CLASS_SKILLS[this.hero.id].includes(key))key=this.hero.weapon;this.weapons={[key]:2};this.spawnDistance=key==="blade"?160:230;this.spawnCd=.7;this.nextElite=999;this.nextMagnet=999;this.cool[key]=.25;for(let i=0;i<5;i++){const e=this.spawn(i%3?"shade":"brute"),a=-1.3+i*.65,r=key==="blade"?105+i*7:185+i*9;e.x=this.player.x+Math.cos(a)*r;e.y=this.player.y+Math.sin(a)*r;}return this;}
 advanceRanged(dt){const p=this.player;for(const [key,s]of Object.entries(this.rangedAttacks)){s.elapsed+=dt;
 if(!s.released&&s.elapsed+1e-9>=s.releaseAt){s.released=true;const target=this.enemies.find(e=>e.id===s.targetId&&e.hp>0)||this.nearest();if(target)s.angle=Math.atan2(target.y-p.y,target.x-p.x);
 const count=s.evolved&&key==="arrow"?5:1+(s.lv>=3?1:0)+(s.lv>=5?1:0),v=key==="arrow"?480:370;let launched=0;

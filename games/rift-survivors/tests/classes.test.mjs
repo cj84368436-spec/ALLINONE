@@ -54,3 +54,7 @@ test("delayed skills and fields freeze on upgrade and entity caps survive heavy 
  const g=quiet("mage");enemy(g);g.attack("meteor",1);const delay=g.skillTasks[0].delay;g.addXP(8);frames(g,90);assert.equal(g.skillTasks[0].delay,delay);g.choose(g.choices[0]);g.weapons={};frames(g,14);assert.ok(g.skillFields.length);
  for(let i=0;i<50;i++){g.attack("frost",5);g.attack("nova",5);g.advanceSkills(.25);}assert.ok(g.skillFields.length<=LIMITS.fields);assert.ok(g.skillTasks.length<=LIMITS.tasks);assert.ok(g.bullets.length<=LIMITS.bullets);
 });
+
+test("every exclusive attack can be practiced with its own hero and zero saved rewards",()=>{
+ for(const [hero,keys]of Object.entries(CLASS_SKILLS))for(const key of keys){const g=new Game(hero,{},22).enablePractice(key);assert.deepEqual(g.weapons,{[key]:2});frames(g,1000);assert.equal(g.phase,"result");assert.equal(g.result.coins,0);assert.equal(g.level,1);}
+});

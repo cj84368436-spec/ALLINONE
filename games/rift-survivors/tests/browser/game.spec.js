@@ -236,3 +236,9 @@ test("thunder uses a recorded long tail and magic impacts never route to sword F
  const result=await page.evaluate(()=>{const a=window.__riftTest.audio,calls=[];a.play=(name,options)=>{calls.push({name,...options});};a.event("skill-release","lightning",{evolved:false});const lightning=[...calls];calls.length=0;a.event("impact","frost",{});a.event("impact","poison-dot",{});const magic=[...calls];calls.length=0;a.event("blade-contact","blade",{hits:1,evolved:true,strong:true,id:1});return {lightning,magic,sword:calls,thunder:a.buffers.get("thunder").duration};});
  expect(result.thunder).toBeGreaterThan(3);expect(result.lightning.some(x=>x.name==="thunder"&&x.gain>=.5)).toBe(true);expect(result.magic).toEqual([]);expect(result.sword[0].rate).toBeGreaterThanOrEqual(1);
 });
+
+test("lightning can be practiced directly without a level choice or permanent rewards",async({page})=>{
+ await page.goto("/?practice=lightning");await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#start")).toContainText("번개 사슬 연습");await page.locator("#start").click();
+ expect(await page.evaluate(()=>window.__riftTest.game.hero.id)).toBe("mage");expect(await page.evaluate(()=>window.__riftTest.game.weapons)).toEqual({lightning:2});await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toBe("thunder");
+ await page.evaluate(()=>{const g=window.__riftTest.game;g.time=14.99;g.step(1/60);});await expect(page.locator("#result-home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.game.result.coins)).toBe(0);
+});
