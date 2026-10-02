@@ -150,8 +150,7 @@ expect(await page.evaluate(()=>window.__riftTest.game.phase)).toBe("paused");
 await page.locator("#resume").tap();
 const x=await page.evaluate(()=>window.__riftTest.game.player.x);
 await page.mouse.move(160,430);await page.mouse.down();await page.mouse.move(240,430);
-await page.waitForTimeout(250);await page.mouse.up();
-expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(x+20);
+await expect.poll(()=>page.evaluate(()=>window.__riftTest.game.player.x),{timeout:1500}).toBeGreaterThan(x+20);await page.mouse.up();
 });
 async function makeTouchDriver(page,browserName){
  const cdp=browserName==="chromium"?await page.context().newCDPSession(page):null,points=new Map();
@@ -249,8 +248,8 @@ test("growth uses four distinct painted images large enough to read on an iPhone
  expect(cards.every(x=>x.loaded&&x.width>=52&&x.src.includes("skill-atlas.webp"))).toBe(true);expect(new Set(cards.map(x=>x.tile)).size).toBe(4);const cardsInside=await page.locator(".upgrade").evaluateAll(cards=>cards.every(c=>{const r=c.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight;}));expect(cardsInside).toBe(true);await page.locator(".upgrade").last().click();await expect(page.locator("#overlay")).toBeHidden();
 });
 test("painted combat frames are transparent, detailed and survive reduced effects",async({page})=>{
- const result=await page.evaluate(async()=>{const {Art}=await import("/src/art.js");const fx=Art.images.get("combat-atlas");const c=document.createElement("canvas");c.width=fx.width;c.height=fx.height;const ctx=c.getContext("2d");ctx.drawImage(fx,0,0);const bytes=ctx.getImageData(0,0,c.width,c.height).data;let clear=0,visible=0;const colors=new Set();for(let i=0;i<bytes.length;i+=4){if(bytes[i+3]===0)clear++;if(bytes[i+3]>128){visible++;colors.add((bytes[i]<<16)|(bytes[i+1]<<8)|bytes[i+2]);}}return {clear,visible,colors:colors.size};});
- expect(result.clear).toBeGreaterThan(200000);expect(result.visible).toBeGreaterThan(200000);expect(result.colors).toBeGreaterThan(10000);
+ const result=await page.evaluate(async()=>{const {Art}=await import("/src/art.js");const fx=Art.images.get("combat-atlas");const c=document.createElement("canvas");c.width=fx.width;c.height=fx.height;const ctx=c.getContext("2d");ctx.drawImage(fx,0,0);const bytes=ctx.getImageData(0,0,c.width,c.height).data;let clear=0,visible=0;const colors=new Set();for(let i=0;i<bytes.length;i+=4){if(bytes[i+3]===0)clear++;if(bytes[i+3]>128){visible++;colors.add((bytes[i]<<16)|(bytes[i+1]<<8)|bytes[i+2]);}}let edgeAlpha=0;for(const frame of Art.frames.values()){const cc=frame.getContext("2d"),d=cc.getImageData(0,0,frame.width,frame.height).data;for(let p=0;p<frame.width;p++)for(const index of [p,(frame.height-1)*frame.width+p,p*frame.width,p*frame.width+frame.width-1])edgeAlpha=Math.max(edgeAlpha,d[index*4+3]);}return {clear,visible,colors:colors.size,frames:Art.frames.size,edgeAlpha};});
+ expect(result.clear).toBeGreaterThan(200000);expect(result.visible).toBeGreaterThan(200000);expect(result.colors).toBeGreaterThan(10000);expect(result.frames).toBe(36);expect(result.edgeAlpha).toBeLessThanOrEqual(6);
 });
 for(const hero of ["knight","ranger","mage"])test(hero+" ultimate changes hundreds of visible pixels beyond damage text",async({page},testInfo)=>{
  await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start").click();

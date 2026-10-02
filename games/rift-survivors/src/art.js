@@ -6,14 +6,15 @@ const mask=document.createElement("canvas");mask.width=w;mask.height=h;const m=m
 const edge=document.createElement("canvas");edge.width=w;edge.height=h;const e=edge.getContext("2d");for(const [x,y]of [[-2,0],[2,0],[0,-2],[0,2]])e.drawImage(mask,x,y);e.globalCompositeOperation="source-in";e.fillStyle="#031512";e.fillRect(0,0,w,h);e.globalCompositeOperation="source-over";e.drawImage(image,pad,pad);
 return {image:edge,flash:mask,width:w,height:h};
 }
+function combatFrames(image){const out=new Map(),size=image.naturalWidth/6-10;for(let row=0;row<6;row++)for(let col=0;col<6;col++){const canvas=document.createElement("canvas");canvas.width=canvas.height=size;const c=canvas.getContext("2d");c.drawImage(image,col*(size+10)+5,row*(size+10)+5,size,size,0,0,size,size);c.globalCompositeOperation="destination-in";for(const vertical of [false,true]){const gradient=c.createLinearGradient(0,0,vertical?0:size,vertical?size:0);gradient.addColorStop(0,"#fff0");gradient.addColorStop(.13,"#fff");gradient.addColorStop(.87,"#fff");gradient.addColorStop(1,"#fff0");c.fillStyle=gradient;c.fillRect(0,0,size,size);}out.set(col+","+row,canvas);}return out;}
 export const Art={
-version:"3.0.0",ready:false,promise:null,images:new Map(),sprites:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
+version:"3.0.0",ready:false,promise:null,images:new Map(),sprites:new Map(),frames:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
 load(){
 if(this.ready)return Promise.resolve();if(this.promise)return this.promise;
 this.promise=Promise.all(names.map(name=>{if(this.images.has(name))return Promise.resolve();return new Promise((resolve,reject)=>{
 const img=new Image(),timer=setTimeout(()=>fail(),20000);
 function fail(){clearTimeout(timer);img.onload=img.onerror=null;reject(new Error("Artwork unavailable: "+name));}
-img.onload=()=>{clearTimeout(timer);this.images.set(name,img);if(!["forest","courtyard","skill-atlas","combat-atlas"].includes(name))this.sprites.set(name,texture(img));resolve();};img.onerror=fail;img.src=this.urls[name];
+img.onload=()=>{clearTimeout(timer);this.images.set(name,img);if(name==="combat-atlas")this.frames=combatFrames(img);if(!["forest","courtyard","skill-atlas","combat-atlas"].includes(name))this.sprites.set(name,texture(img));resolve();};img.onerror=fail;img.src=this.urls[name];
 });})).then(async()=>{if("FontFace"in window){try{const font=new FontFace("RiftTitle",'url("'+new URL("art/title.woff2",document.baseURI).href+'")',{weight:"700"});await font.load();document.fonts.add(font);}catch{}}this.ready=true;}).catch(error=>{this.promise=null;throw error;});return this.promise;
 },
 sprite(name){return this.sprites.get(name);}
@@ -26,4 +27,4 @@ if(flash>0){c.globalAlpha*=Math.min(.42,flash);c.drawImage(sprite.flash,-width/2
 
 export const SKILL_ART_ROWS=[[5,210],[226,202],[442,207],[662,205],[884,254]];
 export const SKILL_ART_KEYS=["blade","whirlwind","cleave","slam","rend","orbit","arrow","multishot","piercing","poison","trap","volley","bolt","fireball","lightning","frost","meteor","nova","power","haste","boots","heart","magnet","crit","leech","focus","ultimate-knight","ultimate-ranger","ultimate-mage","heal"];
-export function drawAtlas(c,name,col,row,x,y,width,height=width,rotation=0,alpha=1){const img=Art.images.get(name);if(!img)return false;const cols=6,rows=name==="skill-atlas"?5:6,sw=img.naturalWidth/cols,sh=img.naturalHeight/rows;c.save();c.translate(x,y);c.rotate(rotation);c.globalAlpha*=alpha;const pad=name==="combat-atlas"?5:0;c.drawImage(img,col*sw+pad,row*sh+pad,sw-pad*2,sh-pad*2,-width/2,-height/2,width,height);c.restore();return true;}
+export function drawAtlas(c,name,col,row,x,y,width,height=width,rotation=0,alpha=1){const img=Art.images.get(name);if(!img)return false;const cols=6,rows=name==="skill-atlas"?5:6,sw=img.naturalWidth/cols,sh=img.naturalHeight/rows;c.save();c.translate(x,y);c.rotate(rotation);c.globalAlpha*=alpha;const frame=name==="combat-atlas"?Art.frames.get(col+","+row):null;if(frame)c.drawImage(frame,-width/2,-height/2,width,height);else{const pad=name==="combat-atlas"?5:0;c.drawImage(img,col*sw+pad,row*sh+pad,sw-pad*2,sh-pad*2,-width/2,-height/2,width,height);}c.restore();return true;}
