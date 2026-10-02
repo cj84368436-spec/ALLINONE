@@ -38,7 +38,7 @@
 
 /* Production skill illustrations: one cached atlas, full-size tiles. */
 .rune-icon.painted-skill{display:block;position:relative;overflow:hidden;isolation:isolate;border-radius:5px;background:#071424;flex-shrink:0}
-.painted-skill img{position:absolute!important;display:block;width:600%!important;height:500%!important;max-width:none!important;object-fit:fill;pointer-events:none;user-select:none}
+.painted-skill img{position:absolute!important;display:block;width:var(--atlas-w,600%)!important;height:var(--atlas-h,500%)!important;max-width:none!important;object-fit:fill;pointer-events:none;user-select:none}
 .upgrade-list{gap:9px}
 .upgrade{min-height:112px;padding:12px 10px;gap:12px;border-color:#8e78564f;background:linear-gradient(125deg,#2b3c504f,#101f32)}
 .upgrade .glyph{width:66px;height:66px;border:0;border-radius:8px;box-shadow:0 3px 14px #0006;overflow:hidden}
@@ -55,3 +55,21 @@
 .ability.ultimate.ready{box-shadow:0 0 22px #9a6a433b,inset 0 1px #eddcb055}
 @media(max-height:700px){.upgrade{min-height:104px;padding:10px}.upgrade .glyph,.upgrade .glyph .rune-icon.painted-skill{width:58px;height:58px}.skill-behavior{font-size:10px}.upgrade strong{font-size:14px}.upgrade-list{gap:8px}}
 @media(prefers-reduced-motion:reduce){.upgrade,.ability{transition:none}}
+
+@media(max-height:700px){
+ #dialog:has(.upgrade-list){padding:14px 12px}
+ #dialog:has(.upgrade-list) h2{font-size:21px;margin:5px 0 7px}
+ #dialog:has(.upgrade-list)>p{font-size:11px;margin-bottom:8px}
+ .upgrade-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .upgrade{position:relative;min-height:172px;flex-direction:column;align-items:flex-start;gap:7px;padding:10px}
+ .upgrade .glyph,.upgrade .glyph .rune-icon.painted-skill{width:54px;height:54px}
+ .upgrade-copy{width:100%}
+ .upgrade strong{font-size:13px}
+ .upgrade small{font-size:10px;margin-top:3px;line-height:1.35}
+ .skill-behavior{font-size:9px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ .upgrade em{font-size:8px;line-height:1.3;margin-top:3px}
+ .upgrade .lv{position:absolute;right:8px;top:9px;font-size:8px}
+ .choice-tag{font-size:8px;margin-bottom:3px}
+ .build-summary{font-size:9px;margin-top:8px;padding:9px}
+ .level-dots{margin-top:4px}
+}

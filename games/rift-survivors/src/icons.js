@@ -1,4 +1,4 @@
-import {Art,SKILL_ART_KEYS} from "./art.js";
+import {Art,SKILL_ART_KEYS,SKILL_ART_ROWS} from "./art.js";
 const paths={
 whirlwind:'<path d="M26 8C18-2 0 7 6 20c4 9 20 6 18-3-1-6-11-7-13-2-2 5 5 8 8 4M24 3l2 5-6 2"/>',
 cleave:'<path d="m6 26 20-20M19 4l9 0 0 9M4 17c4-8 10-12 19-13M15 28c8-4 12-10 13-19"/>',
@@ -32,4 +32,4 @@ ultimate:'<path d="m16 2 4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="m25 3 1 
 settings:'<path d="m13 3 6 0 1 4 4 2 4-1 3 5-3 3v4l2 3-4 4-4-2-3 1-2 4h-6l-1-4-4-2-4 1-2-5 3-3v-4l-2-3 4-4 4 2 3-1z"/><circle cx="16" cy="16" r="5"/>',
 pause:'<path d="M10 7v18M22 7v18"/>'
 };
-export function iconMarkup(key){const tile=SKILL_ART_KEYS.indexOf(key);if(tile>=0){const col=tile%6,row=Math.floor(tile/6);return '<span class="rune-icon painted-skill" aria-hidden="true"><img src="'+Art.urls["skill-atlas"]+'" alt="" draggable="false" style="left:-'+col*100+'%;top:-'+row*100+'%"></span>';}return '<svg class="rune-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[key]||paths.heart)+'</svg>';}
+export function iconMarkup(key){const tile=SKILL_ART_KEYS.indexOf(key);if(tile>=0){const col=tile%6,row=Math.floor(tile/6),[y,height]=SKILL_ART_ROWS[row],x=col*229+5,width=219;return '<span class="rune-icon painted-skill" aria-hidden="true"><img src="'+Art.urls["skill-atlas"]+'" alt="" draggable="false" style="--atlas-w:'+(1374/width*100)+'%;--atlas-h:'+(1145/height*100)+'%;left:-'+(x/width*100)+'%;top:-'+(y/height*100)+'%"></span>';}return '<svg class="rune-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(paths[key]||paths.heart)+'</svg>';}

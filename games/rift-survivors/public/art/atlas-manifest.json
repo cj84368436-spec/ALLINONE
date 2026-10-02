@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "method": "Original generated art; whole-image WebP encoding only, no spatial edits. Runtime uses exact grid source rectangles.",
+  "method": "Original generated art, whole-image WebP encoding only. Runtime samples illustrated icons by measured row bounds and trims 5 pixels from combat cells to prevent neighboring colors.",
   "files": [
     {
       "name": "skill-atlas",
@@ -24,5 +24,33 @@
       "sha256": "7d2e893ff6d138cc63e07d0dbc8ecc611194957a109ab74b0c2a8ae20fefd538",
       "transparentFraction": 0.4588894485016369
     }
-  ]
+  ],
+  "skillRowRects": [
+    [
+      5,
+      210
+    ],
+    [
+      226,
+      202
+    ],
+    [
+      442,
+      207
+    ],
+    [
+      662,
+      205
+    ],
+    [
+      884,
+      254
+    ]
+  ],
+  "skillColumnRect": {
+    "step": 229,
+    "leftInset": 5,
+    "width": 219
+  },
+  "combatCellInset": 5
 }

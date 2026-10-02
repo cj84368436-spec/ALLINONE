@@ -24,5 +24,6 @@ c.save();c.translate(x,y);c.scale(face,1);c.rotate(tilt);const foot=height*.26;c
 if(flash>0){c.globalAlpha*=Math.min(.42,flash);c.drawImage(sprite.flash,-width/2,foot-height,width,height);}c.restore();return true;
 }
 
+export const SKILL_ART_ROWS=[[5,210],[226,202],[442,207],[662,205],[884,254]];
 export const SKILL_ART_KEYS=["blade","whirlwind","cleave","slam","rend","orbit","arrow","multishot","piercing","poison","trap","volley","bolt","fireball","lightning","frost","meteor","nova","power","haste","boots","heart","magnet","crit","leech","focus","ultimate-knight","ultimate-ranger","ultimate-mage","heal"];
-export function drawAtlas(c,name,col,row,x,y,width,height=width,rotation=0,alpha=1){const img=Art.images.get(name);if(!img)return false;const cols=6,rows=name==="skill-atlas"?5:6,sw=img.naturalWidth/cols,sh=img.naturalHeight/rows;c.save();c.translate(x,y);c.rotate(rotation);c.globalAlpha*=alpha;c.drawImage(img,col*sw,row*sh,sw,sh,-width/2,-height/2,width,height);c.restore();return true;}
+export function drawAtlas(c,name,col,row,x,y,width,height=width,rotation=0,alpha=1){const img=Art.images.get(name);if(!img)return false;const cols=6,rows=name==="skill-atlas"?5:6,sw=img.naturalWidth/cols,sh=img.naturalHeight/rows;c.save();c.translate(x,y);c.rotate(rotation);c.globalAlpha*=alpha;const pad=name==="combat-atlas"?5:0;c.drawImage(img,col*sw+pad,row*sh+pad,sw-pad*2,sh-pad*2,-width/2,-height/2,width,height);c.restore();return true;}
