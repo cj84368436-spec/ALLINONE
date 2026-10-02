@@ -49,7 +49,7 @@ const evolutionRows=[
 ["trap","boots","사냥꾼의 성역","넓은 덫이 적을 3초 동안 묶어요"],
 ["volley","focus","천공의 폭우","더 넓은 지역에 3초 동안 화살이 쏟아져요"],
 ["bolt","magnet","성운의 창","거대한 마력 창이 여러 적을 꿰뚫어요"],
-["fireball","power","태양의 화염구","더 넓은 폭발이 주변을 불태워요"],
+["fireball","power","태양의 화염구","화염구의 폭발 범위와 피해가 증가해요"],
 ["lightning","power","폭풍의 심장","번개가 최대 여덟 적에게 퍼져요"],
 ["frost","boots","영원의 겨울","넓은 눈보라가 적을 오래 붙잡아요"],
 ["meteor","focus","종말의 운석","더 넓고 강력한 운석 낙하"],
@@ -168,7 +168,7 @@ const target=this.enemies.find(e=>e.id===t.targetId&&e.hp>0)||this.nearest(),ang
 const shot=(a,options={})=>{if(this.bullets.length>=LIMITS.bullets)return;const speed=options.speed||480;this.bullets.push({x:p.x+Math.cos(a)*24,y:p.y+Math.sin(a)*24,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,r:5,key,ttl:1.8,damage:s.damage,pierce:0,evolved:evo,hit:[],...options});};
 const field=(extra={})=>({key,x:target?.x??t.x,y:target?.y??t.y,r:s.r,damage:s.damage,evolved:evo,ttl:s.duration||1,age:0,tick:0,...extra});
 if(key==="whirlwind")this.addField(field({x:p.x,y:p.y,follow:true,ttl:s.duration,tick:0}));
-else if(key==="cleave")shot(angle,{speed:420,r:26*s.area,ttl:.75,pierce:evo?12:4+lv});
+else if(key==="cleave")shot(angle,{speed:420,r:(evo?40:26)*s.area,ttl:.75,pierce:evo?12:4+lv});
 else if(key==="slam")this.addField(field({x:p.x,y:p.y,delay:.22,ttl:.8}));
 else if(key==="rend"){this.effect({kind:"blood-cut",x:p.x,y:p.y-18,r:s.r,angle,ttl:.4,max:.4,color:"#ef8f87"});this.resolvingBlade=true;
 for(const e of this.enemies){const dx=e.x-p.x,dy=e.y-p.y,d=Math.hypot(dx,dy);if(e.hp>0&&d<s.r+e.r&&(d<24||(dx*Math.cos(angle)+dy*Math.sin(angle))/d>-.2)){this.hit(e,s.damage,p);this.applyStatus(e,"bleed",3*s.base*this.damageScale(),evo?5:3,p);}}this.resolvingBlade=false;}

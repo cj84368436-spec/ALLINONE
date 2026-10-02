@@ -58,3 +58,5 @@ test("delayed skills and fields freeze on upgrade and entity caps survive heavy 
 test("every exclusive attack can be practiced with its own hero and zero saved rewards",()=>{
  for(const [hero,keys]of Object.entries(CLASS_SKILLS))for(const key of keys){const g=new Game(hero,{},22).enablePractice(key);assert.deepEqual(g.weapons,{[key]:2});frames(g,1000);assert.equal(g.phase,"result");assert.equal(g.result.coins,0);assert.equal(g.level,1);}
 });
+
+test("evolved sword waves widen their real collision shape",()=>{const g=quiet();enemy(g);g.attack("cleave",5);g.advanceSkills(.2);const normal=g.bullets[0].r;g.bullets=[];g.evolved.cleave=true;g.attack("cleave",5);g.advanceSkills(.2);assert.ok(g.bullets[0].r>normal);});
