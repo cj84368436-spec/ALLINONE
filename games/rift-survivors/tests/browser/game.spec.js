@@ -240,5 +240,5 @@ test("thunder uses a recorded long tail and magic impacts never route to sword F
 test("lightning can be practiced directly without a level choice or permanent rewards",async({page})=>{
  await page.goto("/?practice=lightning");await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#start")).toContainText("번개 사슬 연습");await page.locator("#start").click();
  expect(await page.evaluate(()=>window.__riftTest.game.hero.id)).toBe("mage");expect(await page.evaluate(()=>window.__riftTest.game.weapons)).toEqual({lightning:2});await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.stats.lastSample)).toBe("thunder");
- await page.evaluate(()=>{const g=window.__riftTest.game;g.time=14.99;g.step(1/60);});await expect(page.locator("#result-home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.game.result.coins)).toBe(0);
+ await page.evaluate(()=>{const g=window.__riftTest.game;g.time=14.99;g.step(1/60);});await expect(page.locator("#practice-home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.game.result.coins)).toBe(0);
 });
