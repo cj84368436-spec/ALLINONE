@@ -20,14 +20,14 @@ test("automatic quality scales down under sustained slow frames and recovers wit
 test("spatial buckets are reusable and never return stale or duplicate enemies",()=>{
   const grid=new EnemyGrid(),enemies=[{id:1,x:95,y:95,hp:10},{id:2,x:96,y:96,hp:10},{id:3,x:500,y:500,hp:0}],out=[];grid.rebuild(enemies);assert.deepEqual(grid.query(50,50,150,150,out).map(e=>e.id),[1,2]);enemies[0].x=600;enemies[1].hp=0;grid.rebuild(enemies);assert.equal(grid.query(50,50,150,150,out).length,0);assert.deepEqual(grid.query(550,0,650,150,out).map(e=>e.id),[1]);
 });
-test("all six evolutions require a max weapon and its paired passive and emit once",()=>{
+test("all eighteen evolutions require a max weapon and its paired passive and emit once",()=>{
   for(const [key,evo] of Object.entries(EVOLUTIONS)){const g=new Game();g.weapons={[key]:5};g.passives[evo.passive]=1;g.checkEvolution();assert.equal(g.evolved[key],undefined);g.passives[evo.passive]=2;g.checkEvolution();g.checkEvolution();assert.equal(g.evolved[key],true);assert.equal(g.events.filter(e=>e.type==="evolve").length,1);}
 });
 test("evolved arrows add five penetrating projectiles without exceeding the projectile budget",()=>{
   const g=new Game("ranger"),e=g.spawn("shade");Object.assign(e,{x:1000,y:900,hp:10000});g.weapons.arrow=5;g.passives.haste=2;g.checkEvolution();g.attack("arrow",5);assert.equal(g.bullets.length,0);g.advanceRanged(.3);assert.equal(g.bullets.length,5);assert.ok(g.bullets.every(b=>b.pierce===3));for(let i=0;i<100;i++){g.attack("arrow",5);g.advanceRanged(.3);}assert.equal(g.bullets.length,LIMITS.bullets);
 });
 test("skill rerolls are free, limited to three per run and do not consume an earned level",()=>{
-  const g=new Game();assert.equal(g.reroll(),false);g.addXP(8);for(let i=0;i<3;i++){assert.equal(g.reroll(),true);assert.equal(g.pending,1);assert.equal(g.phase,"upgrade");assert.equal(g.choices.length,3);}assert.equal(g.reroll(),false);g.choose(g.choices[0]);assert.equal(g.phase,"playing");
+  const g=new Game();assert.equal(g.reroll(),false);g.addXP(8);for(let i=0;i<3;i++){assert.equal(g.reroll(),true);assert.equal(g.pending,1);assert.equal(g.phase,"upgrade");assert.equal(g.choices.length,4);}assert.equal(g.reroll(),false);g.choose(g.choices[0]);assert.equal(g.phase,"playing");
 });
 test("level choices always include an available owned weapon",()=>{
   const g=new Game("mage");for(let i=0;i<100;i++)assert.ok(g.offer().includes("bolt"));
