@@ -33,3 +33,10 @@ test("a rune that completes a maxed attack is labelled as an evolution",()=>{
 test("ability cooldowns use one shared duration for the simulation and UI",()=>{
  const g=quiet();assert.ok(g.dash(1,0));assert.equal(g.player.dashCd,ABILITY_COOLDOWNS.dash);assert.ok(g.ultimate());assert.equal(g.player.ultCd,ABILITY_COOLDOWNS.ultimate);assert.equal(ABILITY_COOLDOWNS.ultimate,38);
 });
+
+test("stunned enemies stop contact, shots and new boss attacks until the stun expires",()=>{
+ const g=quiet(),seer=g.spawn("seer");Object.assign(seer,{x:900,y:900,shoot:0,stagger:1,speed:0});g.step(1/60);assert.equal(g.player.hp,130);assert.equal(g.shots.length,0);seer.x=1100;
+ for(let i=0;i<62;i++)g.step(1/60);assert.ok(g.shots.length>0);
+ const b=quiet();b.time=300;const boss=b.spawnBoss();Object.assign(boss,{shoot:0,storm:0,chargeCd:0,stagger:1});b.step(1/60);assert.equal(b.shots.length,0);assert.equal(b.hazards.length,0);assert.equal(boss.charge,undefined);
+ for(let i=0;i<62;i++)b.step(1/60);assert.ok(b.shots.length>0);assert.ok(b.hazards.length>0);assert.ok(boss.charge);
+});
