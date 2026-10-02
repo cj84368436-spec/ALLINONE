@@ -90,3 +90,13 @@ npm run check:release
 화면이 보이는 상태에서 포커스가 바뀌어도 게임이 멈추지 않습니다. 화면 터치와 드래그 이동은 계속되고, 일시정지 버튼 또는 실제 백그라운드 전환 시에는 전투·소리가 멈춥니다. 기존 저장 키와 기록을 유지합니다.
 
 [수정된 게임](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5.1) · [자동 검증과 토스 빌드](https://github.com/cj84368436-spec/ALLINONE/actions/runs/36895603237)
+
+## 8방향 터치 이동과 걷기 — 1.5.2
+
+이동을 소유한 손가락을 추적하며 상하좌우·대각선, 누른 채 방향 전환, 다른 손가락으로 스킬 사용과 resize 중 이동을 유지합니다. 새 이동 입력과 이동 중 키보드 입력이 충돌하지 않습니다. 손을 떼거나 터치가 취소되면 멈춥니다.
+
+세 영웅의 걷기는 실제 이동 거리로 진행하고 정지하면 멈춥니다. 기사는 걷기 2개 그림, 궁수·마법사는 각 4개 그림을 사용하며 이동 중 공격에서도 하체 걸음을 유지합니다.
+
+[최신 수정본](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=1.5.2-touch2) · [107개 자동 검사와 토스 빌드](https://github.com/cj84368436-spec/ALLINONE/actions/runs/36954484372)
+
+Chrome 연속 드래그는 브라우저 터치 입력으로, WebKit 드래그는 터치 이벤트 시뮬레이션으로 확인했습니다. 실제 iPhone/Toss에서의 직접 검증 및 콘솔 출시 상태는 docs/VALIDATION.md에 구분합니다.
