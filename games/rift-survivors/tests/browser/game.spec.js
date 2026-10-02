@@ -167,9 +167,10 @@ async function makeTouchDriver(page,browserName){
 for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight directions, turns, resize, two fingers and cancellation",async({page,browserName},testInfo)=>{
  await page.locator('[data-hero="'+hero+'"]').tap();await page.locator("#start").tap();
  await page.evaluate(()=>{const g=window.__riftTest.game;g.player.inv=999;g.spawnCd=g.nextElite=999;g.weapons={};});
+ await page.keyboard.down("ArrowLeft");
  const touch=await makeTouchDriver(page,browserName);
  await testInfo.attach("input-method",{body:browserName==="chromium"?"Browser touch input via CDP":"DOM TouchEvent dispatch",contentType:"text/plain"});
- for(const [dx,dy]of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
+ for(const [dx,dy]of [[1,0],[-1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
   const before=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
   await touch.start(195,440);await touch.move(195+dx*60,440+dy*60);await page.waitForTimeout(150);
   const after=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
