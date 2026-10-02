@@ -171,8 +171,9 @@ for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight di
  const touch=await makeTouchDriver(page,browserName);
  await testInfo.attach("input-method",{body:browserName==="chromium"?"Browser touch input via CDP":"Simulated touch events via DOM dispatch",contentType:"text/plain"});
  for(const [dx,dy]of [[1,0],[-1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
+  await touch.start(195,440);expect(await page.evaluate(()=>window.__riftTest.input.source)).toBe("touch");
   const before=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
-  await touch.start(195,440);expect(await page.evaluate(()=>window.__riftTest.input.source)).toBe("touch");await touch.move(195+dx*60,440+dy*60);await page.waitForTimeout(150);
+  await touch.move(195+dx*60,440+dy*60);await page.waitForTimeout(150);
   const after=await page.evaluate(()=>({x:window.__riftTest.game.player.x,y:window.__riftTest.game.player.y}));
   if(dx)expect((after.x-before.x)*dx).toBeGreaterThan(8);else expect(after.x).toBeCloseTo(before.x,0);
   if(dy)expect((after.y-before.y)*dy).toBeGreaterThan(8);else expect(after.y).toBeCloseTo(before.y,0);
@@ -180,8 +181,9 @@ for(const hero of ["knight","ranger","mage"])test(hero+" touch supports eight di
  }
  await touch.start(195,440);await touch.move(100,440);await page.waitForTimeout(120);
  const left=await page.evaluate(()=>window.__riftTest.game.player.x);
- await touch.move(300,440);await page.keyboard.down("ArrowLeft");await page.evaluate(()=>window.dispatchEvent(new Event("resize")));await page.waitForTimeout(150);
- expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(left+8);
+ await touch.move(300,440);await page.keyboard.down("ArrowLeft");await page.evaluate(()=>window.dispatchEvent(new Event("resize")));
+ const right=await page.evaluate(()=>window.__riftTest.game.player.x);await page.waitForTimeout(150);
+ expect(await page.evaluate(()=>window.__riftTest.game.player.x)).toBeGreaterThan(right+8);
  await page.evaluate(()=>{
   const world=document.getElementById("world"),t={identifier:9,target:world,clientX:130,clientY:620,pageX:130,pageY:620};
   for(const type of ["touchstart","touchmove","touchend"]){const event=new Event(type,{bubbles:true,cancelable:true});Object.defineProperties(event,{changedTouches:{value:[t]},touches:{value:type==="touchend"?[]:[t]},targetTouches:{value:type==="touchend"?[]:[t]}});world.dispatchEvent(event);}
