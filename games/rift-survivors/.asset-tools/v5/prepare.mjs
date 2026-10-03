@@ -1,4 +1,4 @@
-import fs from "node:fs";import path from "node:path";import sharp from "/tmp/rift-v5-assets/node_modules/sharp/lib/index.js";
+import fs from "node:fs";import path from "node:path";import {createRequire} from "node:module";const sharp=createRequire("/tmp/rift-v5-assets/package.json")("sharp");
 const root="games/rift-survivors",source=root+"/.asset-tools/v5/enemies.png",meta=await sharp(source).metadata();
 const names=["guard","hound","bomber","wisp","healer","sniper","frostling","boss-2","boss-3","boss-4","boss-5","boss-1"];
 fs.mkdirSync(root+"/public/art",{recursive:true});
