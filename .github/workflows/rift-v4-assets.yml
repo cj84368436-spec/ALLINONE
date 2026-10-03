@@ -1,0 +1,33 @@
+name: Rift 4.0 material effects preparation
+on:
+  push:
+    paths:
+      - '.asset-tools/prepare-rift-v4.mjs'
+      - '.asset-tools/v4/**'
+      - '.github/workflows/rift-v4-assets.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --prefix /tmp/rift-v4-assets sharp --no-audit --no-fund
+      - name: Encode new artwork and recorded material sounds
+        run: |
+          command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+          node .asset-tools/prepare-rift-v4.mjs
+      - name: Store game assets and source evidence
+        run: |
+          git config user.name "Rift material asset preparation"
+          git config user.email "actions@users.noreply.github.com"
+          git add games/rift-survivors/public .evidence/rift-4.0/audio
+          git diff --cached --quiet && exit 0
+          git commit -m "Prepare original 4.0 skill artwork and recorded material combat audio [skip ci]"
+          git pull --rebase
+          git push
