@@ -1,125 +1,179 @@
 {
-  "version": "3.1.0",
+  "version": "4.0.0",
   "files": [
-    {
-      "name": "swish-a.mp3",
-      "bytes": 6883,
-      "duration": 0.313469,
-      "sha256": "9b5eb4d59218e75edbd9346abc925c7fc9f45ae705091cd2b52b9b904c127eec"
-    },
-    {
-      "name": "swish-b.mp3",
-      "bytes": 6883,
-      "duration": 0.313469,
-      "sha256": "4d21d73565551cf924a96b2bf9bb4250afa7a39379e555e3f9eb9fd75d0c671c"
-    },
-    {
-      "name": "swish-c.mp3",
-      "bytes": 6883,
-      "duration": 0.313469,
-      "sha256": "a5a8528c4b1904da71c321c7ed8b6d3a733b55b5ce3bc29d4b30f928d9c8532a"
-    },
-    {
-      "name": "blade-hit-a.mp3",
-      "bytes": 7395,
-      "duration": 0.339592,
-      "sha256": "570247f1a2cf5355e2be76f7a423ef253fe6b64892d6c7bd24099ac88522e6b7"
-    },
-    {
-      "name": "blade-hit-b.mp3",
-      "bytes": 7395,
-      "duration": 0.339592,
-      "sha256": "635c9135ab1ae339989fcd131d905d56065b91e7473c5f69ffa07540bd61147f"
-    },
-    {
-      "name": "arrow.mp3",
-      "bytes": 2882,
-      "duration": 0.130612,
-      "sha256": "f8a3cb86e780e1cec3425001b7570f9ca5c299293a3b49387fc7a85829b06f76"
-    },
-    {
-      "name": "magic.mp3",
-      "bytes": 21071,
-      "duration": 1.28,
-      "sha256": "c8c53da6f8a84ee175f69029b223b436036b2fa297b59f763b86d969fb5a949e"
-    },
-    {
-      "name": "frost.mp3",
-      "bytes": 21071,
-      "duration": 1.28,
-      "sha256": "9621f9b2d16bcde159a2877adcec0de530013b5b42c736ab21ec421183fa90b9"
-    },
-    {
-      "name": "thunder.mp3",
-      "bytes": 69570,
-      "duration": 3.448163,
-      "sha256": "b2fc64f939ac595de967deb203d55e5b66174b0ec8096dcada1e50d5c05030d2"
-    },
-    {
-      "name": "ultimate.mp3",
-      "bytes": 38515,
-      "duration": 2.35102,
-      "sha256": "90ba935737e68fe0c0dcc07d69de8d91eb6007ed093ed418167c0424f46e7703"
-    },
-    {
-      "name": "reward.mp3",
-      "bytes": 58269,
-      "duration": 3.604898,
-      "sha256": "29c980a8257a38b800aea4e96691a96b8a75b35e291f4ac7ed1f76fb4e05e39c"
-    },
-    {
-      "name": "select.mp3",
-      "bytes": 3516,
-      "duration": 0.182857,
-      "sha256": "1a7d4148120e0194e1ec7db42e7d05dfcec197576e7ddd8b68e9783657363752"
-    },
-    {
-      "name": "boss.mp3",
-      "bytes": 41133,
-      "duration": 2.533878,
-      "sha256": "3226e00632e9afd1a540f1e001e05b5a0c96219746366d3c5f4d775fca233108"
-    },
-    {
-      "name": "hurt.mp3",
-      "bytes": 9239,
-      "duration": 0.548571,
-      "sha256": "1ef133fab89be959f1f7e62cf55da07551c281158f70f219b952364900bb3c82"
-    },
     {
       "name": "ambience.mp3",
       "bytes": 481115,
-      "duration": 30.040816,
-      "sha256": "d365e4d8aed58b087da60b807310afc120b9dc46cf1e438692110b42d20a0856"
-    },
-    {
-      "name": "arrow-release.mp3",
-      "bytes": 4554,
-      "duration": 0.235102,
-      "sha256": "5b5eac5d60328703f740f034cf327ebcfb7a44640b4a8c40a4b0b0e8a537c525"
-    },
-    {
-      "name": "arrow-hit.mp3",
-      "bytes": 5477,
-      "duration": 0.313469,
-      "sha256": "b244031d6d97a7af7b55e682a9f69ffe06bcb0860950e8184d340c43bf5caad0"
-    },
-    {
-      "name": "bolt-release.mp3",
-      "bytes": 10622,
-      "duration": 0.626939,
-      "sha256": "65178e152b0dcde658ffa84a4d2c43d70ae74ec2fabc33cd6e6b1032898e482f"
-    },
-    {
-      "name": "bolt-hit.mp3",
-      "bytes": 6860,
-      "duration": 0.391837,
-      "sha256": "a03aedd629103fb6fb7eda09efb081d3ce42b179ce7033a8953ba3386df720c0"
+      "sha256": "d365e4d8aed58b087da60b807310afc120b9dc46cf1e438692110b42d20a0856",
+      "duration": 30.040816
     },
     {
       "name": "arrow-flight.mp3",
       "bytes": 10825,
-      "duration": 0.496327,
-      "sha256": "c58bbdbe461ae9bd7b27bac4396f82efc21842f720e070a63b1eccb296c56288"
+      "sha256": "c58bbdbe461ae9bd7b27bac4396f82efc21842f720e070a63b1eccb296c56288",
+      "duration": 0.496327
+    },
+    {
+      "name": "arrow-hit.mp3",
+      "bytes": 5477,
+      "sha256": "b244031d6d97a7af7b55e682a9f69ffe06bcb0860950e8184d340c43bf5caad0",
+      "duration": 0.313469
+    },
+    {
+      "name": "arrow-release.mp3",
+      "bytes": 4554,
+      "sha256": "5b5eac5d60328703f740f034cf327ebcfb7a44640b4a8c40a4b0b0e8a537c525",
+      "duration": 0.235102
+    },
+    {
+      "name": "arrow.mp3",
+      "bytes": 2882,
+      "sha256": "f8a3cb86e780e1cec3425001b7570f9ca5c299293a3b49387fc7a85829b06f76",
+      "duration": 0.130612
+    },
+    {
+      "name": "blade-hit-a.mp3",
+      "bytes": 7395,
+      "sha256": "570247f1a2cf5355e2be76f7a423ef253fe6b64892d6c7bd24099ac88522e6b7",
+      "duration": 0.339592
+    },
+    {
+      "name": "blade-hit-b.mp3",
+      "bytes": 7395,
+      "sha256": "635c9135ab1ae339989fcd131d905d56065b91e7473c5f69ffa07540bd61147f",
+      "duration": 0.339592
+    },
+    {
+      "name": "bolt-hit.mp3",
+      "bytes": 7149,
+      "sha256": "c4f6df6bb43abf6a283b0a5bcbaeebff2578c5526e92e1ca334a0d5019c8c347",
+      "duration": 0.417959
+    },
+    {
+      "name": "bolt-release.mp3",
+      "bytes": 8869,
+      "sha256": "bc7c273bdb990239df0ab0fb404e76265be3df52bbaa17a60b5480cb6630600f",
+      "duration": 0.522449
+    },
+    {
+      "name": "boss.mp3",
+      "bytes": 41133,
+      "sha256": "3226e00632e9afd1a540f1e001e05b5a0c96219746366d3c5f4d775fca233108",
+      "duration": 2.533878
+    },
+    {
+      "name": "fire-cast.mp3",
+      "bytes": 12312,
+      "sha256": "1c225806694c0b83f8ffbbe9feb2163dd3717f0d2ba66534bcfa631fb30dafe5",
+      "duration": 0.731429
+    },
+    {
+      "name": "fire-impact.mp3",
+      "bytes": 16344,
+      "sha256": "28c915d5f36664818a4e2c24961ddf50d28130f0d9110008682be9b58c9532dd",
+      "duration": 0.992653
+    },
+    {
+      "name": "frost.mp3",
+      "bytes": 20572,
+      "sha256": "f7e24fc9480b5c4a6de8dd2f1529435f0ca1fb6e96157910b3c71d782a2c6f3f",
+      "duration": 1.253878
+    },
+    {
+      "name": "hurt.mp3",
+      "bytes": 9239,
+      "sha256": "1ef133fab89be959f1f7e62cf55da07551c281158f70f219b952364900bb3c82",
+      "duration": 0.548571
+    },
+    {
+      "name": "ice-impact.mp3",
+      "bytes": 11328,
+      "sha256": "5b47914b30578fefc5b79e4052b51a31c5d9467d811703ed75f60edbe7721f17",
+      "duration": 0.679184
+    },
+    {
+      "name": "magic.mp3",
+      "bytes": 12200,
+      "sha256": "7d103fdc9bbfa794895f7f56281a99503dbd5c5dcd53508cb44b585433fe3a3d",
+      "duration": 0.731429
+    },
+    {
+      "name": "poison-impact.mp3",
+      "bytes": 11400,
+      "sha256": "ad0b12f09bef7cd7c118ca8db0c668e4fe05c49ad07d8f453a86c8f3eec008fe",
+      "duration": 0.679184
+    },
+    {
+      "name": "reward.mp3",
+      "bytes": 58269,
+      "sha256": "29c980a8257a38b800aea4e96691a96b8a75b35e291f4ac7ed1f76fb4e05e39c",
+      "duration": 3.604898
+    },
+    {
+      "name": "select.mp3",
+      "bytes": 3516,
+      "sha256": "1a7d4148120e0194e1ec7db42e7d05dfcec197576e7ddd8b68e9783657363752",
+      "duration": 0.182857
+    },
+    {
+      "name": "steel-return.mp3",
+      "bytes": 10122,
+      "sha256": "7fff1cf3fc2596404fe3448319be91510ed1d8144d5c007f5705266e21a23d0a",
+      "duration": 0.600816
+    },
+    {
+      "name": "stone-impact.mp3",
+      "bytes": 18052,
+      "sha256": "3aef086c5e271debf90c02180f0d299a2e195ea3e340deac4457d9684f6561b2",
+      "duration": 1.097143
+    },
+    {
+      "name": "swish-a.mp3",
+      "bytes": 6883,
+      "sha256": "9b5eb4d59218e75edbd9346abc925c7fc9f45ae705091cd2b52b9b904c127eec",
+      "duration": 0.313469
+    },
+    {
+      "name": "swish-b.mp3",
+      "bytes": 6883,
+      "sha256": "4d21d73565551cf924a96b2bf9bb4250afa7a39379e555e3f9eb9fd75d0c671c",
+      "duration": 0.313469
+    },
+    {
+      "name": "swish-c.mp3",
+      "bytes": 6883,
+      "sha256": "a5a8528c4b1904da71c321c7ed8b6d3a733b55b5ce3bc29d4b30f928d9c8532a",
+      "duration": 0.313469
+    },
+    {
+      "name": "thunder.mp3",
+      "bytes": 69570,
+      "sha256": "b2fc64f939ac595de967deb203d55e5b66174b0ec8096dcada1e50d5c05030d2",
+      "duration": 3.448163
+    },
+    {
+      "name": "ultimate.mp3",
+      "bytes": 20142,
+      "sha256": "381fb688ddf263ab85dbd4785739ce3267efdde0b24d23f8dcf2b746e167c260",
+      "duration": 1.227755
+    },
+    {
+      "name": "void-cast.mp3",
+      "bytes": 10911,
+      "sha256": "35b29b9dbae260a41d111ae1fa97890677da8a0a023724d75dcac279737b717b",
+      "duration": 0.653061
+    },
+    {
+      "name": "void-impact.mp3",
+      "bytes": 14290,
+      "sha256": "bdf00d61ab3b90220bb00e56c31e69a71d087ff7759d2cb5b7eaab676b96243f",
+      "duration": 0.862041
+    },
+    {
+      "name": "whirlwind.mp3",
+      "bytes": 18900,
+      "sha256": "61f9347f3f7c81b9574323d1ed7babc19ef5d437aa0699110c8f0da01c82a587",
+      "duration": 1.149388
     }
   ],
   "sources": [
@@ -142,7 +196,8 @@
       "page": "https://opengameart.org/content/fantasy-sound-effects-library"
     }
   ],
-  "totalBytes": 820158,
+  "totalBytes": 914610,
   "bladeMix": "Recorded knife edge, low pitched cloth impact and quiet metal resonance; no chopped-wood layer. Contact playback is driven by combat contact events.",
-  "rangedMix": "Separate quiet bow release, recorded aerodynamic flight whoosh and quieter target contact. Flight uses uncut CC0 swish-2/swish-12 Foley with airy EQ, pitch layers and 160 ms tail; no oscillator or synthesized noise."
+  "rangedMix": "Separate quiet bow release, recorded aerodynamic flight whoosh and quieter target contact. Flight uses uncut CC0 swish-2/swish-12 Foley with airy EQ, pitch layers and 160 ms tail; no oscillator or synthesized noise.",
+  "materialMix": "Recorded fire crackle, fireworks, breaking rock, ice shatter, acid bubbles, wind and existing steel/arrow Foley. Layered, trimmed, equalized and peak-limited; no oscillator or arcade spell samples in combat routes."
 }

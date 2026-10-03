@@ -19,3 +19,13 @@ Edits: trim, high-pass, equalization, layered Kenney knife and artisticdude swis
 
 Rift Keepers 3.1 arrow flight: swish-2.wav / swish-12.wav by artisticdude, CC0 1.0. https://opengameart.org/content/swishes-sound-pack
 Edits: layered recorded air swishes, high-pass EQ, pitch, delay, normalization and fades. Flight has a separate sample from bow release and target contact.
+
+Rift Keepers 4.0 material combat recordings:
+IgnasD — CC0-1.0 — https://opengameart.org/content/ice-breakingshattering
+rubberduck — CC0-1.0 — https://opengameart.org/content/25-cc0-bang-firework-sfx
+qubodup — CC-BY-3.0 — https://opengameart.org/content/fire-loop
+Blender Foundation — CC-BY-3.0 — https://opengameart.org/content/rockbreaking
+spookymodem — CC-BY-3.0 — https://opengameart.org/content/bubbling-acid
+Flixberry Entertainment — CC-BY-3.0 — https://opengameart.org/content/strong-wind-blowing
+CC BY 3.0: https://creativecommons.org/licenses/by/3.0/
+Edits: energetic recording excerpts, reversal, pitch, EQ, layers, compression, loudness, short fades and MP3 encoding. No Diablo audio or artwork used.

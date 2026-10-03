@@ -936,5 +936,175 @@
       "swish-12.wav"
     ],
     "edits": "Air-only recorded Foley: high pass 750/1900 Hz, pitch layers, 45 ms offset, normalization, 18 ms attack and 160 ms tail."
+  },
+  "materialRemix": {
+    "version": "4.0.0",
+    "sources": [
+      {
+        "id": "ice",
+        "url": "https://opengameart.org/sites/default/files/IceShatters_0.zip",
+        "author": "IgnasD",
+        "license": "CC0-1.0",
+        "page": "https://opengameart.org/content/ice-breakingshattering",
+        "sha256": "b84ea396fac1af183dd2cb205a01edaa94b493ffb36965eafe59912e41cf9eb7"
+      },
+      {
+        "id": "bang",
+        "url": "https://opengameart.org/sites/default/files/25-CC0-bang-sfx.zip",
+        "author": "rubberduck",
+        "license": "CC0-1.0",
+        "page": "https://opengameart.org/content/25-cc0-bang-firework-sfx",
+        "sha256": "c0c9ecc11e2dc0d190f0cced755569858234b8528286bc83becb6314c663407f"
+      },
+      {
+        "id": "fire",
+        "url": "https://opengameart.org/sites/default/files/qubodupFireLoop.flac",
+        "author": "qubodup",
+        "license": "CC-BY-3.0",
+        "page": "https://opengameart.org/content/fire-loop",
+        "sha256": "5fe7df0a709039b6b05fe431a57c5afe5d826a5cb46c4d255149047dee2f0717"
+      },
+      {
+        "id": "rock",
+        "url": "https://opengameart.org/sites/default/files/rock_breaking.flac",
+        "author": "Blender Foundation",
+        "license": "CC-BY-3.0",
+        "page": "https://opengameart.org/content/rockbreaking",
+        "sha256": "f7793ea9acb0f5a90efbcd376a34c02b3b514d87d47afd38ea5dcd29817d7524"
+      },
+      {
+        "id": "acid",
+        "url": "https://opengameart.org/sites/default/files/Acid%20Bubble.wav",
+        "author": "spookymodem",
+        "license": "CC-BY-3.0",
+        "page": "https://opengameart.org/content/bubbling-acid",
+        "sha256": "c42df36cf285df06aabb3a46dccc34b1a116317b884ed0160a30b02cde3e486b"
+      },
+      {
+        "id": "wind",
+        "url": "https://opengameart.org/sites/default/files/strong%20wind%20blowing_0.mp3",
+        "author": "Flixberry Entertainment",
+        "license": "CC-BY-3.0",
+        "page": "https://opengameart.org/content/strong-wind-blowing",
+        "sha256": "261f8a92a9e9c76f8e2f7fa343f583a466511def26f2ff366048931c37f5b542"
+      }
+    ],
+    "recipes": [
+      {
+        "name": "fire-cast",
+        "filters": [
+          "highpass=f=180,lowpass=f=8200,volume=0.8",
+          "highpass=f=650,volume=0.48"
+        ],
+        "duration": 0.68
+      },
+      {
+        "name": "fire-impact",
+        "filters": [
+          "highpass=f=55,lowpass=f=7300,volume=0.48",
+          "highpass=f=160,volume=0.55",
+          "lowpass=f=3200,volume=0.18"
+        ],
+        "duration": 0.95
+      },
+      {
+        "name": "ice-impact",
+        "filters": [
+          "highpass=f=240,equalizer=f=2600:t=q:w=1:g=2,volume=0.95",
+          "highpass=f=450,lowpass=f=5200,volume=0.22"
+        ],
+        "duration": 0.65
+      },
+      {
+        "name": "stone-impact",
+        "filters": [
+          "highpass=f=45,lowpass=f=6500,volume=0.8",
+          "lowpass=f=2800,volume=0.16"
+        ],
+        "duration": 1.05
+      },
+      {
+        "name": "poison-impact",
+        "filters": [
+          "highpass=f=190,lowpass=f=4800,volume=0.9",
+          "highpass=f=600,lowpass=f=2400,volume=0.08"
+        ],
+        "duration": 0.65
+      },
+      {
+        "name": "whirlwind",
+        "filters": [
+          "highpass=f=180,lowpass=f=6500,volume=0.55",
+          "apad,volume=0.46",
+          "adelay=170,apad,volume=0.35"
+        ],
+        "duration": 1.1
+      },
+      {
+        "name": "void-cast",
+        "filters": [
+          "areverse,asetrate=33075,aresample=44100,highpass=f=160,lowpass=f=7200,volume=0.5",
+          "highpass=f=350,volume=0.35"
+        ],
+        "duration": 0.62
+      },
+      {
+        "name": "void-impact",
+        "filters": [
+          "asetrate=35280,aresample=44100,highpass=f=80,lowpass=f=6800,volume=0.36",
+          "highpass=f=550,volume=0.55",
+          "lowpass=f=1600,volume=0.12"
+        ],
+        "duration": 0.83
+      },
+      {
+        "name": "steel-return",
+        "filters": [
+          "apad,volume=0.8",
+          "adelay=90,highpass=f=900,volume=0.2"
+        ],
+        "duration": 0.55
+      },
+      {
+        "name": "bolt-release",
+        "filters": [
+          "highpass=f=600,lowpass=f=8000,volume=0.48",
+          "areverse,highpass=f=1300,volume=0.34"
+        ],
+        "duration": 0.48
+      },
+      {
+        "name": "bolt-hit",
+        "filters": [
+          "highpass=f=370,lowpass=f=9000,volume=1"
+        ],
+        "duration": 0.38
+      },
+      {
+        "name": "frost",
+        "filters": [
+          "highpass=f=230,lowpass=f=6500,volume=0.72",
+          "adelay=90,highpass=f=700,volume=0.28"
+        ],
+        "duration": 1.22
+      },
+      {
+        "name": "magic",
+        "filters": [
+          "areverse,highpass=f=150,lowpass=f=6700,volume=0.33",
+          "areverse,highpass=f=900,volume=0.44"
+        ],
+        "duration": 0.7
+      },
+      {
+        "name": "ultimate",
+        "filters": [
+          "highpass=f=65,lowpass=f=7500,volume=0.64",
+          "highpass=f=550,volume=0.37",
+          "adelay=40,lowpass=f=2600,volume=0.18"
+        ],
+        "duration": 1.18
+      }
+    ]
   }
 }
