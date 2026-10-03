@@ -5,29 +5,29 @@
     {
       "hero": "knight",
       "key": "thousand",
-      "seconds": "12.512500",
-      "bytes": 1419669,
+      "seconds": "12.471000",
+      "bytes": 583085,
       "hasAudio": true,
-      "meanDb": -28.7,
-      "peakDb": -7.7
+      "meanDb": -36,
+      "peakDb": -12
     },
     {
       "hero": "ranger",
       "key": "ballista",
-      "seconds": "12.509333",
-      "bytes": 756199,
+      "seconds": "12.503333",
+      "bytes": 771240,
       "hasAudio": true,
       "meanDb": -32.6,
-      "peakDb": -10.1
+      "peakDb": -9.3
     },
     {
       "hero": "mage",
       "key": "dragon",
-      "seconds": "12.506333",
-      "bytes": 535327,
+      "seconds": "12.513333",
+      "bytes": 574276,
       "hasAudio": true,
-      "meanDb": -38.5,
-      "peakDb": -15.2
+      "meanDb": -38.2,
+      "peakDb": -14.4
     }
   ]
 }
