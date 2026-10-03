@@ -1,0 +1,33 @@
+{
+  "version": "5.1.0",
+  "method": "Staged late-stage evolving skill, actual Canvas animation and Web Audio output recorded together. High-health fixtures are for VFX/audio review; not human play or native-device evidence.",
+  "clips": [
+    {
+      "hero": "knight",
+      "key": "thousand",
+      "seconds": "12.512500",
+      "bytes": 1419669,
+      "hasAudio": true,
+      "meanDb": -28.7,
+      "peakDb": -7.7
+    },
+    {
+      "hero": "ranger",
+      "key": "ballista",
+      "seconds": "12.509333",
+      "bytes": 756199,
+      "hasAudio": true,
+      "meanDb": -32.6,
+      "peakDb": -10.1
+    },
+    {
+      "hero": "mage",
+      "key": "dragon",
+      "seconds": "12.506333",
+      "bytes": 535327,
+      "hasAudio": true,
+      "meanDb": -38.5,
+      "peakDb": -15.2
+    }
+  ]
+}
