@@ -1,5 +1,5 @@
 import {EnemyGrid} from "./spatial.js";
-export const GAME_VERSION="4.0.0";
+export const GAME_VERSION="4.1.0";
 export const ABILITY_COOLDOWNS={dash:5,ultimate:38};
 export const HEROES=[
 {id:"knight",name:"룬 기사",tag:"회오리·출혈·검기로 근접 난전을 지배해요",weapon:"blade",role:"근접 · 받는 피해 20% 감소",ultimateName:"태양의 심판",ultimateDesc:"주변 적을 강하게 베고 1.2초 기절시켜요",color:"#ffd18b",hp:130,speed:155},

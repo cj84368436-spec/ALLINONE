@@ -3,7 +3,7 @@ import {spawn} from "node:child_process";
 import {createRequire} from "node:module";
 import {chromium} from "@playwright/test";
 const sharp=createRequire("/tmp/rift-review/package.json")("sharp");
-const dir="../../.evidence/rift-4.0";fs.mkdirSync(dir,{recursive:true});const shots=[];
+const dir="../../.evidence/rift-4.1";fs.mkdirSync(dir,{recursive:true});const shots=[];
 const server=spawn(process.execPath,["node_modules/vite/bin/vite.js","--host","127.0.0.1","--port","5190"],{stdio:"ignore"});let browser;
 async function capture(page,name){const bytes=await page.screenshot();await sharp(bytes).resize({width:390}).webp({quality:88}).toFile(dir+"/"+name+".webp");shots.push(name);}
 try{
@@ -27,6 +27,26 @@ try{
   for(const lv of [2,4]){await page.evaluate(lv=>{const g=window.__riftTest.game;g.phase="playing";g.level=8;g.weapons={[g.hero.weapon]:lv};g.passives={};g.addXP(g.need);g.choices=[g.hero.weapon,...(g.hero.id==="knight"?["hammer","fissure"]:g.hero.id==="ranger"?["ricochet","glaive"]:["beam","pyre"]),"power"];},lv);await page.locator(".upgrade").first().waitFor();await capture(page,hero+"-awakening-"+(lv+1));await page.locator(".upgrade").first().click();}
  await page.evaluate(()=>window.__riftTest.finish(false));await page.locator("#result-home").click();
  }
+ // Review the real animation at multiple times, with reduced effects too.
+ await page.setViewportSize({width:390,height:844});
+ for(const [hero,key]of [["knight","orbit"],["knight","whirlwind"],["mage","ultimate"]]){
+  await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start").click();
+  for(const seconds of key==="orbit"?[0,.18,.36,.54]:[.16,.34,.58,.90]){
+   await page.evaluate(({key,seconds})=>{const {game:g,renderer:r}=window.__riftTest;g.phase="playing";g.hitStopEnabled=false;g.player.inv=0;g.player.ultCd=0;g.spawnCd=g.nextElite=g.nextRift=999;g.enemies=[];g.weapons={};g.cool={};g.bullets=[];g.events=[];g.fx=[];g.skillFields=[];g.skillTasks=[];g.spellFields=[];g.ultimateState=null;g.skillPose=null;g.rangedAttacks={};g.bladeSwing=null;g.rift=null;g.passives={};g.time=42;r.reduced=false;r.setQuality(1);
+    for(let i=0;i<10;i++){const e=g.spawn(i%2?"shade":"brute"),a=i*Math.PI*2/10,rad=110+i%3*20;Object.assign(e,{x:g.player.x+Math.cos(a)*rad,y:g.player.y+Math.sin(a)*rad,speed:0,hp:5000,maxHp:5000,shoot:999});}
+    if(key==="orbit")g.weapons={orbit:5};else if(key==="ultimate")g.ultimate();else g.attack("whirlwind",5);
+    for(let i=0;i<Math.round(seconds*60);i++)g.step(1/60);g.phase="paused";
+   },{key,seconds});
+   await page.waitForTimeout(70);await capture(page,"review-"+key+"-"+Math.round(seconds*100));
+  }
+  await page.evaluate(()=>window.__riftTest.renderer.reduced=true);await page.waitForTimeout(80);await capture(page,"review-"+key+"-reduced");
+  await page.evaluate(()=>{window.__riftTest.renderer.reduced=false;window.__riftTest.game.finish(false);});await page.locator("#result-home").click();
+ }
+ for(const key of ["orbit","whirlwind","ultimate"]){
+  const frames=key==="orbit"?[0,18,36,54]:[16,34,58,90];
+  await sharp({create:{width:390*4,height:844,channels:4,background:"#0a182d"}}).composite(frames.map((at,i)=>({input:dir+"/review-"+key+"-"+at+".webp",left:i*390,top:0}))).webp({quality:90}).toFile(dir+"/timeline-"+key+".webp");
+  await sharp(dir+"/review-"+key+"-"+frames[2]+".webp").extract({left:22,top:250,width:346,height:350}).resize(692,700).webp({quality:90}).toFile(dir+"/detail-"+key+".webp");
+ }
  await page.setViewportSize({width:360,height:640});await page.waitForTimeout(150);await capture(page,"small-home");
- if(errors.length)throw Error(JSON.stringify(errors));fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"4.0.0",viewport:"390×844; 360×640 small home",method:"Screenshots of the real Canvas/DOM renderer. Combat fixtures seed enemies, time and upgrades for visual review; they are staged scenes, not evidence of human play quality.",shots,errors},null,2));console.log("Art review scenes captured: "+shots.length);
+ if(errors.length)throw Error(JSON.stringify(errors));fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"4.1.0",viewport:"390×844; 360×640 small home",method:"Screenshots of the real Canvas/DOM renderer. Combat fixtures seed enemies, time and upgrades for visual review; they are staged scenes, not evidence of human play quality.",shots,timelines:["timeline-orbit.webp","timeline-whirlwind.webp","timeline-ultimate.webp"],details:["detail-orbit.webp","detail-whirlwind.webp","detail-ultimate.webp"],errors},null,2));console.log("Art review scenes captured: "+shots.length);
 }finally{await browser?.close();server.kill();}

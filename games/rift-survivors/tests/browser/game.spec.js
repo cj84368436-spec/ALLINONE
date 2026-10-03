@@ -305,3 +305,31 @@ test("material combat cues use fire, ice, stone, poison and void samples at actu
  const result=await page.evaluate(()=>{const a=window.__riftTest.audio,calls=[];a.play=(name,options)=>calls.push({name,...options});for(const [type,key]of [["skill-release","fireball"],["skill-impact","fireball"],["skill-impact","slam"],["projectile-contact","poison"],["projectile-contact","bolt"],["skill-release","beam"],["skill-release","whirlwind"]])a.event(type,key,{level:3});return{names:calls.map(c=>c.name),buffers:[...a.buffers.keys()]};});
  for(const name of ["fire-cast","fire-impact","stone-impact","poison-impact","bolt-hit","void-cast","whirlwind"])expect(result.names).toContain(name);expect(result.names).not.toContain("magic");expect(result.buffers).toHaveLength(29);
 });
+
+test("bespoke blade and frost effects retain opaque silhouettes without sprite textures",async({page})=>{
+ const result=await page.evaluate(async()=>{const v=await import("/src/hero-vfx.js"),canvas=document.createElement("canvas");canvas.width=canvas.height=512;const c=canvas.getContext("2d"),r={ctx:c,quality:1,reduced:false},g={time:0,player:{x:256,y:256},weapons:{orbit:5},evolved:{},passives:{}};
+ c.drawImage=()=>{throw Error("Critical skill shape depends on a raster sprite");};
+ function pixels(){const d=c.getImageData(0,0,512,512).data;let opaque=0,hash=2166136261,bright=0;for(let i=0;i<d.length;i+=4){if(d[i+3]>=200)opaque++;if(d[i+3]>160&&d[i]+d[i+1]+d[i+2]>480)bright++;hash=Math.imul(hash^d[i]^d[i+1]^d[i+2]^d[i+3],16777619);}return {opaque,bright,hash:hash>>>0};}
+ const snapshots={};
+ for(const reduced of [false,true]){r.reduced=reduced;r.quality=reduced?.7:1;
+  for(const key of ["orbit","whirlwind","frost"]){const frames=[];for(const age of [.16,.58,.90]){c.clearRect(0,0,512,512);g.time=age;const f={x:256,y:244,r:key==="whirlwind"?130:180,follow:true,max:1.2,ttl:1.2-age};
+   if(key==="orbit")v.drawBladeBarrier(r,g);else if(key==="whirlwind")v.drawWhirlwind(r,f,age,g);else v.drawFrostCrown(r,f,age,g);
+   frames.push(pixels());}snapshots[(reduced?"reduced-":"full-")+key]=frames;
+  }
+ }
+ return snapshots;
+ });
+ for(const [key,frames]of Object.entries(result)){expect(frames[1].opaque,key+" loses its solid forms").toBeGreaterThan(250);expect(frames[1].bright,key+" has no readable bright edge").toBeGreaterThan(30);expect(new Set(frames.map(x=>x.hash)).size,key+" is a static cutout").toBe(3);}
+});
+test("mixed new effects freeze with game time and orbital visuals match actual hit positions",async({page})=>{
+ await page.locator("#start").click();
+ const result=await page.evaluate(async()=>{const {bladeBarrierLayout}=await import("/src/hero-vfx.js"),{game:g,renderer:r}=window.__riftTest;
+ g.phase="paused";g.time=42.4;g.enemies=[];g.bullets=[];g.shots=[];g.fx=[];g.skillFields=[];g.spellFields=[];g.rift=null;g.weapons={orbit:5};g.evolved={orbit:true};g.passives={focus:2};g.player.inv=0;g.player.moving=false;g.bladeSwing=null;g.rangedAttacks={};g.skillPose=null;
+ g.fx=[{kind:"whirlwind",key:"whirlwind",follow:true,x:g.player.x,y:g.player.y,r:135,max:1.2,ttl:.65,color:"#fff0c1"},{kind:"frost-crown",x:g.player.x,y:g.player.y-12,r:180,max:1.2,ttl:.62,color:"#ccefff"}];
+ function hash(){const d=r.ctx.getImageData(0,0,r.canvas.width,r.canvas.height).data;let h=2166136261;for(let i=0;i<d.length;i+=16)h=Math.imul(h^d[i]^d[i+1]^d[i+2],16777619);return h>>>0;}
+ const frames=[];for(const externalTime of [0,999]){r.draw(externalTime,g,g.hero,{active:false});frames.push(hash());}
+ const radius=(64+5*6+20)*(1+2*.08),layout=bladeBarrierLayout(g),positions=layout.every((b,i)=>{const angle=i<6?g.time*2.6+i*Math.PI*2/6:-g.time*2+(i-6)*Math.PI,rr=i<6?radius:radius+30;return Math.abs(b.x-(g.player.x+Math.cos(angle)*rr))<1e-7&&Math.abs(b.y-(g.player.y+Math.sin(angle)*rr))<1e-7;});
+ return {same:frames[0]===frames[1],count:layout.length,positions};
+ });
+ expect(result.same).toBe(true);expect(result.count).toBe(8);expect(result.positions).toBe(true);
+});
