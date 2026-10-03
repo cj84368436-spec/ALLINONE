@@ -1,3 +1,11 @@
+## 5.1.0 · 실제 전투 연출 재검토
+
+5스테이지 천검·성좌의 노궁·창룡을 다시 만들고, 전 공격과 궁극기의 재질·접촉 효과·녹음 효과음 배치·적의 반응을 재검토했습니다. 빈 공격의 가짜 명중음, 중복 접촉, 지속 피해의 반복 밀림, 누락된 후속 낙뢰를 수정했습니다. 공격 아이콘에는 재사용 진행 표시와 각성·진화 테두리가 생깁니다.
+
+[5.1 플레이 테스트](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=5.1.0-gamefeel-r1) · [창룡 Lv.5 진화 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?practice=dragon&tier=5&evolved=1&v=5.1.0-gamefeel-r1)
+
+[디자인 변경과 리뷰 방법](docs/DESIGN-5.1.md) · [실제 검증 결과](docs/VALIDATION.md)
+
 # 균열의 수호자 — 토스 2D 미니앱
 
 토스 앱 안에서 실행하는 한국어 2D 생존 액션 게임입니다. Apps in Toss WebView SDK 3.x를 사용하며 별도 Unity, Unreal, Xcode 프로젝트가 필요하지 않습니다.

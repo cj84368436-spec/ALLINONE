@@ -46,14 +46,15 @@ jobs:
         run: |
           npm install --prefix /tmp/rift-review sharp --no-audit --no-fund
           node scripts/design-review.mjs
+          node scripts/showcase.mjs
       - name: Store reviewable screenshots
         working-directory: .
         run: |
           git config user.name "Rift visual verification"
           git config user.email "actions@users.noreply.github.com"
-          git add .evidence/rift-5.0
+          git add .evidence/rift-5.1
           git diff --cached --quiet && exit 0
-          git commit -m "Store Rift 5.0 five-region visual review [skip ci]"
+          git commit -m "Store Rift 5.1 full skill motion and combat review [skip ci]"
           git pull --rebase
           git push
       - run: npm run test:e2e

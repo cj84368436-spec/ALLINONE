@@ -350,3 +350,52 @@ for(const [key,hero]of [["crosscut","knight"],["explosive","ranger"],["spirit","
  const result=await page.evaluate(async({key,hero})=>{const {Game}=await import("/src/core.js"),{Renderer}=await import("/src/render.js");const canvas=document.createElement("canvas");canvas.style.cssText="position:fixed;left:-600px;top:0;width:390px;height:640px";document.body.appendChild(canvas);const r=new Renderer(canvas);r.reduced=true;r.setQuality(.65);const g=new Game(hero,{},11);g.weapons={};g.stage=5;g.hitStopEnabled=false;g.spawnCd=g.nextElite=g.nextMagnet=9999;g.player.inv=999;for(let i=0;i<7;i++){const e=g.spawn("brute");Object.assign(e,{x:1000+i*19,y:900+(i-3)*18,hp:99999,maxHp:99999,speed:0,shoot:999});}g.attack(key,5);const steps={crosscut:24,explosive:20,spirit:24,phantom:27,falcon:28,blackflame:40,judgment:41,stormbow:22,gravity:52,thousand:33,ballista:35,dragon:50}[key];for(let i=0;i<steps;i++)g.step(1/60);r.draw(g.time,g,g.hero,{active:false});const withFx=r.ctx.getImageData(0,0,canvas.width,canvas.height).data,png=canvas.toDataURL("image/png");g.fx=[];g.bullets=[];g.skillFields=[];g.skillPose=null;r.draw(g.time,g,g.hero,{active:false});const noFx=r.ctx.getImageData(0,0,canvas.width,canvas.height).data;let changed=0;for(let i=0;i<withFx.length;i+=4)if(Math.abs(withFx[i]-noFx[i])+Math.abs(withFx[i+1]-noFx[i+1])+Math.abs(withFx[i+2]-noFx[i+2])>45)changed++;canvas.remove();return {changed,png};},{key,hero});
  expect(result.changed,key+" produced no visible mobile attack").toBeGreaterThan(100);await testInfo.attach(key+"-mobile",{body:Buffer.from(result.png.split(",")[1],"base64"),contentType:"image/png"});
 });
+
+
+test("late-stage skill forms animate without pasted bitmap geometry and evolution changes their silhouette",async({page})=>{
+ const result=await page.evaluate(async()=>{
+  const {Game}=await import("/src/core.js"),{drawCampaignField,drawCampaignProjectile}=await import("/src/campaign-vfx.js"),out=[];
+  for(const [hero,key]of [["knight","thousand"],["ranger","ballista"],["mage","dragon"]]){
+   const states=[];
+   for(const evolved of [false,true]){
+    const hashes=[];let peak=0;
+    for(const at of [.5,.85,1.25]){
+     const g=new Game(hero,{},19);g.stage=5;g.weapons={};g.hitStopEnabled=false;g.spawnCd=g.nextElite=g.nextMagnet=9999;g.player.inv=999;g.player.x=g.player.y=280;g.evolved=evolved?{[key]:true}:{};
+     for(let i=0;i<5;i++){const e=g.spawn("guard");Object.assign(e,{x:350+i%2*30,y:230+Math.floor(i/2)*45,speed:0,hp:99999,maxHp:99999,shoot:999});}g.attack(key,5);for(let i=0;i<Math.round(at*60);i++)g.step(1/60);
+     const canvas=document.createElement("canvas");canvas.width=canvas.height=640;const c=canvas.getContext("2d"),r={ctx:c,quality:1,reduced:false,currentGame:g,glow(){}};c.drawImage=()=>{throw Error("Stage-five attack geometry is a pasted bitmap");};
+     for(const f of g.skillFields)drawCampaignField(r,f,g.time);for(const b of g.bullets)drawCampaignProjectile(r,b);
+     const d=c.getImageData(0,0,640,640).data;let solid=0,h=2166136261;for(let i=0;i<d.length;i+=4){if(d[i+3]>180)solid++;h=Math.imul(h^d[i]^d[i+1]^d[i+2]^d[i+3],16777619);}hashes.push(h>>>0);peak=Math.max(peak,solid);
+    }states.push({hashes,peak});
+   }out.push({key,states});
+  }return out;
+ });
+ for(const item of result){expect(item.states[0].peak,item.key+" has no readable body").toBeGreaterThan(300);expect(new Set(item.states[0].hashes).size,item.key+" is static").toBe(3);expect(item.states[0].hashes,item.key+" evolution has no visible transformation").not.toEqual(item.states[1].hashes);}
+});
+test("actual contacts punch the camera while missed and sustained attacks stay bounded",async({page})=>{
+ await page.locator("#start").click();
+ const result=await page.evaluate(()=>{const {game:g,renderer:r}=window.__riftTest;g.phase="paused";g.time=100;r.feedback={shake:0,until:0};
+ r.react({type:"skill-release",key:"thousand",angle:.4},g);r.react({type:"skill-impact",key:"crosscut",hits:0},g);const miss=r.feedback.shake;
+ r.react({type:"skill-contact",key:"ballista",hits:1,angle:0,phase:"contact"},g);const contact={shake:r.feedback.shake,dx:r.feedback.dx};
+ g.time+=1;r.feedback={shake:0,until:0};for(let i=0;i<60;i++){g.time+=1/60;r.react({type:"skill-contact",key:"dragon",hits:1,phase:"sustain"},g);}const sustain=r.feedback.shake;
+ r.reduced=true;r.feedback={shake:0,until:0};r.react({type:"skill-finish",key:"thousand",hits:1},g);const reduced=r.feedback.shake;r.reduced=false;return{miss,contact,sustain,reduced};
+ });
+ expect(result.miss).toBe(0);expect(result.contact.shake).toBeGreaterThan(1);expect(result.contact.dx).toBeLessThan(0);expect(result.sustain).toBeLessThan(1);expect(result.reduced).toBe(0);
+});
+test("hostile hazard boundaries remain warm and visible above dense friendly skill fields",async({page})=>{
+ await page.locator('[data-hero="mage"]').click();await page.locator("#start").click();
+ const result=await page.evaluate(()=>{const {game:g,renderer:r}=window.__riftTest;g.phase="paused";g.time=42;g.weapons={};g.enemies=[];g.fx=[];g.bullets=[];g.shots=[];g.spellFields=[];g.rift=null;g.skillFields=[{key:"frost",x:g.player.x+50,y:g.player.y+60,r:120,age:.6,ttl:1,max:2,evolved:true}];g.hazards=[{x:g.player.x+50,y:g.player.y+60,r:38,delay:.6,life:1,damage:10}];r.draw(g.time,g,g.hero,{active:false});
+ const d=r.canvas.width/r.w,x=Math.round((r.w/2+88*r.zoom)*d),y=Math.round((r.h/2+60*r.zoom)*d),pixels=r.ctx.getImageData(x-3,y-3,7,7).data;let warm=0;for(let i=0;i<pixels.length;i+=4)if(pixels[i]>150&&pixels[i]>pixels[i+2]*1.2)warm++;return warm;});
+ expect(result).toBeGreaterThan(0);
+});
+test("equipped attack icons expose cooldown progress and awakening tiers without covering controls",async({page})=>{
+ await page.locator("#start").click();await page.evaluate(()=>{const g=window.__riftTest.game;g.stage=5;g.weapons={blade:3,thousand:5};g.evolved={thousand:true};g.cool={blade:.5,thousand:3};g.phase="paused";});await page.waitForTimeout(150);
+ await expect(page.locator("#skills [data-skill=blade]")).toHaveClass(/awakened/);await expect(page.locator("#skills [data-skill=thousand]")).toHaveClass(/evolved/);
+ const rows=await page.locator("#skills .skill").evaluateAll(items=>items.map(x=>Number(x.style.getPropertyValue("--skill-ready"))));expect(rows.every(x=>Number.isFinite(x)&&x>=0&&x<=1)).toBe(true);await expect(page.locator("#pause")).toBeVisible();
+});
+
+test("explicit level-five evolved practice previews late skills without altering campaign records",async({page})=>{
+ const before=await page.evaluate(()=>JSON.stringify(window.__riftTest.save));await page.goto("/?practice=dragon&tier=5&evolved=1");await expect(page.locator("#start")).toContainText("Lv.5");
+ await page.locator("#start").click();const state=await page.evaluate(()=>({weapons:window.__riftTest.game.weapons,evolved:window.__riftTest.game.evolved,practice:window.__riftTest.game.practice,save:JSON.stringify(window.__riftTest.save)}));
+ expect(state.weapons).toEqual({dragon:5});expect(state.evolved.dragon).toBe(true);expect(state.practice).toBe(true);expect(state.save).toBe(before);
+ await page.evaluate(()=>window.__riftTest.finish(false));await expect(page.locator("#dialog-title")).toContainText("연습");expect(await page.evaluate(()=>JSON.stringify(window.__riftTest.save))).toBe(before);
+});

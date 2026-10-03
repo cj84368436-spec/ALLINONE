@@ -139,3 +139,6 @@ export function drawMetalContact(r,f){
  for(let i=0;i<(r.reduced?3:6);i++){const q=i*2.399,dist=5+u*32;hvLine(c,[[Math.cos(q)*dist*.67,Math.sin(q)*dist*.67],[Math.cos(q)*dist,Math.sin(q)*dist]],i%2?"#d9b46e":"#f7f0d1",1.1);}
  c.restore();
 }
+
+export function drawForgedBlade(c,length,time=0,seed=0,outer=false,details=true){hvBlade(c,length,time,seed,outer,details);}
+export function drawFracturedCrystal(c,width,height,lean=0,seed=0,age=0,detail=true){hvIceShard(c,0,0,width,height,lean,seed,age,detail);}
