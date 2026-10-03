@@ -302,7 +302,8 @@ test("level three and five cards explain their actual transformation and keep co
  for(const lv of [2,4]){await page.evaluate(lv=>{const g=window.__riftTest.game;g.phase="playing";g.weapons={blade:lv};g.passives={};g.spawnCd=g.nextElite=999;g.player.inv=999;g.addXP(g.need);g.choices=["blade","hammer","power","heart"];},lv);await expect(page.locator('[data-choice="0"] .choice-tag')).toHaveText("Lv."+(lv+1)+" 각성");await expect(page.locator('[data-choice="0"] .skill-behavior')).toContainText(lv===2?"잔영":"교차");const b=await page.locator('[data-choice="0"]').boundingBox();expect(b.y+b.height).toBeLessThan(640);await page.locator('[data-choice="0"]').click();expect(await page.evaluate(()=>window.__riftTest.game.weapons.blade)).toBe(lv+1);await expect(page.locator("#overlay")).toBeHidden();}
 });
 test("material combat cues use fire, ice, stone, poison and void samples at actual phases",async({page})=>{
- const result=await page.evaluate(()=>{const a=window.__riftTest.audio,calls=[];a.play=(name,options)=>calls.push({name,...options});for(const [type,key]of [["skill-release","fireball"],["skill-impact","fireball"],["skill-impact","slam"],["projectile-contact","poison"],["projectile-contact","bolt"],["skill-release","beam"],["skill-release","whirlwind"]])a.event(type,key,{level:3});return{names:calls.map(c=>c.name),buffers:[...a.buffers.keys()]};});
+ await page.locator("#start").click();
+ const result=await page.evaluate(async()=>{const {audio:a,game:g}=window.__riftTest,calls=[];g.phase="paused";await a.context.resume();a.play=(name,options)=>calls.push({name,...options});for(const [type,key]of [["skill-release","fireball"],["skill-impact","fireball"],["skill-impact","slam"],["projectile-contact","poison"],["projectile-contact","bolt"],["skill-release","beam"],["skill-release","whirlwind"]]){a.event(type,key,{level:3,hits:1});await new Promise(resolve=>setTimeout(resolve,100));}return{names:calls.map(c=>c.name),buffers:[...a.buffers.keys()]};});
  for(const name of ["fire-cast","fire-impact","stone-impact","poison-impact","bolt-hit","void-cast","whirlwind"])expect(result.names).toContain(name);expect(result.names).not.toContain("magic");expect(result.buffers).toHaveLength(29);
 });
 
@@ -389,7 +390,7 @@ test("hostile hazard boundaries remain warm and visible above dense friendly ski
 });
 test("equipped attack icons expose cooldown progress and awakening tiers without covering controls",async({page})=>{
  await page.locator("#start").click();await page.evaluate(()=>{const g=window.__riftTest.game;g.stage=5;g.weapons={blade:3,thousand:5};g.evolved={thousand:true};g.cool={blade:.5,thousand:3};g.phase="paused";});await page.waitForTimeout(150);
- await expect(page.locator("#skills [data-skill=blade]")).toHaveClass(/awakened/);await expect(page.locator("#skills [data-skill=thousand]")).toHaveClass(/evolved/);
+ await expect(page.locator("#skills > .skill[data-skill=blade]")).toHaveClass(/awakened/);await expect(page.locator("#skills > .skill[data-skill=thousand]")).toHaveClass(/evolved/);
  const rows=await page.locator("#skills .skill").evaluateAll(items=>items.map(x=>Number(x.style.getPropertyValue("--skill-ready"))));expect(rows.every(x=>Number.isFinite(x)&&x>=0&&x<=1)).toBe(true);await expect(page.locator("#pause")).toBeVisible();
 });
 
