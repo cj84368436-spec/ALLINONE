@@ -1,0 +1,245 @@
+{
+  "version": "4.1.0",
+  "date": "2026-10-03",
+  "runtimeCommit": "e5d0c719a9d5613b6af8ad31b3b60dee03b47b1f",
+  "testCommit": "95b57f909ffd842b4ba1ffe950acd4dc12a71a94",
+  "runId": 37097419162,
+  "jobId": 111130126067,
+  "conclusion": "success",
+  "tests": {
+    "node": 91,
+    "chromium": 61,
+    "webkit": 61,
+    "total": 213,
+    "failed": 0,
+    "flaky": 0
+  },
+  "app": {
+    "name": "rift-keepers.ait",
+    "bytes": 5822644,
+    "sha256": "ce1e80d37492cf82407e3c1db65b5c1460979d52e19dc8f8cedf94a87ff746bd"
+  },
+  "artifacts": [
+    {
+      "id": 11265700101,
+      "name": "rift-keepers-toss-release",
+      "digest": "sha256:acb4126f4cc307a9fdcee03090eb0b2f70a61487fbaa5ac2778cbc623f3cf5e4"
+    },
+    {
+      "id": 11265081345,
+      "name": "rift-keepers-test-evidence",
+      "digest": "sha256:c987a94556f6f7f6d3882fcd77993b6187b407ae261cbf513696bde07626181b"
+    }
+  ],
+  "defaultBotReport": {
+    "method": "Nine seeded Node runs using normal movement, dash, ultimate and offered skills. Not human/native-device play.",
+    "wins": 5,
+    "losses": 4,
+    "runs": [
+      {
+        "hero": "knight",
+        "seed": 11,
+        "timeSeconds": 330,
+        "level": 26,
+        "kills": 1372,
+        "win": true,
+        "remainingHp": 116.80000000000001,
+        "skills": [
+          "blade",
+          "whirlwind",
+          "rend",
+          "orbit"
+        ],
+        "evolutions": [
+          "blade",
+          "whirlwind",
+          "rend"
+        ]
+      },
+      {
+        "hero": "knight",
+        "seed": 22,
+        "timeSeconds": 161,
+        "level": 13,
+        "kills": 374,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "blade",
+          "rend",
+          "whirlwind"
+        ],
+        "evolutions": [
+          "blade"
+        ]
+      },
+      {
+        "hero": "knight",
+        "seed": 33,
+        "timeSeconds": 244,
+        "level": 20,
+        "kills": 827,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "blade",
+          "rend",
+          "whirlwind"
+        ],
+        "evolutions": [
+          "blade"
+        ]
+      },
+      {
+        "hero": "ranger",
+        "seed": 11,
+        "timeSeconds": 57,
+        "level": 4,
+        "kills": 64,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "arrow"
+        ],
+        "evolutions": []
+      },
+      {
+        "hero": "ranger",
+        "seed": 22,
+        "timeSeconds": 313,
+        "level": 25,
+        "kills": 1352,
+        "win": true,
+        "remainingHp": 121.99999999999997,
+        "skills": [
+          "arrow",
+          "multishot",
+          "poison"
+        ],
+        "evolutions": [
+          "arrow",
+          "poison",
+          "multishot"
+        ]
+      },
+      {
+        "hero": "ranger",
+        "seed": 33,
+        "timeSeconds": 312,
+        "level": 25,
+        "kills": 1366,
+        "win": true,
+        "remainingHp": 110,
+        "skills": [
+          "arrow",
+          "multishot",
+          "poison",
+          "piercing"
+        ],
+        "evolutions": [
+          "arrow",
+          "poison",
+          "multishot"
+        ]
+      },
+      {
+        "hero": "mage",
+        "seed": 11,
+        "timeSeconds": 309,
+        "level": 25,
+        "kills": 1363,
+        "win": true,
+        "remainingHp": 90,
+        "skills": [
+          "bolt",
+          "frost",
+          "fireball",
+          "meteor",
+          "lightning"
+        ],
+        "evolutions": [
+          "bolt",
+          "fireball"
+        ]
+      },
+      {
+        "hero": "mage",
+        "seed": 22,
+        "timeSeconds": 308,
+        "level": 25,
+        "kills": 1366,
+        "win": true,
+        "remainingHp": 43,
+        "skills": [
+          "bolt",
+          "meteor",
+          "frost",
+          "fireball",
+          "lightning"
+        ],
+        "evolutions": [
+          "bolt",
+          "fireball"
+        ]
+      },
+      {
+        "hero": "mage",
+        "seed": 33,
+        "timeSeconds": 233,
+        "level": 18,
+        "kills": 750,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "bolt",
+          "frost",
+          "fireball"
+        ],
+        "evolutions": [
+          "bolt"
+        ]
+      }
+    ]
+  },
+  "visualReview": {
+    "captures": 61,
+    "timelines": 3,
+    "enlargedDetails": 3,
+    "errors": [],
+    "notes": {
+      "method": "Direct inspection of staged screenshots made by the real renderer, including full and reduced modes and several animation times; not a native device/human usability test.",
+      "reviewed": [
+        "review-orbit-36",
+        "review-whirlwind-58",
+        "review-ultimate-58",
+        "review-ultimate-16",
+        "review-ultimate-90",
+        "review-whirlwind-reduced"
+      ],
+      "findings": [
+        "Metal weapon faces and guards stay distinct from short translucent trails.",
+        "Whirlwind changes its sweep, coil and blade position over time; full-circle postcard overlay removed.",
+        "Frost advances from ground fractures to angled clusters with multiple shards; no repeated uniform pillar row.",
+        "An initial pass had overly regular ground cracks and flat bands; the second pass changed both."
+      ],
+      "limits": [
+        "Aesthetic quality is qualitative; passing automated checks does not prove a commercial art standard.",
+        "Native iPhone FPS, heat, audio and overall human play quality were not measured."
+      ]
+    }
+  },
+  "hosted": {
+    "commit": "bc36d7e5e1ee60794856dafcb7db65b28548edec",
+    "runId": 37097233825,
+    "conclusion": "success",
+    "engines": [
+      "chromium",
+      "webkit"
+    ]
+  },
+  "limits": [
+    "Automated pixel checks do not prove commercial aesthetic quality",
+    "Native iPhone Apps in Toss play, FPS, heat and audio have not been measured",
+    "Console review and public launch are not complete"
+  ]
+}

@@ -1,4 +1,4 @@
-name: Package verified Rift 4.0.0 release
+name: Package verified Rift 4.1.0 release
 on:
   push:
     paths:
@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - name: Confirm the tested runtime is unchanged
         working-directory: .
-        run: git diff --exit-code a6a847b036eb3928e70f8104456f3eb1629e9e6d HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/apps-in-toss.config.ts
+        run: git diff --exit-code 95b57f909ffd842b4ba1ffe950acd4dc12a71a94 HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/apps-in-toss.config.ts
       - uses: actions/setup-node@v4
         with:
           node-version: '22'

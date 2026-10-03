@@ -47,6 +47,7 @@ npm run check:release
 - src/art.js: 게임 이미지 로딩과 캐시
 - src/render.js: 손그림풍 Canvas 2D 전장, 스킬과 타격 효과
 - src/combat-vfx.js: 재질별 애니메이션과 발사체 연출
+- src/hero-vfx.js: 선명한 금속 칼날·나선 검격·결정 군집과 앞뒤 연출
 - src/icons.js: 독자적인 룬 스킬 아이콘
 - src/main.js: 게임 전체 흐름, 터치와 UI
 - src/platform.js: 토스 저장/익명 키/화면 제어
@@ -60,7 +61,7 @@ npm run check:release
 
 ## 2.0 — 별빛 유적과 새로운 전투
 
-[최신 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.0.0-combat)
+[최신 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.1.0-vfx-r3)
 
 회청색 유적 바닥과 남색·금빛 UI, 가운데 영웅 전신을 새로 구성했습니다. 기사는 태양의 심판, 궁수는 유성 일제사격, 마법사는 영원의 서리로 서로 다른 전투를 수행합니다. 전투 중 선택형 균열을 봉인하면 회복·성장·필살기 재충전을 얻습니다. 분마다 추가 편대와 방향을 예고하는 정예 돌진이 등장합니다. 성장 카드에는 다음 실제 수치와 진화 연결을 표시합니다.
 
@@ -152,6 +153,16 @@ Chrome 연속 드래그는 브라우저 터치 입력으로, WebKit 드래그는
 
 새 투명 이펙트 36프레임과 원본 스킬 그림 6개를 적용하고, 발사·명중·잔류 소리를 불·얼음·바위·기포·바람·금속 녹음으로 구분합니다. 소리는 29개이며 기존 전자적인 마법 표본도 재질 녹음으로 교체했습니다. [변경 범위와 각성표](docs/COMBAT-4.0.md), [최종 검증](docs/VALIDATION.md)을 참고하세요.
 
-[4.0 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.0.0-combat) · [화염 용오름 체험](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.0.0-combat&practice=pyre) · [붕괴 광선 체험](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.0.0-combat&practice=beam)
+[4.0 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.1.0-vfx-r3) · [화염 용오름 체험](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.1.0-vfx-r3&practice=pyre) · [붕괴 광선 체험](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.1.0-vfx-r3&practice=beam)
 
 15초 체험은 무기 Lv.2이며 보석·영구 기록을 변경하지 않습니다. Lv.3과 Lv.5의 각성은 본 게임의 성장에서 적용됩니다.
+
+## 4.1 — 칼날과 서리 연출 재설계
+
+칼날 방벽은 밝은 면·어두운 면·능선·가드·손잡이가 있는 금속 검과 방향을 따르는 짧은 잔상으로 바꿉니다. 회오리는 겹친 그림을 회전시키던 방식 대신 높이와 반경이 달라지는 나선 검격·금속 검·짧은 선두를 그립니다. 영원의 서리는 서로 다른 크기·각도·시점의 결정 군집, 불규칙 지면 균열, 비산 파편과 깨진 얼음 잔류로 다시 구성합니다. 앞쪽과 뒤쪽 연출을 나누고 감소 모드에서도 핵심 형태를 유지합니다.
+
+[수정 범위와 제작 기준](docs/VFX-4.1.md) · [실제 렌더러 시간대별 검토](../../.evidence/rift-4.1) · [최종 검증](docs/VALIDATION.md)
+
+[4.1 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.1.0-vfx-r3) · [칼날 방벽 체험](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.1.0-vfx-r3&practice=orbit) · [칼날 회오리 체험](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=4.1.0-vfx-r3&practice=whirlwind)
+
+자동 검사는 오류·형태 소실·시간 정지·충돌 일치를 확인하는 도구입니다. 캡처 검토와 실제 플레이의 미적 품질 평가는 별개이며 상용 스튜디오 수준의 전체 아트 완성을 주장하지 않습니다.
