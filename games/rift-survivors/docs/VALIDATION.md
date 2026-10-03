@@ -42,6 +42,12 @@ Node **114개**, Chromium **77개**, WebKit **77개**: 총 **268개 통과, 실�
 - 앱 이름: rift-keepers. 실제 콘솔 appName이 다르면 해당 이름으로 다시 빌드해야 합니다.
 - 600px PNG 아이콘과 토스 등록 이미지 생성·검사를 통과했습니다.
 
+### 최종 문서 포함 다운로드
+
+[최종 토스용 패키지](https://github.com/cj84368436-spec/ALLINONE/actions/runs/37119513991/artifacts/11272368617)
+
+검증 완료 소스와 src/public/index/package/앱 설정이 동일함을 git diff로 확인한 뒤 최신 검증 문서를 포함해 다시 패키징했습니다. 이 재빌드의 rift-keepers.ait는 **6,787,288 bytes**, SHA256은 **596f68ba23d64b4b4066eb7d54ec4096cd93e5905da0659d7fa6f1a696758db5**입니다. 앱 파일과 함께 들어 있는 release/build-manifest.json에 이 값이 기록되어 있습니다. 위 전체 검사 빌드 파일의 해시는 별도 빌드의 값입니다.
+
 ## 남은 실기기·출시 확인
 
 토스용 .ait 빌드와 실제 콘솔 제출/심사/공개는 별도 단계입니다. 실제 iPhone 토스 내부의 FPS·발열·스피커/이어폰 청감, 네이티브 저장·백그라운드 복귀와 콘솔 출시를 직접 확인한 상태는 아닙니다.
