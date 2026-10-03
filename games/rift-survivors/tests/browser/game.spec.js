@@ -288,14 +288,14 @@ test("arrow key and Space dash respond to the current input without waiting for 
 });
 test("generated standalone preview loads current skills and returns home after save and exit",async({page})=>{
  await page.goto("/preview/index.html");await expect(page.locator("#home")).toBeVisible();const version=await page.evaluate(()=>GAME_VERSION);await expect(page.locator("body")).toHaveAttribute("data-build",version+"-production");
- expect(await page.evaluate(()=>typeof window.__riftTest)).toBe("undefined");await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(8);await page.locator("#skill-book-close").click();
+ expect(await page.evaluate(()=>typeof window.__riftTest)).toBe("undefined");await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(12);await page.locator("#skill-book-close").click();
  await page.locator("#start").click();await page.locator("#pause").click();await expect(page.locator("#retire")).toHaveText("도전 종료 · 보석 +0 정산");await page.locator("#pause-exit").click();await page.locator("#exit-confirm").click();await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#overlay")).toBeHidden();await expect(page.locator("#coins")).toHaveText("0");
  await page.locator("#start").click();await expect(page.locator("#hud")).toBeVisible();
 });
 
 test("new painted icons and material animation frames are available without opaque tile edges",async({page})=>{
  const result=await page.evaluate(async()=>{const {Art,EXTRA_SKILL_KEYS}=await import("/src/art.js");const {iconMarkup}=await import("/src/icons.js");const frame=Art.materialFrames.get("2,1"),ctx=frame.getContext("2d"),data=ctx.getImageData(0,0,256,256).data;let edge=0,visible=0;for(let i=0;i<256;i++)edge=Math.max(edge,data[i*4+3],data[(255*256+i)*4+3],data[(i*256)*4+3],data[(i*256+255)*4+3]);for(let i=3;i<data.length;i+=4)if(data[i]>20)visible++;return{frames:Art.materialFrames.size,edge,visible,icons:EXTRA_SKILL_KEYS.map(k=>iconMarkup(k)),version:Art.version};});
- expect(result.frames).toBe(36);expect(result.edge).toBeLessThanOrEqual(5);expect(result.visible).toBeGreaterThan(1000);expect(result.icons.every(x=>x.includes("skill-extra.webp")&&x.includes("<img"))).toBe(true);expect(result.version).toBe("4.0.0");
+ expect(result.frames).toBe(36);expect(result.edge).toBeLessThanOrEqual(5);expect(result.visible).toBeGreaterThan(1000);expect(result.icons.every(x=>x.includes("skill-extra.webp")&&x.includes("<img"))).toBe(true);expect(result.version).toBe("5.0.0");
 });
 test("level three and five cards explain their actual transformation and keep controls reachable",async({page})=>{
  await page.setViewportSize({width:360,height:640});await page.locator("#start").click();

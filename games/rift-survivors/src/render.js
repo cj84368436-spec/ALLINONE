@@ -52,7 +52,7 @@ c.fillStyle="#031713";c.fillRect(-300,-300,2400,300);c.fillRect(-300,1800,2400,3
 if(!this.reduced&&this.quality>.7)for(let i=0;i<9;i++){const x=(hash(i,9)*w+t*(i%3+1)*2)%(w+20)-10,y=(hash(i,4)*h-t*1.4)%(h+20);this.circle(x,y,1.2,"#ddeea8"+(i%2?"45":"88"));}}
 enemy(e,t,p){const c=this.ctx,flash=Math.max(0,e.flash/.12),away=Math.atan2(e.y-p.y,e.x-p.x),recoil=flash*5,x=e.x+Math.cos(away)*recoil,y=e.y+Math.sin(away)*recoil;
 const height=(CAMPAIGN_ENEMIES[e.kind]?.height||ENEMY_HEIGHTS[e.kind])*(e.elite?1.35:1);
-ellipse(c,x,y+height*.18,height*.26,height*.10,e.boss?"#0a080eb0":"#020b0b88");
+ellipse(c,x,y+height*(e.boss||CAMPAIGN_ENEMIES[e.kind] ? .02 : .18),height*.26,height*.10,e.boss?"#0a080eb0":"#020b0b88");
 if(e.boss){this.glow(x,y-20,120,"violet",.32);c.lineWidth=1;this.circle(x,y,55,null,"#d099df55");}
 const bob=e.kind==="bat"?Math.sin(t*12+e.id)*3:Math.sin(t*7+e.id)*.6;
 drawSprite(c,e.boss?"boss-"+(this.currentGame?.stage||1):e.kind,x,y+bob,height,p.x>=e.x?1:-1,flash*(["blade","arrow","bolt"].includes(e.hitKind)?.20:.32),Math.sin(t*7+e.id)*.015+flash*.07);
