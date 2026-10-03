@@ -483,7 +483,7 @@ if(f.key==="slam"&&f.lv>=5&&!f.echo)for(let i=0;i<6&&this.bullets.length<LIMITS.
 if((f.key==="meteor"&&f.lv>=3)||(f.key==="pyre"&&f.lv>=5))this.addField({key:"burn",x:f.x,y:f.y,r:f.r*.8,damage:f.damage*.08,ttl:1.8,age:0,tick:.3,keepMultiple:f.key==="pyre"});
 if(f.key==="meteor"&&f.lv>=5&&!f.echo)for(const side of [-1,1])this.addField({...f,x:clamp(f.x+side*f.r*.75,25,1775),y:f.y+f.r*.25,r:f.r*.62,damage:f.damage*.4,delay:.16+(side+1)*.09,ttl:.7,age:0,done:false,echo:true,keepMultiple:true});
 }
-else{f.tick-=dt;if(f.tick>0)continue;f.tick+=f.key==="whirlwind"?.18:.4;if(f.key==="whirlwind"&&f.lv>=3)for(const e of this.enemies)if(!e.boss&&e.hp>0&&d2(e,f)<(f.r*1.25)**2&&d2(e,f)>35**2){const [dx,dy]=norm(f.x-e.x,f.y-e.y);e.x+=dx*16;e.y+=dy*16;}
+else{f.tick-=dt;if(f.tick>0)continue;f.tick+=f.key==="whirlwind"?.18:.4;if(f.key==="whirlwind"&&f.lv>=3)for(const e of this.enemies)if(!e.boss&&e.hp>0&&d2(e,f)<(f.r*1.25)**2&&d2(e,f)>(p.r+e.r+55)**2){const [dx,dy]=norm(f.x-e.x,f.y-e.y);e.x+=dx*16;e.y+=dy*16;}
 this.areaHit(f,f.damage,{slow:f.key==="frost"||f.key==="volley"&&f.lv>=3?1:0,root:f.key==="frost"&&f.lv>=3||f.key==="thorns"&&f.lv>=5?.2:0,stagger:f.key==="whirlwind"&&f.lv>=5?.09:0});
 if(!["whirlwind","poison","burn","thorns"].includes(f.key))this.effect({kind:f.key==="volley"?"arrow-rain":"frost-storm",x:f.x,y:f.y-(f.key==="whirlwind"?18:0),r:f.r,angle:this.time*10,color:UPGRADES[f.key].color,ttl:.4,max:.4});
 if(["burn","poison","thorns"].includes(f.key))this.effect({kind:f.key==="burn"?"fire-residue":f.key==="poison"?"poison-residue":"thorn-residue",x:f.x,y:f.y,r:f.r,key:f.key,ttl:.42,max:.42,color:"#abc278"});
