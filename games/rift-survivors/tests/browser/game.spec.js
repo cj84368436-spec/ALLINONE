@@ -287,7 +287,7 @@ test("arrow key and Space dash respond to the current input without waiting for 
  expect(result.x).toBe(0);expect(result.y).toBe(-1);expect(result.cd).toBe(5);
 });
 test("generated standalone preview loads current skills and returns home after save and exit",async({page})=>{
- await page.goto("/preview/index.html");await expect(page.locator("#home")).toBeVisible();await expect(page.locator("body")).toHaveAttribute("data-build","4.0.0-production");
+ await page.goto("/preview/index.html");await expect(page.locator("#home")).toBeVisible();const version=await page.evaluate(()=>GAME_VERSION);await expect(page.locator("body")).toHaveAttribute("data-build",version+"-production");
  expect(await page.evaluate(()=>typeof window.__riftTest)).toBe("undefined");await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(8);await page.locator("#skill-book-close").click();
  await page.locator("#start").click();await page.locator("#pause").click();await expect(page.locator("#retire")).toHaveText("도전 종료 · 보석 +0 정산");await page.locator("#pause-exit").click();await page.locator("#exit-confirm").click();await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#overlay")).toBeHidden();await expect(page.locator("#coins")).toHaveText("0");
  await page.locator("#start").click();await expect(page.locator("#hud")).toBeVisible();
