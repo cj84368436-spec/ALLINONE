@@ -594,23 +594,23 @@ function drawBladeBarrier(r,g,layer="all"){
  for(const b of blades){const back=b.y<p.y-8;if(layer==="back"&&!back||layer==="front"&&back)continue;hvOrbitTrail(c,p,b,g.time,reduced);c.save();c.translate(b.x,b.y-8);c.rotate(b.angle+Math.sign(b.speed)*Math.PI/2);c.scale(1,.85+.15*Math.abs(Math.sin(b.angle)));hvBlade(c,b.outer?48:44+g.weapons.orbit,g.time,b.index,b.outer,!reduced);c.restore();}
  c.restore();
 }
-function hvRibbon(c,x,y,rx,ry,start,sweep,width,color,alpha,back,raise=0){
+function hvRibbon(c,x,y,rx,ry,start,sweep,width,color,alpha,back,raise=0,bend=0){
  const outer=[],inner=[];let points=[];c.save();c.globalAlpha*=alpha;
  // Split at the horizon, rather than covering the hero with a whole ring.
  function paint(){if(outer.length<2)return;hvFill(c,[...outer,...inner.reverse()],color);outer.length=inner.length=0;}
- for(let i=0;i<=44;i++){const q=i/44,a=start+sweep*q,yy=Math.sin(a)*ry-raise,allowed=back===null||back===(yy<0),w=width*Math.sin(Math.PI*q)**.75;
- if(!allowed){paint();continue;}outer.push([x+Math.cos(a)*(rx+w*.5),y+Math.sin(a)*(ry+w*.24)-raise]);inner.push([x+Math.cos(a)*(rx-w*.5),y+Math.sin(a)*(ry-w*.24)-raise]);}
+ for(let i=0;i<=44;i++){const q=i/44,a=start+sweep*q,coil=1-bend*(1-q),lift=raise*(.30+.70*q),yy=Math.sin(a)*ry*coil-lift,allowed=back===null||back===(yy<0),w=width*Math.sin(Math.PI*q)**.75;
+ if(!allowed){paint();continue;}outer.push([x+Math.cos(a)*(rx*coil+w*.5),y+Math.sin(a)*(ry*coil+w*.24)-lift]);inner.push([x+Math.cos(a)*(rx*coil-w*.5),y+Math.sin(a)*(ry*coil-w*.24)-lift]);}
  paint();c.restore();
 }
 function drawWhirlwind(r,f,t,g,layer="all"){
  const c=r.ctx,p=g.player,x=f.follow?p.x:f.x,y=(f.follow?p.y:f.y)-8,age=f.max-f.ttl,radius=f.r,fade=hvClamp(f.ttl/.17)*hvEase(age/.08),detail=!r.reduced&&r.quality>=.8,back=layer==="all"?null:layer==="back";
  if(fade<=0)return;c.save();c.globalAlpha=fade;c.lineCap="round";
  const turn=age*11.6,parts=3;
- for(let i=0;i<parts;i++){const phase=turn+i*HV_TAU/parts,rr=radius*(.72+i*.105),ry=rr*.82,raise=i*7;
+ for(let i=0;i<parts;i++){const phase=turn+i*2.399,rr=radius*(.72+i*.125),ry=rr*.82,raise=i*17;
  const color=hvGradient(c,x-rr,y-ry,x+rr,y+ry,[[0,"#533e24aa"],[.26,"#b68c4877"],[.55,"#ffe6a5cb"],[.83,"#fff6d5ef"],[1,"#c4a16f9c"]]);
- hvRibbon(c,x,y,rr,ry,phase-2.75,2.58,16+i*4,color,.72,back,raise);
- hvRibbon(c,x,y,rr+2,ry+1,phase-1.5,1.25,2.2,"#fff7d8",.95,back,raise);
- if(detail)hvRibbon(c,x,y,rr-11,ry-9,phase-3.2,2.55,.95,"#bfa16d",.42,back,raise);
+ hvRibbon(c,x,y,rr,ry,phase-2.75,2.58,16+i*4,color,.72,back,raise,.23);
+ hvRibbon(c,x,y,rr+2,ry+1,phase-1.5,1.25,2.4,"#fff7d8",.95,back,raise,.09);
+ if(detail)hvRibbon(c,x,y,rr-11,ry-9,phase-3.2,2.55,.95,"#bfa16d",.42,back,raise,.25);
  const bx=x+Math.cos(phase)*rr,by=y+Math.sin(phase)*ry-raise,isBack=by<y;
  if(back===null||back===isBack){c.save();c.translate(bx,by);c.rotate(Math.atan2(Math.cos(phase)*ry,-Math.sin(phase)*rr));hvBlade(c,43,age,i,false,detail);c.restore();}
  }
@@ -647,10 +647,11 @@ function hvFrozenGround(c,x,y,radius,age,alpha,detail=true){
  c.save();c.translate(x,y);c.globalAlpha*=alpha;
  const field=c.createRadialGradient(0,0,radius*.13,0,0,radius);field.addColorStop(0,"#18395338");field.addColorStop(.5,"#47778b40");field.addColorStop(.82,"#699baf29");field.addColorStop(1,"#47778b00");
  c.fillStyle=field;c.beginPath();c.ellipse(0,0,radius,radius*.78,0,0,HV_TAU);c.fill();
- const spread=hvEase(age/.30),count=detail?13:8;
- for(let i=0;i<count;i++){const a=i*2.399,dist=radius*(.45+hvRand(i,9)*.45)*spread,dx=Math.cos(a),dy=Math.sin(a)*.78,points=[[dx*15,dy*15],[dx*dist*.4+Math.sin(a)*8,dy*dist*.4],[dx*dist*.7-Math.sin(a)*9,dy*dist*.7],[dx*dist,dy*dist]];
- hvLine(c,points,"#091b2ecc",3.8);hvLine(c,points,"#83c3d47d",1.15);
- if(detail){const start=points[2],fork=a+(i%2?.37:-.42);hvLine(c,[start,[start[0]+Math.cos(fork)*dist*.25,start[1]+Math.sin(fork)*dist*.16]],"#6fa6bb80",.8);}}
+ const spread=hvEase(age/.30),count=detail?9:6;
+ for(let i=0;i<count;i++){const a=i*2.399+.13*hvRand(i,21),dist=radius*(.45+hvRand(i,9)*.45)*spread,dx=Math.cos(a),dy=Math.sin(a)*.78,points=[];
+ for(let j=0;j<=7;j++){const q=j/7,bend=j===0?0:(hvRand(i*9+j,23)-.5)*18*q;points.push([dx*(14+q*dist)-Math.sin(a)*bend,dy*(14+q*dist)+Math.cos(a)*bend*.7]);}
+ for(let j=1;j<points.length;j++){const taper=1-j/points.length;hvLine(c,[points[j-1],points[j]],"#112438ab",1.2+taper*1.8);hvLine(c,[points[j-1],points[j]],"#81bbc65a",.55+taper*.35);}
+ if(detail){for(const j of [3,5]){const start=points[j],fork=a+(i%2?.56:-.49),length=dist*.14;hvLine(c,[start,[start[0]+Math.cos(fork)*length*.5,start[1]+Math.sin(fork)*length*.36],[start[0]+Math.cos(fork+.18)*length,start[1]+Math.sin(fork+.18)*length*.65]],"#709baa69",.7);}}}
  if(detail){for(let i=0;i<16;i++){const a=i*2.399,d=radius*.82*Math.sqrt(hvRand(i,16)),xx=Math.cos(a)*d,yy=Math.sin(a)*d*.75;
  hvFill(c,[[xx-5,yy],[xx-1,yy-3],[xx+6,yy-1],[xx+2,yy+4]],i%2?"#94c5cf25":"#bedbe321");}}
  c.restore();
