@@ -328,7 +328,8 @@ test("mixed new effects freeze with game time and orbital visuals match actual h
  g.fx=[{kind:"whirlwind",key:"whirlwind",follow:true,x:g.player.x,y:g.player.y,r:135,max:1.2,ttl:.65,color:"#fff0c1"},{kind:"frost-crown",x:g.player.x,y:g.player.y-12,r:180,max:1.2,ttl:.62,color:"#ccefff"}];
  function hash(){const d=r.ctx.getImageData(0,0,r.canvas.width,r.canvas.height).data;let h=2166136261;for(let i=0;i<d.length;i+=16)h=Math.imul(h^d[i]^d[i+1]^d[i+2],16777619);return h>>>0;}
  const frames=[];for(const externalTime of [0,999]){r.draw(externalTime,g,g.hero,{active:false});frames.push(hash());}
- const radius=(64+5*6+20)*(1+2*.08),layout=bladeBarrierLayout(g),positions=layout.every((b,i)=>{const angle=i<6?g.time*2.6+i*Math.PI*2/6:-g.time*2+(i-6)*Math.PI,rr=i<6?radius:radius+30;return Math.abs(b.x-(g.player.x+Math.cos(angle)*rr))<1e-7&&Math.abs(b.y-(g.player.y+Math.sin(angle)*rr))<1e-7;});
+ const layout=bladeBarrierLayout(g),targets=layout.map(b=>{const e=g.spawn("shade");Object.assign(e,{x:b.x,y:b.y,hp:9999,maxHp:9999,speed:0,shoot:999});return e;}),miss=g.spawn("shade");Object.assign(miss,{x:g.player.x+240,y:g.player.y+240,hp:9999,maxHp:9999,speed:0,shoot:999});
+ g.phase="playing";g.attack("orbit",5);const positions=targets.every(e=>e.hp<9999)&&miss.hp===9999;g.phase="paused";
  return {same:frames[0]===frames[1],count:layout.length,positions};
  });
  expect(result.same).toBe(true);expect(result.count).toBe(8);expect(result.positions).toBe(true);
