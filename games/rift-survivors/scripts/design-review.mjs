@@ -64,7 +64,7 @@ try{
      const {game:g,renderer:r}=window.__riftTest;g.phase="playing";g.stage=5;g.stageStarted=0;g.time=42;g.hitStopEnabled=false;g.spawnCd=g.nextElite=g.nextMagnet=g.nextRift=9999;
      g.enemies=[];g.bullets=[];g.shots=[];g.hazards=[];g.events=[];g.fx=[];g.skillFields=[];g.skillTasks=[];g.spellFields=[];g.weapons={};g.passives={};g.evolved={};g.cool={};g.ultimateState=null;g.bladeSwing=null;g.rangedAttacks={};g.skillPose=null;g.rift=null;g.player.x=g.player.y=900;g.player.inv=999;g.player.ultCd=0;r.reduced=false;r.setQuality(1);
      // Targets in the visible portrait area move into the actual attack, not far off-screen.
-     for(let i=0;i<8;i++){const e=g.spawn(["guard","hound","bomber","wisp","healer","sniper","frostling","brute"][i]);Object.assign(e,{x:970+i%2*30,y:840+Math.floor(i/2)*38,hp:99999,maxHp:99999,speed:14,shoot:999,special:999});}
+     for(let i=0;i<8;i++){const e=g.spawn(["guard","hound","brute","wisp","healer","sniper","frostling","brute"][i]);Object.assign(e,{x:970+i%2*30,y:840+Math.floor(i/2)*38,hp:99999,maxHp:99999,speed:14,shoot:999,special:999});}
      if(key==="ultimate")g.ultimate();else if(key==="orbit")g.weapons={orbit:5};else g.attack(key,5);
      for(let i=0;i<Math.round(at*60);i++)g.step(1/60,{x:0,y:0});g.events=[];g.phase="paused";
     },{key,hero,at:points[frame]});await page.waitForTimeout(45);await capture(page,name);
@@ -94,7 +94,7 @@ try{
   await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start").click();
   const keys=hero==="knight"?["crosscut","phantom","judgment","thousand"]:hero==="ranger"?["explosive","falcon","stormbow","ballista"]:["spirit","blackflame","gravity","dragon"];
   for(const key of keys){await page.evaluate(({hero,key})=>{const g=window.__riftTest.game;g.phase="playing";g.stage=5;g.stageStarted=0;g.time=42;g.hitStopEnabled=false;g.player.inv=999;g.spawnCd=g.nextElite=g.nextMagnet=9999;g.enemies=[];g.bullets=[];g.shots=[];g.hazards=[];g.fx=[];g.skillFields=[];g.skillTasks=[];g.spellFields=[];g.weapons={};g.passives={};g.ultimateState=null;g.bladeSwing=null;g.rangedAttacks={};g.rift=null;g.player.x=g.player.y=900;
-   for(let i=0;i<7;i++){const e=g.spawn(["guard","hound","bomber","wisp","healer","sniper","frostling"][i]);Object.assign(e,{x:1000+i%3*35,y:850+Math.floor(i/3)*40,speed:0,hp:99999,maxHp:99999,shoot:999});}
+   for(let i=0;i<7;i++){const e=g.spawn(["guard","hound","brute","wisp","healer","sniper","frostling"][i]);Object.assign(e,{x:1000+i%3*35,y:850+Math.floor(i/3)*40,speed:0,hp:99999,maxHp:99999,shoot:999});}
    g.attack(key,5);const steps={crosscut:24,explosive:20,spirit:24,phantom:27,falcon:28,blackflame:40,judgment:41,stormbow:22,gravity:52,thousand:33,ballista:35,dragon:50}[key];for(let i=0;i<steps;i++)g.step(1/60);g.phase="paused";
   },{hero,key});await page.waitForTimeout(80);await capture(page,hero+"-campaign-"+key);}
   await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";g.finish(false);});await page.locator("#result-home").click();
