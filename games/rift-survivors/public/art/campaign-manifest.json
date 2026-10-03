@@ -1,0 +1,54 @@
+{
+  "version": "5.0.0",
+  "source": "Original sprites generated for Rift Keepers; no third-party franchise assets",
+  "sprites": [
+    {
+      "name": "guard",
+      "bytes": 20764
+    },
+    {
+      "name": "hound",
+      "bytes": 28934
+    },
+    {
+      "name": "bomber",
+      "bytes": 20086
+    },
+    {
+      "name": "wisp",
+      "bytes": 30794
+    },
+    {
+      "name": "healer",
+      "bytes": 25798
+    },
+    {
+      "name": "sniper",
+      "bytes": 23842
+    },
+    {
+      "name": "frostling",
+      "bytes": 34524
+    },
+    {
+      "name": "boss-2",
+      "bytes": 33786
+    },
+    {
+      "name": "boss-3",
+      "bytes": 34748
+    },
+    {
+      "name": "boss-4",
+      "bytes": 40908
+    },
+    {
+      "name": "boss-5",
+      "bytes": 33664
+    },
+    {
+      "name": "boss-1",
+      "bytes": 37010
+    }
+  ]
+}
