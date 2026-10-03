@@ -330,7 +330,8 @@ test("mixed new effects freeze with game time and orbital visuals match actual h
  const frames=[];for(const externalTime of [0,999]){r.draw(externalTime,g,g.hero,{active:false});frames.push(hash());}
  const layout=bladeBarrierLayout(g),targets=layout.map(b=>{const e=g.spawn("shade");Object.assign(e,{x:b.x,y:b.y,hp:9999,maxHp:9999,speed:0,shoot:999});return e;}),miss=g.spawn("shade");Object.assign(miss,{x:g.player.x+240,y:g.player.y+240,hp:9999,maxHp:9999,speed:0,shoot:999});
  g.phase="playing";g.attack("orbit",5);const positions=targets.every(e=>e.hp<9999)&&miss.hp===9999;g.phase="paused";
- return {same:frames[0]===frames[1],count:layout.length,positions};
+ const {drawMaterialEffect}=await import("/src/combat-vfx.js"),hit=document.createElement("canvas");hit.width=hit.height=128;const hc=hit.getContext("2d");drawMaterialEffect({ctx:hc,quality:1,reduced:false,glow(){}},{kind:"impact",key:"ultimate",x:64,y:64,max:.3,ttl:.21},0,{hero:{id:"mage"},player:g.player},.7,.3);const pixels=hc.getImageData(0,0,128,128).data;let red=0,blue=0,count=0;for(let i=0;i<pixels.length;i+=4)if(pixels[i+3]>80){red+=pixels[i];blue+=pixels[i+2];count++;}const iceIsCold=count>50&&blue>red*1.05;
+ return {same:frames[0]===frames[1],count:layout.length,positions,iceIsCold};
  });
- expect(result.same).toBe(true);expect(result.count).toBe(8);expect(result.positions).toBe(true);
+ expect(result.same).toBe(true);expect(result.count).toBe(8);expect(result.positions).toBe(true);expect(result.iceIsCold).toBe(true);
 });

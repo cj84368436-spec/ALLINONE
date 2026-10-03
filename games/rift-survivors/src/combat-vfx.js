@@ -9,7 +9,7 @@ if(f.kind==="whirlwind"){drawWhirlwind(r,f,t,g);return true;}
 if(f.kind==="frost-crown"){drawFrostCrown(r,f,t,g);return true;}
 if(f.kind==="frost-storm"&&f.ultimate){drawFrostPulse(r,f,t);return true;}
 if(f.kind==="impact"&&["orbit","whirlwind"].includes(f.key)){drawMetalContact(r,f);return true;}
-if(!Art.materialFrames.size)return false;const c=r.ctx,x=f.follow?g.player.x:f.x,y=f.follow?g.player.y-18:f.y,col=Math.min(5,Math.floor(u*6)),row=materialRow(f.key),count=r.reduced?3:r.quality<.8?6:11;
+if(!Art.materialFrames.size)return false;const c=r.ctx,x=f.follow?g.player.x:f.x,y=f.follow?g.player.y-18:f.y,col=Math.min(5,Math.floor(u*6)),row=materialRow(f.key==="ultimate"&&g.hero.id==="mage"?"ultimate-mage":f.key),count=r.reduced?3:r.quality<.8?6:11;
 if(["slash","blood-cut","whirlwind","cut-hit","fire-burst","meteor-impact","quake","bolt-hit","impact","burst","frost-storm","lightning-strike","flame-pillar","ice-shatter","blood-eruption","fire-residue","poison-residue","thorn-residue"].includes(f.kind)){
  c.globalAlpha=1;
  if(f.kind==="slash"||f.kind==="blood-cut"){const radius=f.r||100;c.save();c.translate(x,y);c.rotate((f.angle||0)-.48);drawMaterial(c,0,col,0,0,radius*2.22,radius*1.76,0,f.echo?.5:.96);c.globalCompositeOperation="lighter";c.strokeStyle=f.kind==="blood-cut"?"#db7468":"#fff3bc";c.lineWidth=(f.echo?1:2.8)*a;c.beginPath();c.arc(0,0,radius*.91,-1.15+cap(u*3)*.4,1.03);c.stroke();c.restore();if(!r.reduced)shards(c,x,y,radius*.95,u,f.kind==="blood-cut"?"#b74949":"#d5ad62",count);return true;}
