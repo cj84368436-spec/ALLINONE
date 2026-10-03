@@ -328,7 +328,7 @@ duration:(key==="beam"?(evolved?2.3:lv>=5?1.7:1.3):key==="whirlwind"?(evolved?1.
 function upgradeDetail(g,key){
 const lv=g.weapons[key]||g.passives[key]||0,next=lv+1,ev=EVOLUTIONS[key],rune=ev?g.passives[ev.passive]||0:0,evo=!!(g.evolved[key]||ev&&next>=5&&rune>=2);
 let stat;const n=x=>Math.round(x),u=UPGRADES[key];
-if(u?.kind==="weapon"){const s=skillStats(g,key,next,evo),d=n(s.damage);
+if(u?.kind==="weapon"){const s=skillStats(g,key,next,evo),d=n(s.damage*(key==="cleave"&&next>=3?1/1.35:["fireball","piercing"].includes(key)&&next>=5?.72:1));
 stat={
 hammer:"망치 "+(evo||next>=5?3:next>=3?2:1)+"개 · 피해 "+d,
 fissure:"연속 파열 "+(evo?7:next>=5?5:next>=3?4:3)+"회 · 피해 "+d,
