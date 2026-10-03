@@ -1,0 +1,225 @@
+{
+  "version": "4.0.0",
+  "date": "2026-10-03",
+  "runtimeCommit": "e69edf7fb612e954970474a908142f60cb7cb75f",
+  "testCommit": "a6a847b036eb3928e70f8104456f3eb1629e9e6d",
+  "runId": 37091069378,
+  "jobId": 111111345081,
+  "conclusion": "success",
+  "tests": {
+    "node": 91,
+    "chromium": 59,
+    "webkit": 59,
+    "total": 209,
+    "failed": 0,
+    "flaky": 0
+  },
+  "visualReview": {
+    "captures": 46,
+    "errors": [],
+    "method": "Screenshots of the real Canvas/DOM renderer. Combat fixtures seed enemies, time and upgrades for visual review; they are staged scenes, not evidence of human play quality."
+  },
+  "app": {
+    "filename": "rift-keepers.ait",
+    "bytes": 5819257,
+    "sha256": "6b338002e16cf2541096883e2b6f4e5a70a9543c9fc19cf5a692662e99526b9e"
+  },
+  "artifacts": [
+    {
+      "id": 11261814668,
+      "name": "rift-keepers-toss-release",
+      "digest": "sha256:318f3997db1a308089608fb26a30ad5873699fee171f21c242f2efca6fcfa2b9",
+      "url": "https://github.com/cj84368436-spec/ALLINONE/actions/runs/37091069378/artifacts/11261814668"
+    },
+    {
+      "id": 11261809815,
+      "name": "rift-keepers-test-evidence",
+      "digest": "sha256:5fcfcabb74e72a6de4ec236739c7bd38d49fc55a8bfff5d207ec5d8e7d6a812d",
+      "url": "https://github.com/cj84368436-spec/ALLINONE/actions/runs/37091069378/artifacts/11261809815"
+    }
+  ],
+  "defaultBotReport": {
+    "method": "Nine seeded legal-input Node runs from scripts/playthrough.mjs. Rule-based bot without permanent upgrades; not a human/native-device test.",
+    "runs": [
+      {
+        "hero": "knight",
+        "seed": 11,
+        "timeSeconds": 330,
+        "level": 26,
+        "kills": 1372,
+        "win": true,
+        "remainingHp": 116.80000000000001,
+        "skills": [
+          "blade",
+          "whirlwind",
+          "rend",
+          "orbit"
+        ],
+        "evolutions": [
+          "blade",
+          "whirlwind",
+          "rend"
+        ]
+      },
+      {
+        "hero": "knight",
+        "seed": 22,
+        "timeSeconds": 161,
+        "level": 13,
+        "kills": 374,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "blade",
+          "rend",
+          "whirlwind"
+        ],
+        "evolutions": [
+          "blade"
+        ]
+      },
+      {
+        "hero": "knight",
+        "seed": 33,
+        "timeSeconds": 244,
+        "level": 20,
+        "kills": 827,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "blade",
+          "rend",
+          "whirlwind"
+        ],
+        "evolutions": [
+          "blade"
+        ]
+      },
+      {
+        "hero": "ranger",
+        "seed": 11,
+        "timeSeconds": 57,
+        "level": 4,
+        "kills": 64,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "arrow"
+        ],
+        "evolutions": []
+      },
+      {
+        "hero": "ranger",
+        "seed": 22,
+        "timeSeconds": 313,
+        "level": 25,
+        "kills": 1352,
+        "win": true,
+        "remainingHp": 121.99999999999997,
+        "skills": [
+          "arrow",
+          "multishot",
+          "poison"
+        ],
+        "evolutions": [
+          "arrow",
+          "poison",
+          "multishot"
+        ]
+      },
+      {
+        "hero": "ranger",
+        "seed": 33,
+        "timeSeconds": 312,
+        "level": 25,
+        "kills": 1366,
+        "win": true,
+        "remainingHp": 110,
+        "skills": [
+          "arrow",
+          "multishot",
+          "poison",
+          "piercing"
+        ],
+        "evolutions": [
+          "arrow",
+          "poison",
+          "multishot"
+        ]
+      },
+      {
+        "hero": "mage",
+        "seed": 11,
+        "timeSeconds": 309,
+        "level": 25,
+        "kills": 1363,
+        "win": true,
+        "remainingHp": 90,
+        "skills": [
+          "bolt",
+          "frost",
+          "fireball",
+          "meteor",
+          "lightning"
+        ],
+        "evolutions": [
+          "bolt",
+          "fireball"
+        ]
+      },
+      {
+        "hero": "mage",
+        "seed": 22,
+        "timeSeconds": 308,
+        "level": 25,
+        "kills": 1366,
+        "win": true,
+        "remainingHp": 43,
+        "skills": [
+          "bolt",
+          "meteor",
+          "frost",
+          "fireball",
+          "lightning"
+        ],
+        "evolutions": [
+          "bolt",
+          "fireball"
+        ]
+      },
+      {
+        "hero": "mage",
+        "seed": 33,
+        "timeSeconds": 233,
+        "level": 18,
+        "kills": 750,
+        "win": false,
+        "remainingHp": 0,
+        "skills": [
+          "bolt",
+          "frost",
+          "fireball"
+        ],
+        "evolutions": [
+          "bolt"
+        ]
+      }
+    ],
+    "wins": 5,
+    "losses": 4
+  },
+  "hosted": {
+    "repo": "cj84368436-spec/privacy-policy",
+    "commit": "220eb8262e604f73685022ea22f805bc172492eb",
+    "runId": 37090241310,
+    "conclusion": "success",
+    "engines": [
+      "chromium",
+      "webkit"
+    ]
+  },
+  "remaining": [
+    "Native iPhone Apps in Toss device play/audio/thermal validation",
+    "Console linking, review and public launch"
+  ]
+}

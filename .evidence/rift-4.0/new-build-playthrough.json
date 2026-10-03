@@ -1,0 +1,229 @@
+{
+  "runtime": "e69edf7fb612e954970474a908142f60cb7cb75f",
+  "method": "Extra full-run probes in the functions V8 runtime using the exact final core/spatial code, the existing movement/dash/ultimate policy, and only offered upgrades. Three knight seeds prioritize primary attack, damage/health runes, then hammer/fissure. Ranger seeds prioritize primary/haste and poison support, then ricochet/glaive. Mage seeds prioritize primary/magnet and blizzard support, then beam/pyre. No invulnerability, teleport, forced upgrades, or human/native iPhone test. These extra probes are separate from GitHub Actions' default Node bot runs.",
+  "preferences": {
+    "knight": [
+      "blade",
+      "power",
+      "heart",
+      "hammer",
+      "fissure",
+      "leech",
+      "haste",
+      "whirlwind",
+      "rend",
+      "orbit",
+      "slam",
+      "focus",
+      "crit",
+      "magnet"
+    ],
+    "ranger": [
+      "arrow",
+      "haste",
+      "poison",
+      "leech",
+      "ricochet",
+      "glaive",
+      "heart",
+      "crit",
+      "power",
+      "multishot",
+      "piercing",
+      "trap",
+      "magnet"
+    ],
+    "mage": [
+      "bolt",
+      "magnet",
+      "frost",
+      "boots",
+      "beam",
+      "pyre",
+      "power",
+      "haste",
+      "heart",
+      "fireball",
+      "lightning",
+      "meteor",
+      "focus",
+      "crit"
+    ]
+  },
+  "runs": [
+    {
+      "hero": "knight",
+      "seed": 11,
+      "timeSeconds": 314,
+      "level": 26,
+      "kills": 1364,
+      "win": true,
+      "remainingHp": 103.19999999999983,
+      "skills": [
+        "blade",
+        "fissure",
+        "hammer",
+        "orbit",
+        "rend",
+        "whirlwind"
+      ],
+      "evolutions": [
+        "blade",
+        "hammer",
+        "fissure"
+      ]
+    },
+    {
+      "hero": "knight",
+      "seed": 22,
+      "timeSeconds": 322,
+      "level": 26,
+      "kills": 1364,
+      "win": true,
+      "remainingHp": 127.80000000000007,
+      "skills": [
+        "blade",
+        "rend",
+        "fissure",
+        "hammer",
+        "whirlwind"
+      ],
+      "evolutions": [
+        "blade",
+        "hammer",
+        "fissure"
+      ]
+    },
+    {
+      "hero": "knight",
+      "seed": 33,
+      "timeSeconds": 317,
+      "level": 26,
+      "kills": 1375,
+      "win": true,
+      "remainingHp": 76.39999999999974,
+      "skills": [
+        "blade",
+        "rend",
+        "hammer",
+        "fissure",
+        "whirlwind"
+      ],
+      "evolutions": [
+        "blade",
+        "hammer"
+      ]
+    },
+    {
+      "hero": "ranger",
+      "seed": 11,
+      "timeSeconds": 57,
+      "level": 4,
+      "kills": 64,
+      "win": false,
+      "remainingHp": 0,
+      "skills": [
+        "arrow"
+      ],
+      "evolutions": []
+    },
+    {
+      "hero": "ranger",
+      "seed": 22,
+      "timeSeconds": 312,
+      "level": 26,
+      "kills": 1363,
+      "win": true,
+      "remainingHp": 89.99999999999991,
+      "skills": [
+        "arrow",
+        "poison",
+        "ricochet",
+        "glaive"
+      ],
+      "evolutions": [
+        "arrow",
+        "poison",
+        "ricochet"
+      ]
+    },
+    {
+      "hero": "ranger",
+      "seed": 33,
+      "timeSeconds": 319,
+      "level": 25,
+      "kills": 1366,
+      "win": true,
+      "remainingHp": 78.59999999999962,
+      "skills": [
+        "arrow",
+        "glaive",
+        "poison",
+        "ricochet"
+      ],
+      "evolutions": [
+        "arrow",
+        "poison",
+        "glaive"
+      ]
+    },
+    {
+      "hero": "mage",
+      "seed": 11,
+      "timeSeconds": 316,
+      "level": 25,
+      "kills": 1374,
+      "win": true,
+      "remainingHp": 97,
+      "skills": [
+        "bolt",
+        "frost",
+        "pyre",
+        "beam"
+      ],
+      "evolutions": [
+        "bolt",
+        "frost"
+      ]
+    },
+    {
+      "hero": "mage",
+      "seed": 22,
+      "timeSeconds": 257,
+      "level": 20,
+      "kills": 945,
+      "win": false,
+      "remainingHp": 0,
+      "skills": [
+        "bolt",
+        "meteor",
+        "beam",
+        "pyre",
+        "frost"
+      ],
+      "evolutions": [
+        "bolt"
+      ]
+    },
+    {
+      "hero": "mage",
+      "seed": 33,
+      "timeSeconds": 309,
+      "level": 26,
+      "kills": 1345,
+      "win": true,
+      "remainingHp": 115,
+      "skills": [
+        "bolt",
+        "frost",
+        "beam",
+        "lightning",
+        "fireball"
+      ],
+      "evolutions": [
+        "bolt",
+        "frost"
+      ]
+    }
+  ]
+}
