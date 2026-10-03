@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import {spawn,execFileSync} from "node:child_process";
+import {spawn,spawnSync,execFileSync} from "node:child_process";
 import {chromium} from "@playwright/test";
 const dir="../../.evidence/rift-5.1/showcase";fs.mkdirSync(dir,{recursive:true});
 const server=spawn(process.execPath,["node_modules/vite/bin/vite.js","--host","127.0.0.1","--port","5191"],{stdio:"ignore"});let browser;
@@ -22,7 +22,9 @@ try{
   const b64=await page.evaluate(async()=>{const s=window.__showcase;await new Promise(resolve=>{s.recorder.onstop=resolve;s.recorder.stop();});const blob=new Blob(s.chunks,{type:s.recorder.mimeType});const bytes=new Uint8Array(await blob.arrayBuffer());let raw="";for(let i=0;i<bytes.length;i+=8192)raw+=String.fromCharCode(...bytes.subarray(i,i+8192));for(const track of s.stream.getTracks())track.stop();window.__riftTest.audio.output.disconnect(s.destination);return btoa(raw);});
   const webm=dir+"/"+hero+".webm",mp4=dir+"/"+hero+".mp4";fs.writeFileSync(webm,Buffer.from(b64,"base64"));execFileSync("ffmpeg",["-y","-i",webm,"-vf","scale=390:844","-c:v","libx264","-preset","veryfast","-crf","24","-pix_fmt","yuv420p","-c:a","aac","-b:a","128k","-movflags","+faststart",mp4],{stdio:"ignore"});
   const probe=JSON.parse(execFileSync("ffprobe",["-v","quiet","-show_streams","-show_format","-of","json",mp4],{encoding:"utf8"}));if(!probe.streams.some(s=>s.codec_type==="audio"&&s.codec_name==="aac"))throw Error("Missing AAC game mix");
-  if(errors.length)throw Error(JSON.stringify(errors));clips.push({hero,key,seconds:probe.format.duration,bytes:fs.statSync(mp4).size,hasAudio:true});fs.unlinkSync(webm);await page.close();
+  const decoded=spawnSync("ffmpeg",["-hide_banner","-i",mp4,"-vn","-af","volumedetect","-f","null","-"],{encoding:"utf8"});if(decoded.status!==0)throw Error("Cannot inspect captured game mix");const meanDb=Number(decoded.stderr.match(/mean_volume: ([\d.-]+) dB/)?.[1]),peakDb=Number(decoded.stderr.match(/max_volume: ([\d.-]+) dB/)?.[1]);if(!Number.isFinite(meanDb)||!Number.isFinite(peakDb)||meanDb<=-65||peakDb<=-45)throw Error("Captured game mix is silent or unusably quiet: "+JSON.stringify({hero,meanDb,peakDb}));
+  const excerpt=execFileSync("ffmpeg",["-hide_banner","-loglevel","error","-i",mp4,"-ss","1","-t","5","-vn","-c:a","libmp3lame","-b:a","96k","-f","mp3","pipe:1"],{maxBuffer:2*1024*1024});fs.writeFileSync(dir+"/"+hero+".audio.b64.txt",excerpt.toString("base64"));
+  if(errors.length)throw Error(JSON.stringify(errors));clips.push({hero,key,seconds:probe.format.duration,bytes:fs.statSync(mp4).size,hasAudio:true,meanDb,peakDb});fs.unlinkSync(webm);await page.close();
  }
  fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"5.1.0",method:"Staged late-stage evolving skill, actual Canvas animation and Web Audio output recorded together. High-health fixtures are for VFX/audio review; not human play or native-device evidence.",clips},null,2));console.log(JSON.stringify(clips));
 }finally{await browser?.close();server.kill();}

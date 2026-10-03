@@ -115,7 +115,7 @@ if(key==="beam")this.play("void-impact",{gain:.11,rate:.92,offset:.16,duration:.
 else if(key==="ballista")this.arrowFlight({gain:.56,rate:.91,heavy:true});
 else if(key==="spirit")this.play("spirit-flight",{gain:.28,group:"flight",priority:4});
 else if(["thousand","phantom","crosscut"].includes(key))this.play((data.id||0)%2?"swish-b":"swish-a",{gain:key==="thousand"?.23:.26,rate:key==="thousand"?1.12:1.05,duration:.19,high:380,group:"swing",priority:5});
-else if(key==="dragon"&&this.gate("breath:dragon",.64))this.play("dragon-breath",{gain:.17,offset:.49,duration:.40,group:"sustain",priority:3});
+else if(key==="dragon"&&this.gate("breath:dragon",.64))this.play("dragon-breath",{gain:.17,offset:.49,duration:.70,group:"sustain",priority:3});
 else if(key==="blackflame"&&this.gate("burn:blackflame",.60))this.play("fire-cast",{gain:.12,rate:.91,offset:.22,duration:.33,low:2600,group:"sustain"});
 else if(key==="gravity"&&this.gate("pull:gravity",.60))this.play("void-cast",{gain:.10,rate:.89,offset:.24,duration:.31,low:2100,group:"sustain"});
 }
@@ -125,7 +125,7 @@ if(["fireball","pyre","explosive","blackflame"].includes(key))this.play("fire-im
 else if(key==="meteor"){this.play("stone-impact",{gain:.42,rate:.91,group:"impact",priority:7});this.play("fire-impact",{gain:.30,rate:.90,group:"magic",priority:6});}
 else if(["slam","fissure"].includes(key))this.play("stone-impact",{gain:key==="slam"?.43:.32,rate:key==="fissure"?1.03:.91,group:"impact",priority:7});
 else if(key==="judgment"){this.play("stone-impact",{gain:.29,rate:.90,group:"magic",priority:7});this.play("steel-return",{gain:.24,rate:.95,duration:.35,group:"swing",priority:6});}
-else if(key==="gravity")this.play("gravity-collapse",{gain:.42,group:"magic",priority:7});
+else if(key==="gravity"){if(data.phase==="finish"&&data.hits>0){this.finish(key,data);return;}this.play("gravity-collapse",{gain:.42,group:"magic",priority:7});}
 else if(key==="lightning"||key==="stormbow")this.play("thunder",{gain:key==="stormbow"?.34:.25,rate:1.06,group:"thunder",priority:6});
 else if(key==="trap")this.play("steel-return",{gain:.23,rate:1.1,duration:.33,group:"swing"});
 else if(key==="dragon"&&data.hits>0)this.finish(key,data);
