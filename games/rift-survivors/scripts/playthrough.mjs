@@ -1,27 +1,5 @@
-import fs from "node:fs";
-import assert from "node:assert/strict";
-import {Game,HEROES} from "../src/core.js";
-const reports=[];
-for(const hero of HEROES)for(const seed of [11,22,33]){
-  const g=new Game(hero.id,{},seed);
-  // Only legal inputs/actions/choices. No invulnerability, teleport or forced upgrades.
-  for(let step=0;step<24000&&!g.result;step++){
-    if(g.phase==="upgrade"){
-      const preferences={"knight":["blade","power","whirlwind","rend","leech","haste","heart","orbit","slam","focus","crit","magnet"],"ranger":["arrow","haste","multishot","poison","power","leech","heart","crit","piercing","trap","magnet"],"mage":["bolt","magnet","fireball","frost","power","haste","heart","lightning","meteor","focus","crit"]}[hero.id];
-      const choice=preferences.find(key=>g.choices.includes(key))||g.choices[0];g.choose(choice);continue;
-    }
-    const p=g.player,nearest=g.nearest(),near=g.enemies.filter(e=>Math.hypot(e.x-p.x,e.y-p.y)<135);
-    if((near.length>=5||p.hp<p.maxHp*.55)&&p.ultCd===0)g.ultimate();
-    let target=null,best=Infinity;
-    for(const item of [...g.pickups,...g.gems]){const distance=(item.x-p.x)**2+(item.y-p.y)**2;if(distance<best){best=distance;target=item;}}
-    let x=0,y=0;const distance=nearest?Math.hypot(nearest.x-p.x,nearest.y-p.y):Infinity;
-    if(distance<75){x=p.x-nearest.x;y=p.y-nearest.y;if(p.dashCd===0)g.dash(x,y);}
-    else if(target){x=target.x-p.x;y=target.y-p.y;}
-    else if(nearest){if(distance>105){x=nearest.x-p.x;y=nearest.y-p.y;}else{x=p.y-nearest.y;y=nearest.x-p.x;}}
-    const length=Math.hypot(x,y)||1;g.step(1/60,{x:x/length,y:y/length});g.events.length=0;
-  }
-  reports.push({hero:hero.id,seed,timeSeconds:Math.round(g.time),level:g.level,kills:g.kills,win:g.result.win,remainingHp:g.player.hp,skills:Object.keys(g.weapons),evolutions:Object.keys(g.evolved)});
-}
-const report={method:"Nine seeded full runs, three base heroes, no permanent upgrades. Rule-based bot uses only normal movement, dash, ultimate and offered skill choices. This checks playable completion paths; it is not a human usability or native device test.",runs:reports};
-for(const hero of HEROES){const runs=reports.filter(r=>r.hero===hero.id);assert.ok(runs.some(r=>r.win),hero.id+" has no legal completion path");assert.ok(runs.every(r=>Number.isFinite(r.timeSeconds)&&r.timeSeconds<=400));}
-fs.mkdirSync("release",{recursive:true});fs.writeFileSync("release/playthrough.json",JSON.stringify(report,null,2));console.log("9 legal bot runs: "+reports.filter(r=>r.win).length+" wins, "+reports.filter(r=>!r.win).length+" losses");console.log(JSON.stringify(reports,null,2));
+import fs from "node:fs";import assert from "node:assert/strict";import {Game,HEROES} from "../src/core.js";import {STAGE_SKILLS} from "../src/campaign.js";
+function runBot(api,hero,seed,maxSteps=120000){const g=new api.Game(hero,{},seed),preferences={knight:["blade","power","whirlwind","rend","leech","haste","heart","orbit","slam","focus","crit","magnet"],ranger:["arrow","haste","multishot","poison","power","leech","heart","crit","piercing","trap","magnet"],mage:["bolt","magnet","fireball","frost","power","haste","heart","lightning","meteor","focus","crit"]}[hero];for(let i=0;i<maxSteps&&!g.result;i++){if(g.phase==="stage-clear"){g.advanceStage();continue;}if(g.phase==="upgrade"){const novel=g.choices.find(k=>api.STAGE_SKILLS[k]&&(g.weapons[k]||0)<5),health=g.stage>1&&g.player.hp<g.player.maxHp*.65&&g.choices.includes("heart")?"heart":null;g.choose(health||novel||preferences.find(k=>g.choices.includes(k))||g.choices[0]);continue;}const p=g.player,nearest=g.nearest(),near=g.enemies.filter(e=>Math.hypot(e.x-p.x,e.y-p.y)<135);if((near.length>=5||p.hp<p.maxHp*.55)&&p.ultCd===0)g.ultimate();let target=null,best=Infinity;for(const item of [...g.pickups,...g.gems]){const ds=(item.x-p.x)**2+(item.y-p.y)**2;if(ds<best){best=ds;target=item;}}let x=0,y=0;const d=nearest?Math.hypot(nearest.x-p.x,nearest.y-p.y):Infinity;if(d<80){x=p.x-nearest.x;y=p.y-nearest.y;}else if(target){x=target.x-p.x;y=target.y-p.y;}else if(nearest){if(d>135){x=nearest.x-p.x;y=nearest.y-p.y;}else{x=p.y-nearest.y;y=nearest.x-p.x;}}let len=Math.hypot(x,y)||1;x/=len;y/=len;for(const e of near){const ex=p.x-e.x,ey=p.y-e.y,ed=Math.hypot(ex,ey)||1;if(ed<105){x+=ex/ed*(105-ed)/55;y+=ey/ed*(105-ed)/55;}}for(const b of g.shots){const bx=p.x-b.x,by=p.y-b.y,bd=Math.hypot(bx,by)||1;if(bd<75){x+=bx/bd*(75-bd)/35;y+=by/bd*(75-bd)/35;}}for(const h of g.hazards){const hx=p.x-h.x,hy=p.y-h.y,hd=Math.hypot(hx,hy)||1;if(h.life>0&&h.delay<.8&&hd<h.r+55){x+=hx/hd*2;y+=hy/hd*2;}}len=Math.hypot(x,y)||1;x/=len;y/=len;if((d<65||g.hazards.some(h=>h.delay<.35&&Math.hypot(h.x-p.x,h.y-p.y)<h.r+15))&&p.dashCd===0)g.dash(x,y);g.step(1/60,{x,y});g.events.length=0;}return {hero,seed,time:Math.round(g.time),level:g.level,stage:g.stage,clearedStages:g.clearedStages,win:g.result?.win??null,hp:Math.round(g.player.hp),kills:g.kills,weapons:g.weapons};}
+const reports=HEROES.flatMap(hero=>[11,22,33].map(seed=>runBot({Game,STAGE_SKILLS},hero.id,seed)));
+for(const hero of HEROES){const runs=reports.filter(r=>r.hero===hero.id);assert.ok(runs.some(r=>r.win&&r.clearedStages===5),hero.id+" has no full five-region completion path");assert.ok(runs.every(r=>r.win!==null&&r.time<=2000));}
+fs.mkdirSync("release",{recursive:true});fs.writeFileSync("release/playthrough.json",JSON.stringify({method:"Nine seeded full five-region runs. Unmodified base heroes, legal offered upgrades, movement, enemy/shot/hazard avoidance, dash, ultimate and stage continue. No invulnerability, teleport, forced skills or boss HP edits. This is a rule-based completion-path check, not human or native-iPhone validation.",runs:reports},null,2));console.log("9 full-campaign legal bot runs: "+reports.filter(r=>r.win).length+" wins, "+reports.filter(r=>!r.win).length+" losses");console.log(JSON.stringify(reports,null,2));

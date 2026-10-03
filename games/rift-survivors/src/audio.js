@@ -1,3 +1,4 @@
+import {STAGE_SKILLS} from "./campaign.js";
 export const SAMPLES=["swish-a","swish-b","swish-c","blade-hit-a","blade-hit-b","arrow","magic","frost","thunder","ultimate","hurt","reward","select","boss","ambience","arrow-release","arrow-hit","bolt-release","bolt-hit","arrow-flight","fire-cast","fire-impact","ice-impact","stone-impact","poison-impact","whirlwind","void-cast","void-impact","steel-return"];
 export class Audio{
 constructor(){this.context=null;this.enabled=true;this.timer=null;this.voices=new Set();this.delayed=new Set();this.buffers=new Map();this.promise=null;this.ambientVoice=null;this.epoch=0;this.wantsPlayback=false;this.lastImpact=-1;this.lastRangedImpact={};this.lastSkillPulse={};this.stats={played:0,maxVoices:0,lastSample:null};}
@@ -22,6 +23,13 @@ set(enabled){this.enabled=enabled;if(enabled)this.unlock();else this.stop();}
 duck(){const c=this.context,voice=this.ambientVoice;if(!c||!voice)return;const gain=voice.volume.gain,t=c.currentTime;gain.cancelScheduledValues(t);gain.setTargetAtTime(.024,t,.012);gain.setTargetAtTime(.09,t+.20,.14);}
 arrowFlight({rate=1,gain=.58}={}){this.play("arrow-release",{gain:.12,rate,group:"bow"});this.play("arrow-flight",{gain,rate,delay:.012,group:"flight"});}
 event(type,key,data={}){
+if(STAGE_SKILLS[key]&&["skill-release","skill-impact","skill-pulse","projectile-contact","impact"].includes(type)){const u=STAGE_SKILLS[key],now=this.context?.currentTime||0,gate=type==="skill-release"?"release:"+key:"stage-impact";if(type!=="skill-release"&&now-(this.lastSkillPulse[gate]??-1)<.14)return;this.lastSkillPulse[gate]=now;const release=type==="skill-release",gain=release?.34:type==="skill-pulse"?.18:.30;if(u.hero==="knight"){this.play(release?"swish-c":"blade-hit-a",{gain,rate:key==="thousand"?1.15:key==="judgment"?.88:1.04,group:release?"swing":"impact"});if(key==="judgment"&&!release)this.play("stone-impact",{gain:.28,rate:.9,group:"magic"});}
+else if(u.hero==="ranger"){if(release||type==="skill-pulse")this.arrowFlight({gain:key==="ballista"?.63:.45,rate:key==="ballista"?.86:1.08});else this.play(key==="explosive"?"fire-impact":"arrow-hit",{gain,group:"impact"});if(key==="stormbow"&&!release)this.play("thunder",{gain:.32,group:"thunder"});if(key==="falcon"&&release)this.play("swish-b",{gain:.24,rate:1.2,group:"swing"});}
+else{this.play(["gravity","blackflame"].includes(key)?release?"void-cast":"void-impact":release?"frost":"ice-impact",{gain,rate:key==="dragon"?.82:1,group:"magic"});if(key==="dragon"&&release)this.play("thunder",{gain:.25,rate:.8,group:"thunder"});}if(!release)this.duck();return;}
+if(type==="stage-clear"){this.play("reward",{gain:.34,group:"reward"});return;}
+if(type==="stage-start"){this.play("boss",{gain:.20,rate:.9,group:"magic"});this.play("reward",{gain:.22,delay:.12,group:"reward"});return;}
+if(type==="enemy-burst"){const now=this.context?.currentTime||0;if(now-(this.lastSkillPulse.burst??-1)>.2){this.lastSkillPulse.burst=now;this.play("fire-impact",{gain:.25,group:"impact"});}return;}
+
 const pitch=()=>.95+Math.random()*.10;
 if(type==="skill-release"){
 if(key==="whirlwind"){this.play("whirlwind",{gain:.36,group:"swing"});this.play("swish-a",{gain:.25,group:"swing"});}

@@ -13,7 +13,7 @@ test("fatal hazard ends the frame before collecting healing or a chest",()=>{
  g.step(1/60);assert.equal(g.phase,"result");assert.equal(g.player.hp,0);assert.equal(g.level,1);assert.equal(g.result.level,1);assert.equal(pickup==="heal"?g.gems.length:g.pickups.length,1);}
 });
 test("a boss killing sweep does not keep adding kills after the result is settled",()=>{
- const g=quiet(),boss=g.spawnBoss();Object.assign(boss,{x:980,y:900,hp:1});const extra=g.spawn("brute");Object.assign(extra,{x:990,y:900,hp:1});
+ const g=quiet();g.stage=5;const boss=g.spawnBoss();Object.assign(boss,{x:980,y:900,hp:1});const extra=g.spawn("brute");Object.assign(extra,{x:990,y:900,hp:1});
  g.attack("blade",1);g.advanceBlade(.15);assert.equal(g.result.win,true);assert.equal(g.result.kills,1);assert.equal(g.kills,1);assert.equal(extra.hp,1);
 });
 test("expired hostile bullets and hazards cannot hit the player",()=>{

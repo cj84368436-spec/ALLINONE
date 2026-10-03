@@ -78,3 +78,9 @@
 .upgrade.evolved .choice-tag{color:#ffe0a0;background:#9a642527;border:1px solid #bc965844}
 .upgrade.evolved .skill-behavior{color:#f5deac;font-weight:600}
 .skill-codex small{line-height:1.6;display:block}
+
+.campaign-route{display:flex;gap:5px;margin:20px 0 14px}.campaign-route>span{flex:1;text-align:center;padding:10px 2px;border:1px solid #6682a242;border-radius:9px;background:#071525;font:700 19px Georgia;color:#71869c}.campaign-route small{display:block;font:8px sans-serif;line-height:1.4;margin-top:6px;word-break:keep-all}.campaign-route .cleared{color:#abdcca;border-color:#85c5ac70;background:#183d3633}.campaign-route .next{color:#f7d296;border-color:#e6c18b;background:#674b2d3a}.stage-unlocks{display:grid;gap:8px;margin:14px 0}.stage-unlocks article{display:flex;gap:11px;padding:9px;border:1px solid #6a84942e;border-radius:10px;background:#09192b}.stage-unlocks article.own{border-color:#e2bd78b0;background:#85623124}.stage-unlocks article>span{width:46px;height:46px;border-radius:7px;overflow:hidden;flex-shrink:0}.stage-unlocks .painted-skill{width:46px;height:46px}.stage-unlocks strong{display:block;font-size:13px;margin-top:3px}.stage-unlocks small{display:block;font-size:10px;color:#b4c8db;margin-top:6px}.stage-intro{font-size:12px!important;line-height:1.6!important;color:#c8d7e4!important}#objective{max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#skills{max-height:125px}.campaign-icon img{filter:saturate(1.05)}
+
+.codex-practice{display:block;margin-top:9px;padding:7px 10px;border:1px solid #b4996a88;background:#aa87431c;color:#e8d1a4;border-radius:6px;font-size:10px}
+
+@media(max-height:700px){.campaign-route{margin-top:12px}.campaign-route>span{padding:7px 2px}.stage-unlocks{gap:6px;margin:10px 0}.stage-unlocks article{padding:6px}.stage-intro{margin:8px 0!important}}

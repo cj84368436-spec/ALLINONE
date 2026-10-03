@@ -1,4 +1,4 @@
-const names=["skill-extra","combat-v4","skill-atlas","combat-atlas","courtyard","knight-idle","knight-walk-a","knight-walk-b","knight-attack","ranger","mage","shade","bat","brute","seer","boss","ruin","forest","gold-slash","grove","icon-blade","icon-arrow","icon-bolt","icon-orbit","icon-lightning","icon-frost",...Array.from({length:8},(_,i)=>"knight-strike-"+i),...["ranger","mage"].flatMap(h=>[...Array.from({length:8},(_,i)=>h+"-attack-"+i),...Array.from({length:4},(_,i)=>h+"-walk-"+i)])];
+const names=["skill-campaign","guard","hound","bomber","wisp","healer","sniper","frostling","boss-1","boss-2","boss-3","boss-4","boss-5","skill-extra","combat-v4","skill-atlas","combat-atlas","courtyard","knight-idle","knight-walk-a","knight-walk-b","knight-attack","ranger","mage","shade","bat","brute","seer","boss","ruin","forest","gold-slash","grove","icon-blade","icon-arrow","icon-bolt","icon-orbit","icon-lightning","icon-frost",...Array.from({length:8},(_,i)=>"knight-strike-"+i),...["ranger","mage"].flatMap(h=>[...Array.from({length:8},(_,i)=>h+"-attack-"+i),...Array.from({length:4},(_,i)=>h+"-walk-"+i)])];
 function url(name){return new URL("art/"+name+".webp",document.baseURI).href;}
 function texture(image){
 const pad=4,w=image.naturalWidth+pad*2,h=image.naturalHeight+pad*2;
@@ -8,13 +8,13 @@ return {image:edge,flash:mask,width:w,height:h};
 }
 function combatFrames(image){const out=new Map(),size=image.naturalWidth/6-10;for(let row=0;row<6;row++)for(let col=0;col<6;col++){const canvas=document.createElement("canvas");canvas.width=canvas.height=size;const c=canvas.getContext("2d");c.drawImage(image,col*(size+10)+5,row*(size+10)+5,size,size,0,0,size,size);c.globalCompositeOperation="destination-in";for(const vertical of [false,true]){const gradient=c.createLinearGradient(0,0,vertical?0:size,vertical?size:0);gradient.addColorStop(0,"#fff0");gradient.addColorStop(.13,"#fff");gradient.addColorStop(.87,"#fff");gradient.addColorStop(1,"#fff0");c.fillStyle=gradient;c.fillRect(0,0,size,size);}out.set(col+","+row,canvas);}return out;}
 export const Art={
-version:"4.0.0",ready:false,promise:null,images:new Map(),sprites:new Map(),frames:new Map(),materialFrames:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
+version:"5.0.0",ready:false,promise:null,images:new Map(),sprites:new Map(),frames:new Map(),materialFrames:new Map(),urls:Object.fromEntries(names.map(n=>[n,url(n)])),
 load(){
 if(this.ready)return Promise.resolve();if(this.promise)return this.promise;
 this.promise=Promise.all(names.map(name=>{if(this.images.has(name))return Promise.resolve();return new Promise((resolve,reject)=>{
 const img=new Image(),timer=setTimeout(()=>fail(),20000);
 function fail(){clearTimeout(timer);img.onload=img.onerror=null;reject(new Error("Artwork unavailable: "+name));}
-img.onload=()=>{clearTimeout(timer);this.images.set(name,img);if(name==="combat-atlas")this.frames=combatFrames(img);if(name==="combat-v4")this.materialFrames=materialFrames(img);if(!["forest","courtyard","skill-atlas","combat-atlas","skill-extra","combat-v4"].includes(name))this.sprites.set(name,texture(img));resolve();};img.onerror=fail;img.src=this.urls[name];
+img.onload=()=>{clearTimeout(timer);this.images.set(name,img);if(name==="combat-atlas")this.frames=combatFrames(img);if(name==="combat-v4")this.materialFrames=materialFrames(img);if(!["skill-campaign","forest","courtyard","skill-atlas","combat-atlas","skill-extra","combat-v4"].includes(name))this.sprites.set(name,texture(img));resolve();};img.onerror=fail;img.src=this.urls[name];
 });})).then(async()=>{if("FontFace"in window){try{const font=new FontFace("RiftTitle",'url("'+new URL("art/title.woff2",document.baseURI).href+'")',{weight:"700"});await font.load();document.fonts.add(font);}catch{}}this.ready=true;}).catch(error=>{this.promise=null;throw error;});return this.promise;
 },
 sprite(name){return this.sprites.get(name);}
