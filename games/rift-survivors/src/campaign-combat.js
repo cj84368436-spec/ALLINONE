@@ -16,7 +16,7 @@ if(t.key==="stormbow"){ccShot(g,{key:t.key,x:p.x,y:p.y,vx:Math.cos(angle)*620,vy
 if(t.key==="gravity")Object.assign(f,{x:f.tx,y:f.ty,ttl:2.8,r:(t.evolved?155:125)*s.area,count:t.lv>=5?3:t.lv>=3?2:1});
 if(t.key==="thousand")Object.assign(f,{ttl:2.2,count:t.evolved?16:t.lv>=5?12:t.lv>=3?8:5,marks:[]});
 if(t.key==="ballista")Object.assign(f,{ttl:1.85,count:t.evolved?4:t.lv>=5?3:t.lv>=3?2:1});
-if(t.key==="dragon")Object.assign(f,{ttl:t.evolved?2.6:t.lv>=3?2.15:1.7,length:330*s.area,r:24*s.area,paths:[]});
+if(t.key==="dragon")Object.assign(f,{ttl:t.evolved?2.6:t.lv>=3?2.15:1.7,length:Math.min(330*s.area,Math.max(110,Math.hypot(f.tx-f.x,f.ty-f.y)+20)),r:24*s.area,paths:[]});
 g.addField(f);g.emit("skill-release",{key:t.key,angle,level:t.lv,evolved:t.evolved});return true;}
 export function advanceCampaignField(g,f,dt){if(!STAGE_SKILLS[f.key])return false;const p=g.player,lv=f.lv,A=f.area,burst=(x,y,r,d,extra={})=>{g.areaHit({key:f.key,x,y,r},d,extra);g.effect({kind:"campaign-hit",key:f.visualKey||f.key,x,y,r,angle:f.angle,ttl:.5,max:.5});g.emit("skill-impact",{key:f.visualKey||f.key});};
 const release=b=>ccShot(g,{key:f.key,damage:f.damage,evolved:f.evolved,lv,...b});

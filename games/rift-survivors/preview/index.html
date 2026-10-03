@@ -84,7 +84,7 @@
 .codex-practice{display:block;margin-top:9px;padding:7px 10px;border:1px solid #b4996a88;background:#aa87431c;color:#e8d1a4;border-radius:6px;font-size:10px}
 
 @media(max-height:700px){.campaign-route{margin-top:12px}.campaign-route>span{padding:7px 2px}.stage-unlocks{gap:6px;margin:10px 0}.stage-unlocks article{padding:6px}.stage-intro{margin:8px 0!important}}
-</style></head><body data-build="5.0.0-production" data-preview-revision="campaign-r2"><div id="app">
+</style></head><body data-build="5.0.0-production" data-preview-revision="campaign-r3"><div id="app">
 <canvas id="world" aria-label="균열 전장"></canvas>
 <div id="boot" class="screen"><div class="boot-rune">✦</div><h1>균열의 수호자</h1><p id="boot-message">모험을 준비하고 있어요</p><button id="retry" class="primary" hidden>다시 연결하기</button></div>
 <section id="home" class="screen hidden"><header class="home-top"><span class="wordmark">RIFT KEEPERS</span><button id="settings" class="icon-button" aria-label="설정">⚙</button></header>
@@ -229,7 +229,7 @@ if(t.key==="stormbow"){ccShot(g,{key:t.key,x:p.x,y:p.y,vx:Math.cos(angle)*620,vy
 if(t.key==="gravity")Object.assign(f,{x:f.tx,y:f.ty,ttl:2.8,r:(t.evolved?155:125)*s.area,count:t.lv>=5?3:t.lv>=3?2:1});
 if(t.key==="thousand")Object.assign(f,{ttl:2.2,count:t.evolved?16:t.lv>=5?12:t.lv>=3?8:5,marks:[]});
 if(t.key==="ballista")Object.assign(f,{ttl:1.85,count:t.evolved?4:t.lv>=5?3:t.lv>=3?2:1});
-if(t.key==="dragon")Object.assign(f,{ttl:t.evolved?2.6:t.lv>=3?2.15:1.7,length:330*s.area,r:24*s.area,paths:[]});
+if(t.key==="dragon")Object.assign(f,{ttl:t.evolved?2.6:t.lv>=3?2.15:1.7,length:Math.min(330*s.area,Math.max(110,Math.hypot(f.tx-f.x,f.ty-f.y)+20)),r:24*s.area,paths:[]});
 g.addField(f);g.emit("skill-release",{key:t.key,angle,level:t.lv,evolved:t.evolved});return true;}
 function advanceCampaignField(g,f,dt){if(!STAGE_SKILLS[f.key])return false;const p=g.player,lv=f.lv,A=f.area,burst=(x,y,r,d,extra={})=>{g.areaHit({key:f.key,x,y,r},d,extra);g.effect({kind:"campaign-hit",key:f.visualKey||f.key,x,y,r,angle:f.angle,ttl:.5,max:.5});g.emit("skill-impact",{key:f.visualKey||f.key});};
 const release=b=>ccShot(g,{key:f.key,damage:f.damage,evolved:f.evolved,lv,...b});
