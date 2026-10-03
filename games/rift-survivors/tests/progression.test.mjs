@@ -11,7 +11,7 @@ test("new attacks rotate fairly and discoveries accompany an owned attack and va
 });
 test("legal level progression opens a fifth and sixth attack without exceeding class slots",()=>{
  assert.equal(weaponSlots(5),4);assert.equal(weaponSlots(6),5);assert.equal(weaponSlots(9),5);assert.equal(weaponSlots(10),6);
- for(const hero of HEROES){const g=new Game(hero.id,{},11);while(g.level<14){g.addXP(g.need);const newAttack=g.choices.find(k=>UPGRADES[k]?.kind==="weapon"&&!g.weapons[k]);assert.ok(g.choose(newAttack||g.choices[0]));assert.ok(Object.keys(g.weapons).length<=weaponSlots(g.level));}assert.deepEqual(Object.keys(g.weapons).sort(),[...CLASS_SKILLS[hero.id]].sort());}
+ for(const hero of HEROES){const g=new Game(hero.id,{},11);while(g.level<14){g.addXP(g.need);const newAttack=g.choices.find(k=>UPGRADES[k]?.kind==="weapon"&&!g.weapons[k]);assert.ok(g.choose(newAttack||g.choices[0]));assert.ok(Object.keys(g.weapons).length<=weaponSlots(g.level));}assert.equal(Object.keys(g.weapons).length,6);assert.ok(Object.keys(g.weapons).every(k=>CLASS_SKILLS[hero.id].includes(k)));assert.equal(CLASS_SKILLS[hero.id].length,8);}
 });
 test("filled slots reject stale discoveries until their real level threshold",()=>{
  const g=new Game();g.weapons={blade:1,whirlwind:1,cleave:1,slam:1};g.phase="upgrade";g.pending=1;g.choices=["rend"];g.level=5;assert.equal(g.choose("rend"),false);g.level=6;assert.equal(g.choose("rend"),true);

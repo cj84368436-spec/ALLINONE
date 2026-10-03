@@ -70,7 +70,7 @@ await page.locator("#pause").click();await page.locator("#pause-settings").click
 
 test("recorded Foley and spell buffers decode into real audio on mobile browsers",async({page},testInfo)=>{
 const result=await page.evaluate(()=>{const a=window.__riftTest.audio;return [...a.buffers].map(([name,b])=>{const x=b.getChannelData(0);let energy=0,peak=0;for(let i=0;i<x.length;i++){energy+=x[i]*x[i];peak=Math.max(peak,Math.abs(x[i]));}return {name,duration:b.duration,rms:Math.sqrt(energy/x.length),peak};});});
-expect(result).toHaveLength(20);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
+expect(result).toHaveLength(29);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
 await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 });
 test("one sword sweep hitting ten enemies plays one whoosh and one impact",async({page})=>{
@@ -82,7 +82,7 @@ await page.locator("#pause").click();await expect.poll(()=>page.evaluate(()=>win
 });
 test("missing recorded audio offers a working retry without a broken start screen",async({page})=>{
 await page.route("**/audio/swish-a.mp3*",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#home")).toBeHidden();
-await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(20);
+await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(29);
 });
 test("painted sword texture, scenery, badges and bundled title font are loaded",async({page})=>{
 const assets=await page.evaluate(()=>{const art=window.__riftTest.renderer;return {ready:art.artReady,font:[...document.fonts].some(f=>f.family==="RiftTitle"&&f.status==="loaded")};});expect(assets.ready).toBe(true);expect(assets.font).toBe(true);
@@ -222,9 +222,9 @@ await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#start"
 });
 }
 
-for(const [hero,keys]of [["knight",["blade","whirlwind","cleave","slam","rend","orbit"]],["ranger",["arrow","multishot","piercing","poison","trap","volley"]],["mage",["bolt","fireball","lightning","frost","meteor","nova"]]]){
+for(const [hero,keys]of [["knight",["blade","whirlwind","cleave","slam","rend","orbit","hammer","fissure"]],["ranger",["arrow","multishot","piercing","poison","trap","volley","ricochet","glaive"]],["mage",["bolt","fireball","lightning","frost","meteor","nova","beam","pyre"]]]){
 test(hero+" exclusive skills are explained, offered and rendered without browser errors",async({page})=>{
- const errors=[];page.on("pageerror",e=>errors.push(e.message));await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(6);await page.locator("#skill-book-close").click();await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.giveXP(8));await expect(page.locator(".upgrade")).toHaveCount(4);
+ const errors=[];page.on("pageerror",e=>errors.push(e.message));await page.locator('[data-hero="'+hero+'"]').click();await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(8);await page.locator("#skill-book-close").click();await page.locator("#start").click();await page.evaluate(()=>window.__riftTest.giveXP(8));await expect(page.locator(".upgrade")).toHaveCount(4);
  const offered=await page.evaluate(()=>window.__riftTest.game.choices);const legal=keys.concat(["power","haste","boots","heart","magnet","crit","leech","focus"]);expect(offered.every(k=>legal.includes(k))).toBe(true);await page.locator(".upgrade").first().click();
  for(const key of keys){await page.evaluate(key=>{const g=window.__riftTest.game;g.phase="playing";g.enemies=[];g.weapons={};g.bullets=[];g.bladeSwing=null;g.rangedAttacks={};g.skillTasks=[];g.skillFields=[];g.fx=[];g.events=[];g.player.inv=999;g.spawnCd=999;g.nextElite=999;
  for(let i=0;i<6;i++){const e=g.spawn("brute");Object.assign(e,{x:g.player.x+80+i*12,y:g.player.y+i*4,hp:5000,maxHp:5000,speed:0,shoot:999});}g.attack(key,3);for(let i=0;i<45;i++)g.step(1/60);g.phase="paused";},key);await page.waitForTimeout(35);}
@@ -262,7 +262,7 @@ test("level six and ten reopen discovery, show six equipped attacks and keep tou
  await page.locator('[data-hero="ranger"]').click();await page.locator("#start").click();
  await page.evaluate(()=>{const g=window.__riftTest.game;g.weapons={arrow:2,multishot:1,piercing:1,poison:1};g.level=5;g.player.inv=999;g.spawnCd=999;g.addXP(g.need);});
  await expect(page.locator(".build-summary")).toContainText("무기 4/5");
- const choices=await page.evaluate(()=>window.__riftTest.game.choices);expect(["trap","volley"]).toContain(choices[0]);expect(choices.filter(k=>["arrow","multishot","piercing","poison","trap","volley"].includes(k))).toHaveLength(2);
+ const choices=await page.evaluate(()=>window.__riftTest.game.choices);expect(["trap","volley","ricochet","glaive"]).toContain(choices[0]);expect(choices.filter(k=>["arrow","multishot","piercing","poison","trap","volley","ricochet","glaive"].includes(k))).toHaveLength(2);
  await page.locator('[data-choice="0"]').click();
  await page.evaluate(()=>{const g=window.__riftTest.game;g.level=9;g.addXP(g.need);});
  await expect(page.locator(".build-summary")).toContainText("무기 5/6");await page.locator('[data-choice="0"]').click();
@@ -287,8 +287,21 @@ test("arrow key and Space dash respond to the current input without waiting for 
  expect(result.x).toBe(0);expect(result.y).toBe(-1);expect(result.cd).toBe(5);
 });
 test("generated standalone preview loads current skills and returns home after save and exit",async({page})=>{
- await page.goto("/preview/index.html");await expect(page.locator("#home")).toBeVisible();await expect(page.locator("body")).toHaveAttribute("data-build","3.1.1-production");
- expect(await page.evaluate(()=>typeof window.__riftTest)).toBe("undefined");await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(6);await page.locator("#skill-book-close").click();
+ await page.goto("/preview/index.html");await expect(page.locator("#home")).toBeVisible();await expect(page.locator("body")).toHaveAttribute("data-build","4.0.0-production");
+ expect(await page.evaluate(()=>typeof window.__riftTest)).toBe("undefined");await page.locator("#skill-book").click();await expect(page.locator(".skill-codex article")).toHaveCount(8);await page.locator("#skill-book-close").click();
  await page.locator("#start").click();await page.locator("#pause").click();await expect(page.locator("#retire")).toHaveText("도전 종료 · 보석 +0 정산");await page.locator("#pause-exit").click();await page.locator("#exit-confirm").click();await expect(page.locator("#home")).toBeVisible();await expect(page.locator("#overlay")).toBeHidden();await expect(page.locator("#coins")).toHaveText("0");
  await page.locator("#start").click();await expect(page.locator("#hud")).toBeVisible();
+});
+
+test("new painted icons and material animation frames are available without opaque tile edges",async({page})=>{
+ const result=await page.evaluate(async()=>{const {Art,EXTRA_SKILL_KEYS}=await import("/src/art.js");const {iconMarkup}=await import("/src/icons.js");const frame=Art.materialFrames.get("2,1"),ctx=frame.getContext("2d"),data=ctx.getImageData(0,0,256,256).data;let edge=0,visible=0;for(let i=0;i<256;i++)edge=Math.max(edge,data[i*4+3],data[(255*256+i)*4+3],data[(i*256)*4+3],data[(i*256+255)*4+3]);for(let i=3;i<data.length;i+=4)if(data[i]>20)visible++;return{frames:Art.materialFrames.size,edge,visible,icons:EXTRA_SKILL_KEYS.map(k=>iconMarkup(k)),version:Art.version};});
+ expect(result.frames).toBe(36);expect(result.edge).toBeLessThanOrEqual(5);expect(result.visible).toBeGreaterThan(1000);expect(result.icons.every(x=>x.includes("skill-extra.webp")&&x.includes("<img"))).toBe(true);expect(result.version).toBe("4.0.0");
+});
+test("level three and five cards explain their actual transformation and keep controls reachable",async({page})=>{
+ await page.setViewportSize({width:360,height:640});await page.locator("#start").click();
+ for(const lv of [2,4]){await page.evaluate(lv=>{const g=window.__riftTest.game;g.phase="playing";g.weapons={blade:lv};g.passives={};g.spawnCd=g.nextElite=999;g.player.inv=999;g.addXP(g.need);g.choices=["blade","hammer","power","heart"];},lv);await expect(page.locator('[data-choice="0"] .choice-tag')).toHaveText("Lv."+(lv+1)+" 각성");await expect(page.locator('[data-choice="0"] .skill-behavior')).toContainText(lv===2?"잔영":"교차");const b=await page.locator('[data-choice="0"]').boundingBox();expect(b.y+b.height).toBeLessThan(640);await page.locator('[data-choice="0"]').click();expect(await page.evaluate(()=>window.__riftTest.game.weapons.blade)).toBe(lv+1);await expect(page.locator("#overlay")).toBeHidden();}
+});
+test("material combat cues use fire, ice, stone, poison and void samples at actual phases",async({page})=>{
+ const result=await page.evaluate(()=>{const a=window.__riftTest.audio,calls=[];a.play=(name,options)=>calls.push({name,...options});for(const [type,key]of [["skill-release","fireball"],["skill-impact","fireball"],["skill-impact","slam"],["projectile-contact","poison"],["projectile-contact","bolt"],["skill-release","beam"],["skill-release","whirlwind"]])a.event(type,key,{level:3});return{names:calls.map(c=>c.name),buffers:[...a.buffers.keys()]};});
+ for(const name of ["fire-cast","fire-impact","stone-impact","poison-impact","bolt-hit","void-cast","whirlwind"])expect(result.names).toContain(name);expect(result.names).not.toContain("magic");expect(result.buffers).toHaveLength(29);
 });

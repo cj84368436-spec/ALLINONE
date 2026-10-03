@@ -4,8 +4,8 @@ import {Game,HEROES,UPGRADES,CLASS_SKILLS,EVOLUTIONS,skillStats,LIMITS} from "..
 function quiet(hero="knight"){const g=new Game(hero,{},17);g.weapons={};g.spawnCd=999;g.nextElite=999;g.nextMagnet=999;g.player.inv=999;g.hitStopEnabled=false;return g;}
 function enemy(g,x=980,y=900){const e=g.spawn("brute");Object.assign(e,{x,y,speed:0,hp:5000,maxHp:5000,shoot:999});return e;}
 function frames(g,n,input){for(let i=0;i<n;i++)g.step(1/60,input);}
-test("each class discovers six exclusive attacks and four useful growth choices",()=>{
- const attacks=Object.values(CLASS_SKILLS).flat();assert.equal(new Set(attacks).size,18);assert.equal(Object.values(UPGRADES).filter(x=>x.kind==="passive").length,8);
+test("each class discovers eight exclusive attacks and four useful growth choices",()=>{
+ const attacks=Object.values(CLASS_SKILLS).flat();assert.equal(new Set(attacks).size,24);assert.equal(Object.values(UPGRADES).filter(x=>x.kind==="passive").length,8);
  for(const h of HEROES){const g=new Game(h.id,{},22),seen=new Set();for(let i=0;i<250;i++){const offer=g.offer();assert.equal(offer.length,4);assert.equal(new Set(offer).size,4);assert.ok(offer.includes(h.weapon));assert.ok(offer.some(k=>UPGRADES[k].kind==="weapon"&&!g.weapons[k]));
  for(const k of offer)if(UPGRADES[k].kind==="weapon"){assert.ok(CLASS_SKILLS[h.id].includes(k));seen.add(k);}}
  assert.deepEqual([...seen].sort(),[...CLASS_SKILLS[h.id]].sort());}
@@ -45,10 +45,10 @@ test("meteor has a target warning and a single delayed impact; nova freezes with
  const g=quiet("mage"),e=enemy(g,1020);g.attack("meteor",1);frames(g,30);assert.equal(e.hp,5000);assert.ok(g.skillFields[0].delay>0);const delay=g.skillFields[0].delay;g.pause();frames(g,40);assert.equal(g.skillFields[0].delay,delay);g.resume();frames(g,28);assert.ok(e.hp<5000);assert.equal(g.events.filter(e=>e.type==="skill-impact").length,1);
  const n=quiet("mage"),f=enemy(n,990);n.attack("nova",1);frames(n,14);assert.equal(n.bullets.length,9);frames(n,20);assert.ok(f.root>0&&f.hp<5000);
 });
-test("critical strikes, kill healing, area scaling and all eighteen evolutions have real effects",()=>{
+test("critical strikes, kill healing, area scaling and all twenty-four evolutions have real effects",()=>{
  const g=quiet(),e=enemy(g);g.passives={crit:5,leech:2,focus:3};g.rand=()=>0;g.player.hp=50;g.damageKey="blade";g.hit(e,20,g.player);assert.equal(e.hp,4965);assert.ok(g.fx.some(f=>f.critical));g.hit(e,99999,g.player);assert.ok(Math.abs(g.player.hp-51.6)<1e-9);g.hit(e,99999,g.player);assert.ok(Math.abs(g.player.hp-51.6)<1e-9);
  const wide=skillStats(g,"whirlwind",1);const basic=skillStats(quiet(),"whirlwind",1);assert.ok(wide.r>basic.r&&wide.duration>basic.duration);
- assert.equal(Object.keys(EVOLUTIONS).length,18);for(const [key,ev]of Object.entries(EVOLUTIONS)){const q=quiet();q.weapons[key]=5;q.passives[ev.passive]=2;q.checkEvolution();assert.equal(q.evolved[key],true);}
+ assert.equal(Object.keys(EVOLUTIONS).length,24);for(const [key,ev]of Object.entries(EVOLUTIONS)){const q=quiet();q.weapons[key]=5;q.passives[ev.passive]=2;q.checkEvolution();assert.equal(q.evolved[key],true);}
 });
 test("delayed skills and fields freeze on upgrade and entity caps survive heavy casts",()=>{
  const g=quiet("mage");enemy(g);g.attack("meteor",1);const delay=g.skillTasks[0].delay;g.addXP(8);frames(g,90);assert.equal(g.skillTasks[0].delay,delay);g.choose(g.choices[0]);g.weapons={};frames(g,14);assert.ok(g.skillFields.length);
