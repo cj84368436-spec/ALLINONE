@@ -1,15 +1,15 @@
-name: Package verified Rift 5.1.0 release
+name: Verify repaired checks and package Rift 5.2.0
 on:
   push:
     paths:
       - '.github/workflows/rift-verified-package.yml'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   package:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     env:
       TOSS_APP_NAME: ${{ vars.TOSS_APP_NAME || 'rift-keepers' }}
     defaults:
@@ -19,31 +19,49 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Confirm the tested runtime is unchanged
+      - name: Confirm the previously tested runtime and other tests are unchanged
         working-directory: .
-        run: git diff --exit-code cd4635546b53fe82dae4e06e24f85212023506f7 HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/apps-in-toss.config.ts
+        run: |
+          git diff --exit-code c412ff0efaca669d98d3ed325c8a54cb7e1671db HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/apps-in-toss.config.ts
+          git diff --exit-code a38ca783847de1fad8599e2c7c4c393976265ebf HEAD -- 'games/rift-survivors/tests/*.test.mjs'
+          changed_tests=$(git diff --name-only a38ca783847de1fad8599e2c7c4c393976265ebf HEAD -- games/rift-survivors/tests/browser)
+          test "$changed_tests" = "games/rift-survivors/tests/browser/game.spec.js"
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - run: npm install --no-audit --no-fund
-      - run: npm run build
-      - run: npm run check:release
-      - name: Include this package manifest in the validation document
-        run: |
-          node --input-type=module <<'JS'
-          import fs from "node:fs";
-          const manifest=JSON.parse(fs.readFileSync("release/build-manifest.json","utf8"));
-          const lines=["","## 이 다운로드 패키지의 빌드 정보","",`[최종 패키징 검사](https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`,""];
-          for(const file of manifest.artifacts)lines.push(`- ${file.name}: ${file.bytes.toLocaleString("en-US")} bytes · SHA256: ${file.sha256}`);
-          fs.appendFileSync("docs/VALIDATION.md",lines.join("\n")+"\n");
-          JS
+      - run: npm run preview:check
       - name: Use the Ubuntu archive for browser dependencies
         run: |
           printf '%s\n' 'https://archive.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
           printf '%s\n' 'https://security.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-security-mirrors.txt > /dev/null
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium webkit
+      - name: Recheck the four failed browser cases from the unchanged runtime
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: release/repaired-browser.json
+        run: |
+          mkdir -p release
+          npx playwright test --grep 'new painted icons and material animation frames|mixed new effects freeze with game time' --reporter=line,json
+      - run: npm run playthrough
+      - run: npm run benchmark
+      - run: npm run build
+      - run: npm run check:release
       - run: npm run screenshots
+      - name: Write the actual verification and bundle information
+        run: node ../../.evidence/rift-5.2-source/finalize-release.mjs
+      - name: Preserve verified reports and final submission documentation
+        working-directory: .
+        run: |
+          git config user.name "Rift release verification"
+          git config user.email "actions@users.noreply.github.com"
+          git add .evidence/rift-5.2-release games/rift-survivors/docs/VALIDATION.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Record actual Rift 5.2 repaired checks and native release results [skip ci]"
+            git pull --rebase
+            git push
+          fi
       - uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: rift-keepers-toss-release
           path: |
@@ -55,3 +73,12 @@ jobs:
             games/rift-survivors/release/
             games/rift-survivors/README.md
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rift-keepers-repaired-test-evidence
+          path: |
+            games/rift-survivors/playwright-report/
+            games/rift-survivors/test-results/
+            games/rift-survivors/release/
+          if-no-files-found: ignore

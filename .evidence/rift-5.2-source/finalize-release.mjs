@@ -1,0 +1,31 @@
+import fs from "node:fs";import assert from "node:assert/strict";
+const read=p=>JSON.parse(fs.readFileSync(p,"utf8")),baseline=read("../../.evidence/rift-5.2-source/validation-baseline.json"),repair=read("release/repaired-browser.json"),build=read("release/build-manifest.json"),bot=read("release/playthrough.json"),performance=read("release/performance.json"),review=read("../../.evidence/rift-5.2/manifest.json"),video=read("../../.evidence/rift-5.2/showcase/manifest.json");
+assert.equal(repair.stats.expected,4);assert.equal(repair.stats.unexpected,0);assert.equal(repair.stats.flaky,0);assert.equal(repair.stats.skipped,0);assert.equal(build.version,"5.2.0");assert.equal(baseline.node.passed,135);assert.equal(baseline.browser.passed,160);assert.equal(bot.runs.length,9);assert.equal(review.shots.length,274);assert.equal(review.errors.length,0);assert.equal(video.clips.length,3);
+const url="https://github.com/"+process.env.GITHUB_REPOSITORY+"/actions/runs/"+process.env.GITHUB_RUN_ID,wins=bot.runs.filter(r=>r.win).length,native=build.artifacts.map(f=>"- "+f.name+": **"+f.bytes.toLocaleString("en-US")+" bytes** · SHA256: **"+f.sha256+"**").join("\n");
+const document=[
+"# 검증 결과 — 2026-10-04, 버전 5.2.0","",
+"검증 런타임: "+baseline.runtimeCommit+"。 이전 검사 뒤 게임 소스·원화·음원·앱 설정이 동일함을 git diff로 확인했습니다.","",
+"[변경 범위와 검토 판단](DESIGN-5.2.md) · [5지역과 성장 구성](CAMPAIGN-5.0.md)","",
+"검·회오리·서리·화염·낙뢰·천검·노궁·창룡에 새 투명 원화 소재와 애니메이션을 적용했습니다. 용의 몸통·머리·꼬리를 실제 이동 경로에 연결하고, 영웅 가까운 부분과 먼 부분의 앞뒤 배치를 나눴습니다. 소리 17개를 교체하고 활 준비·대검·용 울음·숨결 6개를 더해 로컬 MP3 35개와 사전 혼합 8개를 사용합니다. 전자적인 단음 대신 기술의 준비·발사·접촉·마무리에 서로 다른 소재를 연결하고 큰 기술 동안 일반 효과음을 낮춥니다.","",
+"## 자동 검사","",
+"[전체 기능 검사](https://github.com/cj84368436-spec/ALLINONE/actions/runs/37199341354)에서 Node 135개와 브라우저 160개가 통과했습니다. 처음 실패한 나머지 4개는 Chromium·WebKit 각 두 검사입니다. Art.version의 옛 5.0 기대값과 투명도가 80보다 작은 얼음 접촉을 없는 그림으로 판단하던 검사 기준을 수정했습니다. 얼음은 투명도 가중 색상·가시 면적을 검사하며 실제 게임 렌더링과 음원은 변경하지 않았습니다.","",
+"[수정 항목 재검사·전투·성능·토스 패키징]("+url+")에서 해당 4개를 재시도 없이 통과했습니다. 두 실행을 합쳐 **Node 135개 + Chromium 82개 + WebKit 82개, 총 299개 통과**입니다. 새 실행에서 299개 전부를 다시 실행했다는 뜻은 아닙니다. 이전에 통과한 160개 브라우저 검사는 변경되지 않은 런타임에 대한 결과를 사용합니다.","",
+"정상 입력과 실제로 제시된 성장·다음 지역 버튼을 사용하는 자동 플레이는 **9회 중 "+wins+"승**입니다. 세 직업 모두 다섯 지역을 끝낼 수 있는 경로를 확인했습니다. 봇은 적·탄환·위험 영역을 피하는 규칙으로 움직이며 사람의 체감 난이도·재미 평가는 아닙니다. 충돌 벤치마크의 검사량 감소 조건, 생성 미리보기 일치, Vite/Apps in Toss 3.x 빌드, 개발 도구 제외와 등록 이미지 검사도 통과했습니다. CPU 벤치마크는 실제 iPhone FPS가 아닙니다.","",
+"## 실제 이미지와 소리 출력 검토","",
+"[실제 렌더러 기록](../../../.evidence/rift-5.2) · [세 직업 동시 녹화](../../../.evidence/rift-5.2/showcase/manifest.json)","",
+"390×844와 360×640에서 총 **274개 화면**을 기록했습니다. 36개 공격·세 궁극기·긴 용 경로의 시간대 비교표 41개, 성장 비교표 3개, 혼잡한 전투 비교표 3개를 디자이너 에이전트와 통합 담당이 이미지로 검토했습니다. 274개 원본 전체를 각각 개별 검수한 것은 아닙니다. 용 머리의 이중 윤곽, 긴 몸체 겹침, 원화의 가로세로 비율, 천검 크기, 낙뢰와 배경 대비를 실제 캡처에서 조정했습니다.","",
+"| 기술 | 영상 길이 | 오디오 평균 / 피크 |","|---|---:|---:|","| 기사·천검 | 12.482초 | -40.1 / -14.3 dB |","| 궁수·노궁 | 12.509초 | -35.5 / -10.2 dB |","| 마법사·창룡 | 12.507초 | -36.4 / -11.7 dB |","",
+"세 영상은 실제 Canvas와 Web Audio를 동기 녹화한 H264/AAC 파일이며 모두 음원이 있는 기준을 통과했습니다. 스킬·적·시간을 배치한 검토 장면이고 사람의 플레이 기록은 아닙니다. 23개 새로 편집한 음원의 PCM 피크·RMS와 파일 출처·라이선스를 확인했습니다. 사람의 효과음 청취·스피커 평가가 완료됐다는 뜻은 아닙니다.","",
+"## 공개 테스트","",
+"[5.2 플레이](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=5.2.0-painted-r1) · [세 직업 영상과 진화 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/sword.html?v=5.2.0)","",
+"[공개 URL 검사](https://github.com/cj84368436-spec/privacy-policy/actions/runs/37200035472)에서 Chromium·WebKit 모두 통과했습니다. HTML 바이트 일치, 그림 74개·소리 35개·원화 캐시 16개, 8방향 이동·연속 방향 전환·취소·걷기·성장·저장·5지역·최종 보스 정산·36개 공격·고급 연습의 기록 보존·실제 영상 재생을 확인했습니다. Chromium 터치는 브라우저 입력을, WebKit 드래그는 터치 이벤트 시뮬레이션을 사용합니다. 공개 파일은 본인 Pages에 포함하며 외부 raw GitHub 음원·원화 서버에 의존하지 않습니다.","",
+"## 토스 앱 패키지","",
+"[이 실행의 앱 파일과 검사 증거]("+url+")에서 rift-keepers-toss-release 아티팩트를 내려받으세요. 정확한 파일 정보는 함께 있는 release/build-manifest.json에도 기록합니다.","",native,"",
+"600px PNG 아이콘, 636×1048 등록 이미지 세 장, 1932×828 썸네일 생성·검사를 통과했습니다. 실제 토스 콘솔 appName이 rift-keepers와 다르면 해당 이름으로 다시 빌드해야 합니다.","",
+"## 확인 범위와 남은 작업","",
+"핵심 세 기술과 검·서리 계열의 재질·움직임을 개선했지만 36개 공격을 모두 새 원화로 완성한 것은 아닙니다. 망치·운석·광선·흑염·일부 폭풍 화살과 기사 궁극기 등에는 도형 기반 부분이 남습니다. 마법사·궁수의 혼잡한 전투에서는 영웅 주변의 밝은 효과가 겹치는 장면이 있고, 긴 용의 몸통·회오리 궤적도 추가 조정 여지가 있습니다. 자동 통과는 미적 품질이나 재미를 증명하지 않습니다.","",
+"실제 iPhone 토스 내부의 FPS·발열·스피커/이어폰 소리, 네이티브 저장과 백그라운드 복귀는 직접 확인하지 않았습니다. .ait 빌드 완료와 토스 콘솔 제출·심사·공개는 별도 상태이며 콘솔 출시는 아직 완료되지 않았습니다.",""
+].join("\n");
+fs.writeFileSync("docs/VALIDATION.md",document);
+const verification={version:"5.2.0",runtimeCommit:baseline.runtimeCommit,priorRun:baseline.browser.run,repairAndPackageRun:Number(process.env.GITHUB_RUN_ID),hostedRun:baseline.hosted.run,combinedChecks:{node:135,chromium:82,webkit:82,total:299},repairedBrowser:repair.stats,botWins:wins,botRuns:9,consoleRegistrationVerified:false,nativePhoneTestCompleted:false};
+fs.writeFileSync("release/verification.json",JSON.stringify(verification,null,2));fs.mkdirSync("../../.evidence/rift-5.2-release",{recursive:true});for(const name of ["build-manifest","playthrough","performance","verification"])fs.copyFileSync("release/"+name+".json","../../.evidence/rift-5.2-release/"+name+".json");console.log(JSON.stringify(verification,null,2));
