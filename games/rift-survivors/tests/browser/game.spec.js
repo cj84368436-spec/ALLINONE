@@ -70,7 +70,7 @@ await page.locator("#pause").click();await page.locator("#pause-settings").click
 
 test("recorded Foley and spell buffers decode into real audio on mobile browsers",async({page},testInfo)=>{
 const result=await page.evaluate(()=>{const a=window.__riftTest.audio;return [...a.buffers].map(([name,b])=>{const x=b.getChannelData(0);let energy=0,peak=0;for(let i=0;i<x.length;i++){energy+=x[i]*x[i];peak=Math.max(peak,Math.abs(x[i]));}return {name,duration:b.duration,rms:Math.sqrt(energy/x.length),peak};});});
-expect(result).toHaveLength(29);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
+expect(result).toHaveLength(35);await testInfo.attach("decoded-audio-metrics",{body:JSON.stringify(result,null,2),contentType:"application/json"});for(const x of result){expect(x.duration,x.name+" decoded duration").toBeGreaterThan(.05);expect(Number.isFinite(x.rms),x.name+" finite PCM").toBe(true);expect(x.rms,x.name+" non-silent PCM").toBeGreaterThan(.001);expect(x.peak,x.name+" waveform peak").toBeGreaterThan(.03);}
 await page.locator("#start").click();await expect.poll(()=>page.evaluate(()=>window.__riftTest.audio.context.state)).toBe("running");
 });
 test("one sword sweep hitting ten enemies plays one whoosh and one impact",async({page})=>{
@@ -82,7 +82,7 @@ await page.locator("#pause").click();await expect.poll(()=>page.evaluate(()=>win
 });
 test("missing recorded audio offers a working retry without a broken start screen",async({page})=>{
 await page.route("**/audio/swish-a.mp3*",route=>route.abort());await page.reload();await expect(page.locator("#retry")).toBeVisible();await expect(page.locator("#home")).toBeHidden();
-await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(29);
+await page.unroute("**/audio/swish-a.mp3*");await page.locator("#retry").click();await expect(page.locator("#home")).toBeVisible();expect(await page.evaluate(()=>window.__riftTest.audio.buffers.size)).toBe(35);
 });
 test("painted sword texture, scenery, badges and bundled title font are loaded",async({page})=>{
 const assets=await page.evaluate(()=>{const art=window.__riftTest.renderer;return {ready:art.artReady,font:[...document.fonts].some(f=>f.family==="RiftTitle"&&f.status==="loaded")};});expect(assets.ready).toBe(true);expect(assets.font).toBe(true);
@@ -304,7 +304,7 @@ test("level three and five cards explain their actual transformation and keep co
 test("material combat cues use fire, ice, stone, poison and void samples at actual phases",async({page})=>{
  await page.locator("#start").click();
  const result=await page.evaluate(async()=>{const {audio:a,game:g}=window.__riftTest,calls=[];g.phase="paused";await a.context.resume();a.play=(name,options)=>calls.push({name,...options});for(const [type,key]of [["skill-release","fireball"],["skill-impact","fireball"],["skill-impact","slam"],["projectile-contact","poison"],["projectile-contact","bolt"],["skill-release","beam"],["skill-release","whirlwind"]]){a.event(type,key,{level:3,hits:1});await new Promise(resolve=>setTimeout(resolve,100));}return{names:calls.map(c=>c.name),buffers:[...a.buffers.keys()]};});
- for(const name of ["fire-cast","fire-impact","stone-impact","poison-impact","bolt-hit","void-cast","whirlwind"])expect(result.names).toContain(name);expect(result.names).not.toContain("magic");expect(result.buffers).toHaveLength(29);
+ for(const name of ["fire-cast","fire-impact","stone-impact","poison-impact","bolt-hit","void-cast","whirlwind"])expect(result.names).toContain(name);expect(result.names).not.toContain("magic");expect(result.buffers).toHaveLength(35);
 });
 
 test("bespoke blade and frost effects retain opaque silhouettes without sprite textures",async({page})=>{

@@ -1,0 +1,17 @@
+import {bladeBarrierLayout} from "./hero-vfx.js";
+import {Art} from "./art.js";
+export function drawPainted(c,key,x,y,width,height,angle=0,alpha=1){const frame=Art.painted.get(key);if(!frame)return false;if(height===undefined)height=width*frame.height/frame.width;if(![x,y,width,height,angle,alpha].every(Number.isFinite)||width<=0||height<=0)return false;c.save();c.translate(x,y);c.rotate(angle);c.globalAlpha*=Math.max(0,Math.min(1,alpha));c.drawImage(frame,-width/2,-height/2,width,height);c.restore();return true;}
+export function paintedRatio(key){const f=Art.painted.get(key);return f?f.width/f.height:1;}
+
+const PaintedStage=(()=>{
+const cap=x=>Math.max(0,Math.min(1,x)),T=Math.PI*2,rand=(i,s)=>{const n=Math.sin(i*127.1+s*31.7)*43758.5453;return n-Math.floor(n);},weight=(r,key)=>r.focusKey&&r.focusKey!==key?.52:1;
+function drawPaintedBarrier(r,g,layer="all"){if(!Art.paintedReady())return false;if(!g.weapons.orbit)return true;const c=r.ctx,p=g.player;c.save();c.globalAlpha*=weight(r,"orbit");for(const b of bladeBarrierLayout(g)){const back=b.y<p.y-8;if(layer==="front"&&back||layer==="back"&&!back)continue;const a=b.angle+Math.sign(b.speed)*Math.PI/2,len=b.outer?48:46+g.weapons.orbit*.4;c.save();c.strokeStyle=b.outer?"#92b9c34c":"#bba06d50";c.lineWidth=1.3;c.beginPath();for(let j=0;j<=9;j++){const q=b.angle-Math.sign(b.speed)*(.33-j*.33/9),x=p.x+Math.cos(q)*b.radius,y=p.y+Math.sin(q)*b.radius-8;if(j)c.lineTo(x,y);else c.moveTo(x,y);}c.stroke();drawPainted(c,b.outer?"curved-sword":"holy-sword",b.x,b.y-8,len*.42,len,a+Math.PI/2,.92);c.restore();}c.restore();return true;}
+function drawPaintedWhirl(r,f,t,g,layer="all"){if(!Art.paintedReady())return false;const c=r.ctx,x=f.follow?g.player.x:f.x,y=(f.follow?g.player.y:f.y)-12,age=f.max-f.ttl,fade=cap(age/.08)*cap(f.ttl/.16),radius=f.r||100,n=r.reduced?2:3;c.save();c.globalAlpha*=fade*weight(r,"whirlwind");
+for(let i=0;i<n;i++){const a=age*10.7+i*T/n,rr=radius*(.61+i*.09),xx=x+Math.cos(a)*rr*.48,yy=y+Math.sin(a)*rr*.36-i*7,back=yy<y;if(layer==="front"&&back||layer==="back"&&!back)continue;drawPainted(c,"gold-crescent",xx,yy,rr*1.85,rr*.88,a+Math.PI/4,.75-i*.10);if(!r.reduced){const bx=x+Math.cos(a+.5)*rr*.86,by=y+Math.sin(a+.5)*rr*.67-i*7;drawPainted(c,i%2?"curved-sword":"holy-sword",bx,by,19,45,a+Math.PI,.82);}}
+c.restore();return true;}
+function drawPaintedFrost(r,f,t,g,layer="all"){if(!Art.paintedReady())return false;const c=r.ctx,x=f.follow?g.player.x:f.x,y=f.follow?g.player.y:f.y,age=f.max-f.ttl,radius=f.r||185,fade=cap(f.ttl/.25),n=r.reduced?4:6;c.save();c.globalAlpha*=fade;
+if(layer!=="front"&&age<.35){drawPainted(c,"frost-mist",x,y-13,radius*.95,radius*.37,0,Math.sin(Math.PI*cap(age/.35))*.32);}
+for(let i=0;i<n;i++){const a=i*2.399+.25,d=radius*(.46+.23*rand(i,x)),xx=x+Math.cos(a)*d,yy=y+Math.sin(a)*d,back=yy<y+12;if(layer==="front"&&back||layer==="back"&&!back)continue;const growth=cap((age-.15-i*.035)/.15);if(!growth)continue;const H=(48+rand(i,y)*31)*growth,W=(31+rand(i,x)*13)*(Math.min(1,.45+growth*.55));drawPainted(c,"crystal-cluster",xx,yy-H*.41,W,H,(rand(i,x)-.5)*.18,.86);if(age<.52&&!r.reduced)drawPainted(c,"frost-impact",xx,yy-12,25,21,0,Math.max(0,.30-(age-.2-i*.035))*1.2);}
+c.restore();return true;}
+return{drawPaintedBarrier,drawPaintedWhirl,drawPaintedFrost};})();
+export const drawPaintedBarrier=PaintedStage.drawPaintedBarrier,drawPaintedWhirl=PaintedStage.drawPaintedWhirl,drawPaintedFrost=PaintedStage.drawPaintedFrost;

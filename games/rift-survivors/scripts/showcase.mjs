@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import {spawn,spawnSync,execFileSync} from "node:child_process";
 import {chromium} from "@playwright/test";
-const dir="../../.evidence/rift-5.1/showcase";fs.mkdirSync(dir,{recursive:true});
+const dir="../../.evidence/rift-5.2/showcase";fs.mkdirSync(dir,{recursive:true});
 const server=spawn(process.execPath,["node_modules/vite/bin/vite.js","--host","127.0.0.1","--port","5191"],{stdio:"ignore"});let browser;
 try{
  let ready=false;for(let i=0;i<100;i++){try{if((await fetch("http://127.0.0.1:5191")).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}if(!ready)throw Error("showcase server");
@@ -26,5 +26,5 @@ try{
   const excerpt=execFileSync("ffmpeg",["-hide_banner","-loglevel","error","-i",mp4,"-ss","1","-t","5","-vn","-c:a","libmp3lame","-b:a","96k","-f","mp3","pipe:1"],{maxBuffer:2*1024*1024});fs.writeFileSync(dir+"/"+hero+".audio.b64.txt",excerpt.toString("base64"));
   if(errors.length)throw Error(JSON.stringify(errors));clips.push({hero,key,seconds:probe.format.duration,bytes:fs.statSync(mp4).size,hasAudio:true,meanDb,peakDb});fs.unlinkSync(webm);await page.close();
  }
- fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"5.1.0",method:"Staged late-stage evolving skill, actual Canvas animation and Web Audio output recorded together. High-health fixtures are for VFX/audio review; not human play or native-device evidence.",clips},null,2));console.log(JSON.stringify(clips));
+ fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"5.2.0",method:"Staged late-stage evolving skill, actual Canvas animation and Web Audio output recorded together. High-health fixtures are for VFX/audio review; not human play or native-device evidence.",clips},null,2));console.log(JSON.stringify(clips));
 }finally{await browser?.close();server.kill();}

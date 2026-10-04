@@ -3,7 +3,7 @@ import {spawn} from "node:child_process";
 import {createRequire} from "node:module";
 import {chromium} from "@playwright/test";
 const sharp=createRequire("/tmp/rift-review/package.json")("sharp");
-const dir="../../.evidence/rift-5.1";fs.mkdirSync(dir,{recursive:true});const shots=[];
+const dir="../../.evidence/rift-5.2";fs.mkdirSync(dir,{recursive:true});const shots=[];
 const server=spawn(process.execPath,["node_modules/vite/bin/vite.js","--host","127.0.0.1","--port","5190"],{stdio:"ignore"});let browser;
 async function capture(page,name){const bytes=await page.screenshot();await sharp(bytes).resize({width:390}).webp({quality:88}).toFile(dir+"/"+name+".webp");shots.push(name);}
 try{
@@ -104,5 +104,5 @@ try{
  if(stage<5){await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";g.hit(g.enemies.find(e=>e.boss),999999,g.player);});await page.locator("#next-stage").waitFor();await page.setViewportSize({width:360,height:640});await page.waitForTimeout(50);await capture(page,"region-"+stage+"-continue");await page.locator("#next-stage").click();await page.setViewportSize({width:390,height:844});}}
  await page.evaluate(()=>window.__riftTest.finish(false));await page.locator("#result-home").click();
  await page.setViewportSize({width:360,height:640});await page.waitForTimeout(150);await capture(page,"small-home");
- if(errors.length)throw Error(JSON.stringify(errors));fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"5.1.0",viewport:"390×844; 360×640 small home",method:"Screenshots of the real Canvas/DOM renderer. Combat fixtures seed enemies, time and upgrades for visual review; they are staged scenes, not evidence of human play quality.",shots,temporalSheets,tierSheets,liveSheets,timelines:["timeline-orbit.webp","timeline-whirlwind.webp","timeline-ultimate.webp"],details:["detail-orbit.webp","detail-whirlwind.webp","detail-ultimate.webp"],errors},null,2));console.log("Art review scenes captured: "+shots.length);
+ if(errors.length)throw Error(JSON.stringify(errors));fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"5.2.0",viewport:"390×844; 360×640 small home",method:"Screenshots of the real Canvas/DOM renderer. Combat fixtures seed enemies, time and upgrades for visual review; they are staged scenes, not evidence of human play quality.",shots,temporalSheets,tierSheets,liveSheets,timelines:["timeline-orbit.webp","timeline-whirlwind.webp","timeline-ultimate.webp"],details:["detail-orbit.webp","detail-whirlwind.webp","detail-ultimate.webp"],errors},null,2));console.log("Art review scenes captured: "+shots.length);
 }finally{await browser?.close();server.kill();}

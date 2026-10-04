@@ -44,16 +44,16 @@ jobs:
       - run: npx playwright install --with-deps chromium webkit
       - name: Capture actual mobile art review
         run: |
-          npm install --prefix /tmp/rift-review sharp --no-audit --no-fund
+          npm install --prefix /tmp/rift-review sharp@0.34.5 --no-audit --no-fund
           node scripts/design-review.mjs
       - name: Store reviewable screenshots
         working-directory: .
         run: |
           git config user.name "Rift visual verification"
           git config user.email "actions@users.noreply.github.com"
-          git add .evidence/rift-5.1
+          git add .evidence/rift-5.2
           git diff --cached --quiet && exit 0
-          git commit -m "Store Rift 5.1 full skill motion and combat review [skip ci]"
+          git commit -m "Store Rift 5.2 full skill motion and combat review [skip ci]"
           git pull --rebase
           git push
       - name: Record and inspect actual combat audio
@@ -65,9 +65,9 @@ jobs:
         run: |
           git config user.name "Rift audio verification"
           git config user.email "actions@users.noreply.github.com"
-          git add .evidence/rift-5.1/showcase
+          git add .evidence/rift-5.2/showcase
           git diff --cached --quiet && exit 0
-          git commit -m "Store Rift 5.1 synchronized combat and audio review [skip ci]"
+          git commit -m "Store Rift 5.2 synchronized combat and audio review [skip ci]"
           git pull --rebase
           git push
       - run: npm run test:e2e
