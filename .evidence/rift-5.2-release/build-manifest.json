@@ -1,0 +1,14 @@
+{
+  "version": "5.2.0",
+  "target": "Apps in Toss WebView 3.x",
+  "appName": "rift-keepers",
+  "consoleRegistrationVerified": false,
+  "nativePhoneTestCompleted": false,
+  "artifacts": [
+    {
+      "name": "rift-keepers.ait",
+      "bytes": 7788339,
+      "sha256": "75a10b60a046564758ca93e3053de8e7d06478c0689f9d8fb8bfb9a021169097"
+    }
+  ]
+}

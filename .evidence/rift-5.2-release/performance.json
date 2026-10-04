@@ -1,0 +1,62 @@
+{
+  "node": "v22.23.3",
+  "platform": "linux",
+  "previousSourceCommit": "8dda8309f187fd6dff87ba7e395ec1b36cb73e19",
+  "method": "Same seeded 130 stationary enemies; 2/18/64 refreshed projectiles. Identical no-op hits isolate collision work. 300 warm-up + 2000 measured steps, median of three trials. CI CPU, not iPhone FPS.",
+  "scenarios": [
+    {
+      "enemies": 130,
+      "projectiles": 2,
+      "previous": {
+        "medianStepMs": 0.015317999999979293,
+        "p95StepMs": 0.02507699999999602,
+        "meanStepMs": 0.017393482000000012,
+        "checksPerStep": 260
+      },
+      "current": {
+        "medianStepMs": 0.02221100000002707,
+        "p95StepMs": 0.04202900000001364,
+        "meanStepMs": 0.02714417550000053,
+        "checksPerStep": 260
+      },
+      "meanSpeedup": 0.6407813713111188,
+      "collisionCheckReduction": 0
+    },
+    {
+      "enemies": 130,
+      "projectiles": 18,
+      "previous": {
+        "medianStepMs": 0.04567599999995764,
+        "p95StepMs": 0.06001199999991513,
+        "meanStepMs": 0.048776072000000566,
+        "checksPerStep": 2340
+      },
+      "current": {
+        "medianStepMs": 0.06336800000008225,
+        "p95StepMs": 0.07792499999982283,
+        "meanStepMs": 0.06717508750000122,
+        "checksPerStep": 2340
+      },
+      "meanSpeedup": 0.7261035871371166,
+      "collisionCheckReduction": 0
+    },
+    {
+      "enemies": 130,
+      "projectiles": 64,
+      "previous": {
+        "medianStepMs": 0.13918899999998757,
+        "p95StepMs": 0.16651900000010755,
+        "meanStepMs": 0.14499926899999685,
+        "checksPerStep": 8320
+      },
+      "current": {
+        "medianStepMs": 0.03918300000009367,
+        "p95StepMs": 0.05009300000028816,
+        "meanStepMs": 0.04137111950000212,
+        "checksPerStep": 61.157
+      },
+      "meanSpeedup": 3.5048427683952186,
+      "collisionCheckReduction": 0.9926493990384615
+    }
+  ]
+}

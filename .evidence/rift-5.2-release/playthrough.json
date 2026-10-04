@@ -1,0 +1,207 @@
+{
+  "method": "Nine seeded full five-region runs. Unmodified base heroes, legal offered upgrades, movement, enemy/shot/hazard avoidance, dash, ultimate and stage continue. No invulnerability, teleport, forced skills or boss HP edits. This is a rule-based completion-path check, not human or native-iPhone validation.",
+  "runs": [
+    {
+      "hero": "knight",
+      "seed": 11,
+      "time": 1047,
+      "level": 67,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 189,
+      "kills": 5394,
+      "weapons": {
+        "blade": 5,
+        "rend": 5,
+        "whirlwind": 5,
+        "orbit": 5,
+        "crosscut": 5,
+        "phantom": 5,
+        "judgment": 5,
+        "slam": 5,
+        "thousand": 5
+      }
+    },
+    {
+      "hero": "knight",
+      "seed": 22,
+      "time": 1067,
+      "level": 67,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 197,
+      "kills": 5412,
+      "weapons": {
+        "blade": 5,
+        "whirlwind": 5,
+        "rend": 5,
+        "slam": 5,
+        "crosscut": 5,
+        "orbit": 5,
+        "phantom": 5,
+        "judgment": 5,
+        "thousand": 5
+      }
+    },
+    {
+      "hero": "knight",
+      "seed": 33,
+      "time": 1055,
+      "level": 66,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 202,
+      "kills": 5416,
+      "weapons": {
+        "blade": 5,
+        "whirlwind": 5,
+        "rend": 5,
+        "orbit": 5,
+        "crosscut": 5,
+        "phantom": 5,
+        "judgment": 5,
+        "slam": 5,
+        "thousand": 5
+      }
+    },
+    {
+      "hero": "ranger",
+      "seed": 11,
+      "time": 1030,
+      "level": 66,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 155,
+      "kills": 5389,
+      "weapons": {
+        "arrow": 5,
+        "piercing": 5,
+        "multishot": 5,
+        "poison": 5,
+        "explosive": 5,
+        "falcon": 5,
+        "stormbow": 5,
+        "trap": 5,
+        "ballista": 5,
+        "volley": 1
+      }
+    },
+    {
+      "hero": "ranger",
+      "seed": 22,
+      "time": 1001,
+      "level": 65,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 170,
+      "kills": 5383,
+      "weapons": {
+        "arrow": 5,
+        "multishot": 5,
+        "poison": 5,
+        "explosive": 5,
+        "falcon": 5,
+        "stormbow": 5,
+        "piercing": 5,
+        "ballista": 5,
+        "glaive": 1,
+        "trap": 1
+      }
+    },
+    {
+      "hero": "ranger",
+      "seed": 33,
+      "time": 998,
+      "level": 62,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 125,
+      "kills": 5344,
+      "weapons": {
+        "arrow": 5,
+        "poison": 5,
+        "multishot": 5,
+        "trap": 5,
+        "piercing": 4,
+        "explosive": 5,
+        "falcon": 5,
+        "stormbow": 5,
+        "ballista": 5
+      }
+    },
+    {
+      "hero": "mage",
+      "seed": 11,
+      "time": 1027,
+      "level": 67,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 185,
+      "kills": 5366,
+      "weapons": {
+        "bolt": 5,
+        "fireball": 5,
+        "frost": 5,
+        "meteor": 5,
+        "spirit": 5,
+        "blackflame": 5,
+        "gravity": 5,
+        "lightning": 5,
+        "dragon": 5
+      }
+    },
+    {
+      "hero": "mage",
+      "seed": 22,
+      "time": 1035,
+      "level": 67,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 133,
+      "kills": 5426,
+      "weapons": {
+        "bolt": 5,
+        "fireball": 5,
+        "frost": 5,
+        "lightning": 5,
+        "spirit": 5,
+        "beam": 1,
+        "blackflame": 5,
+        "gravity": 5,
+        "meteor": 5,
+        "dragon": 5
+      }
+    },
+    {
+      "hero": "mage",
+      "seed": 33,
+      "time": 1028,
+      "level": 67,
+      "stage": 5,
+      "clearedStages": 5,
+      "win": true,
+      "hp": 142,
+      "kills": 5420,
+      "weapons": {
+        "bolt": 5,
+        "frost": 5,
+        "fireball": 5,
+        "meteor": 5,
+        "lightning": 5,
+        "spirit": 5,
+        "blackflame": 5,
+        "gravity": 5,
+        "dragon": 5,
+        "pyre": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "version": "5.2.0",
+  "runtimeCommit": "c412ff0efaca669d98d3ed325c8a54cb7e1671db",
+  "priorRun": 37199341354,
+  "repairAndPackageRun": 37200853674,
+  "hostedRun": 37200035472,
+  "combinedChecks": {
+    "node": 135,
+    "chromium": 82,
+    "webkit": 82,
+    "total": 299
+  },
+  "repairedBrowser": {
+    "startTime": "2026-10-04T12:05:31.179Z",
+    "duration": 22027.690000000002,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "botWins": 9,
+  "botRuns": 9,
+  "consoleRegistrationVerified": false,
+  "nativePhoneTestCompleted": false
+}
