@@ -21,7 +21,7 @@
 
 ## 출시 파일 받기
 
-[GitHub Actions](https://github.com/cj84368436-spec/ALLINONE/actions/workflows/rift-survivors.yml)에서 성공한 실행을 열고 **rift-keepers-toss-release** 아티팩트를 내려받으세요.
+[최종 패키징 실행](https://github.com/cj84368436-spec/ALLINONE/actions/workflows/rift-verified-package.yml)에서 성공한 5.1 실행을 열고 **rift-keepers-toss-release** 아티팩트를 내려받으세요. [전체 자동 검사](https://github.com/cj84368436-spec/ALLINONE/actions/runs/37160270711)는 297개를 통과했습니다.
 
 .ait 번들, 600px PNG 아이콘, 게임 이미지, 빌드 manifest와 등록 문서가 포함됩니다. 실제 검증 상태는 [docs/VALIDATION.md](docs/VALIDATION.md), 등록 절차는 [docs/SUBMISSION.md](docs/SUBMISSION.md)에 기록합니다.
 
