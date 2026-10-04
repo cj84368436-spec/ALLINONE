@@ -1,10 +1,10 @@
-## 5.1.0 · 실제 전투 연출 재검토
+## 5.2.0 · 원화와 전투 소재 재구성
 
-5스테이지 천검·성좌의 노궁·창룡을 다시 만들고, 전 공격과 궁극기의 재질·접촉 효과·녹음 효과음 배치·적의 반응을 재검토했습니다. 빈 공격의 가짜 명중음, 중복 접촉, 지속 피해의 반복 밀림, 누락된 후속 낙뢰를 수정했습니다. 공격 아이콘에는 재사용 진행 표시와 각성·진화 테두리가 생깁니다.
+평면 도형이 캐릭터 그림과 어울리지 않던 문제를 줄이기 위해 검·노궁·창룡·칼날방벽·회오리·서리·화염·낙뢰를 새 손그림풍 소재로 연결했습니다. 용은 영웅 주변을 가리지 않고 먼 몸체와 머리가 적 앞에서도 보이며, 긴 경로와 Lv.1/3/5·진화 장면을 실제 Canvas 화면으로 검토했습니다. 효과음은 17개를 교체하고 활 준비·대검·용의 울음과 숨결 6개를 추가했습니다. 일반 효과음이 결정적인 방출·피니시 소리를 묻지 않도록 우선순위를 적용했습니다.
 
-[5.1 플레이 테스트](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=5.1.0-gamefeel-r2) · [창룡 Lv.5 진화 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?practice=dragon&tier=5&evolved=1&v=5.1.0-gamefeel-r2)
+[플레이 테스트](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=5.2.0-painted-r1) · [실제 스킬 영상과 효과음](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/sword.html?v=5.2.0) · [창룡 진화 연습](https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?practice=dragon&tier=5&evolved=1&v=5.2.0-painted-r1)
 
-[디자인 변경과 리뷰 방법](docs/DESIGN-5.1.md) · [실제 검증 결과](docs/VALIDATION.md)
+[변경 내용과 판단 범위](docs/DESIGN-5.2.md) · [검증 결과와 기기 테스트 상태](docs/VALIDATION.md)
 
 # 균열의 수호자 — 토스 2D 미니앱
 
@@ -21,7 +21,7 @@
 
 ## 출시 파일 받기
 
-[최종 패키징 실행](https://github.com/cj84368436-spec/ALLINONE/actions/workflows/rift-verified-package.yml)에서 성공한 5.1 실행을 열고 **rift-keepers-toss-release** 아티팩트를 내려받으세요. [전체 자동 검사](https://github.com/cj84368436-spec/ALLINONE/actions/runs/37160270711)는 297개를 통과했습니다.
+[최종 패키징 실행](https://github.com/cj84368436-spec/ALLINONE/actions/workflows/rift-verified-package.yml)에서 성공한 5.2 실행을 열고 **rift-keepers-toss-release** 아티팩트를 내려받으세요. [검증 내역](docs/VALIDATION.md)에 기능·모바일 브라우저·전투 진행·성능·출시 패키지 검사 결과를 기록합니다.
 
 .ait 번들, 600px PNG 아이콘, 게임 이미지, 빌드 manifest와 등록 문서가 포함됩니다. 실제 검증 상태는 [docs/VALIDATION.md](docs/VALIDATION.md), 등록 절차는 [docs/SUBMISSION.md](docs/SUBMISSION.md)에 기록합니다.
 

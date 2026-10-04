@@ -294,8 +294,8 @@ test("generated standalone preview loads current skills and returns home after s
 });
 
 test("new painted icons and material animation frames are available without opaque tile edges",async({page})=>{
- const result=await page.evaluate(async()=>{const {Art,EXTRA_SKILL_KEYS}=await import("/src/art.js");const {iconMarkup}=await import("/src/icons.js");const frame=Art.materialFrames.get("2,1"),ctx=frame.getContext("2d"),data=ctx.getImageData(0,0,256,256).data;let edge=0,visible=0;for(let i=0;i<256;i++)edge=Math.max(edge,data[i*4+3],data[(255*256+i)*4+3],data[(i*256)*4+3],data[(i*256+255)*4+3]);for(let i=3;i<data.length;i+=4)if(data[i]>20)visible++;return{frames:Art.materialFrames.size,edge,visible,icons:EXTRA_SKILL_KEYS.map(k=>iconMarkup(k)),version:Art.version};});
- expect(result.frames).toBe(36);expect(result.edge).toBeLessThanOrEqual(5);expect(result.visible).toBeGreaterThan(1000);expect(result.icons.every(x=>x.includes("skill-extra.webp")&&x.includes("<img"))).toBe(true);expect(result.version).toBe("5.0.0");
+ const result=await page.evaluate(async()=>{const {Art,EXTRA_SKILL_KEYS}=await import("/src/art.js");const {iconMarkup}=await import("/src/icons.js");const frame=Art.materialFrames.get("2,1"),ctx=frame.getContext("2d"),data=ctx.getImageData(0,0,256,256).data;let edge=0,visible=0;for(let i=0;i<256;i++)edge=Math.max(edge,data[i*4+3],data[(255*256+i)*4+3],data[(i*256)*4+3],data[(i*256+255)*4+3]);for(let i=3;i<data.length;i+=4)if(data[i]>20)visible++;return{frames:Art.materialFrames.size,edge,visible,icons:EXTRA_SKILL_KEYS.map(k=>iconMarkup(k)),version:Art.version,paintedFrames:Art.painted.size};});
+ expect(result.frames).toBe(36);expect(result.edge).toBeLessThanOrEqual(5);expect(result.visible).toBeGreaterThan(1000);expect(result.icons.every(x=>x.includes("skill-extra.webp")&&x.includes("<img"))).toBe(true);expect(result.version).toBe("5.2.0");expect(result.paintedFrames).toBe(16);
 });
 test("level three and five cards explain their actual transformation and keep controls reachable",async({page})=>{
  await page.setViewportSize({width:360,height:640});await page.locator("#start").click();
@@ -331,10 +331,11 @@ test("mixed new effects freeze with game time and orbital visuals match actual h
  const frames=[];for(const externalTime of [0,999]){r.draw(externalTime,g,g.hero,{active:false});frames.push(hash());}
  const layout=bladeBarrierLayout(g),targets=layout.map(b=>{const e=g.spawn("shade");Object.assign(e,{x:b.x,y:b.y,hp:9999,maxHp:9999,speed:0,shoot:999});return e;}),miss=g.spawn("shade");Object.assign(miss,{x:g.player.x+240,y:g.player.y+240,hp:9999,maxHp:9999,speed:0,shoot:999});
  g.phase="playing";g.attack("orbit",5);const positions=targets.every(e=>e.hp<9999)&&miss.hp===9999;g.phase="paused";
- const {drawMaterialEffect}=await import("/src/combat-vfx.js"),hit=document.createElement("canvas");hit.width=hit.height=128;const hc=hit.getContext("2d");drawMaterialEffect({ctx:hc,quality:1,reduced:false,glow(){}},{kind:"impact",key:"ultimate",x:64,y:64,max:.3,ttl:.21},0,{hero:{id:"mage"},player:g.player},.7,.3);const pixels=hc.getImageData(0,0,128,128).data;let red=0,blue=0,count=0;for(let i=0;i<pixels.length;i+=4)if(pixels[i+3]>80){red+=pixels[i];blue+=pixels[i+2];count++;}const iceIsCold=count>50&&blue>red*1.05;
+ const {drawMaterialEffect}=await import("/src/combat-vfx.js"),hit=document.createElement("canvas");hit.width=hit.height=128;const hc=hit.getContext("2d");drawMaterialEffect({ctx:hc,quality:1,reduced:false,glow(){}},{kind:"impact",key:"ultimate",x:64,y:64,max:.3,ttl:.21},0,{hero:{id:"mage"},player:g.player},.7,.3);const pixels=hc.getImageData(0,0,128,128).data;// A fading painted contact can have no pixels above alpha 80. Measure visible coverage and alpha-weighted color instead.
+ let red=0,blue=0,count=0,coverage=0;for(let i=0;i<pixels.length;i+=4){const alpha=pixels[i+3]/255;if(pixels[i+3]>8)count++;red+=pixels[i]*alpha;blue+=pixels[i+2]*alpha;coverage+=alpha;}const iceIsCold=count>50&&coverage>15&&blue>red*1.05;console.log("Mage ice contact",JSON.stringify({red,blue,count,coverage,iceIsCold}));
  return {same:frames[0]===frames[1],count:layout.length,positions,iceIsCold};
  });
- expect(result.same).toBe(true);expect(result.count).toBe(8);expect(result.positions).toBe(true);expect(result.iceIsCold).toBe(true);
+ expect(result.same).toBe(true);expect(result.count).toBe(8);expect(result.positions).toBe(true);expect(result.iceIsCold,"Mage ultimate contact lost its visible cold material").toBe(true);
 });
 
 for(const hero of ["knight","ranger","mage"])test(hero+" advances through five mobile region dialogs and settles only the final boss",async({page},testInfo)=>{

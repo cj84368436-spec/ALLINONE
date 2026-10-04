@@ -1,0 +1,40 @@
+{
+  "version": "5.2.0",
+  "runtimeCommit": "c412ff0efaca669d98d3ed325c8a54cb7e1671db",
+  "testCommit": "a38ca783847de1fad8599e2c7c4c393976265ebf",
+  "node": {
+    "run": 37199341354,
+    "job": 111427663373,
+    "passed": 135,
+    "failed": 0
+  },
+  "browser": {
+    "run": 37199341354,
+    "passed": 160,
+    "failed": 4,
+    "total": 164,
+    "failedCases": [
+      "new painted icons and material animation frames are available without opaque tile edges",
+      "mixed new effects freeze with game time and orbital visuals match actual hit positions"
+    ],
+    "projects": [
+      "chromium-mobile",
+      "webkit-mobile"
+    ]
+  },
+  "repair": "Only the stale Art.version expectation and the fading contact color measurement are changed; runtime assets and combat code remain byte-identical.",
+  "hosted": {
+    "repository": "cj84368436-spec/privacy-policy",
+    "run": 37200035472,
+    "job": 111429663784,
+    "passed": true
+  },
+  "review": {
+    "screens": 274,
+    "comparisonsReviewed": 47,
+    "timelines": 41,
+    "growth": 3,
+    "dense": 3,
+    "videoRef": "48fe719c988f1ffed62aeaa64aaf5ce98af4a4a7"
+  }
+}
