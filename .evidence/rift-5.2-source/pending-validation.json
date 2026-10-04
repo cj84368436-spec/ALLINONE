@@ -1,0 +1,30 @@
+{
+  "version": "5.2.0",
+  "runtimeRef": "c412ff0efaca669d98d3ed325c8a54cb7e1671db",
+  "testRef": "a38ca783847de1fad8599e2c7c4c393976265ebf",
+  "videoRef": "48fe719c988f1ffed62aeaa64aaf5ce98af4a4a7",
+  "fullRun": 37199341354,
+  "hostedDiagnosticRun": 37200035472,
+  "previousHostedRun": 37199360736,
+  "hostedRepo": "cj84368436-spec/privacy-policy",
+  "artReview": {
+    "shots": 274,
+    "timelines": 41,
+    "growth": 3,
+    "dense": 3,
+    "designerActuallyReviewedComparisons": 47
+  },
+  "audio": {
+    "files": 35,
+    "replaced": 17,
+    "added": 6,
+    "license": "CC-BY-4.0 JC Sounds; CC0 rubberduck; existing credits retained"
+  },
+  "pending": [
+    "Complete integrated browser/native build checks",
+    "Resolve hosted WebKit check and keep its original failure",
+    "Update final validation and package docs",
+    "Build the final Toss .ait with current docs"
+  ],
+  "updatedAt": "2026-10-04T11:53:00Z"
+}
