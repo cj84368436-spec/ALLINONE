@@ -31,6 +31,15 @@ jobs:
       TOSS_APP_NAME: ${{ inputs.app_name || vars.TOSS_APP_NAME || 'rift-keepers' }}
     steps:
       - uses: actions/checkout@v4
+      - name: Reuse captured review only for unchanged runtime
+        working-directory: .
+        run: |
+          git fetch origin c412ff0efaca669d98d3ed325c8a54cb7e1671db --depth=1
+          if git diff --quiet c412ff0efaca669d98d3ed325c8a54cb7e1671db HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/apps-in-toss.config.ts; then
+            node --input-type=module <<'JS'
+          import fs from "node:fs";const art=JSON.parse(fs.readFileSync(".evidence/rift-5.2/manifest.json","utf8")),sound=JSON.parse(fs.readFileSync(".evidence/rift-5.2/showcase/manifest.json","utf8"));if(art.version!=="5.2.0"||art.shots.length<274||art.errors.length||sound.version!=="5.2.0"||sound.clips.length!==3||sound.clips.some(c=>!c.hasAudio||Number(c.seconds)<12))throw Error("Missing recorded evidence for unchanged runtime");console.log("Reusing actual painted screenshots and synchronized audio for unchanged runtime");fs.appendFileSync(process.env.GITHUB_ENV,"RIFT_REUSE_REVIEW=1\n");
+          JS
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -43,10 +52,12 @@ jobs:
           printf '%s\n' 'https://security.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-security-mirrors.txt > /dev/null
       - run: npx playwright install --with-deps chromium webkit
       - name: Capture actual mobile art review
+        if: env.RIFT_REUSE_REVIEW != '1'
         run: |
           npm install --prefix /tmp/rift-review sharp@0.34.5 --no-audit --no-fund
           node scripts/design-review.mjs
       - name: Store reviewable screenshots
+        if: env.RIFT_REUSE_REVIEW != '1'
         working-directory: .
         run: |
           git config user.name "Rift visual verification"
@@ -57,10 +68,12 @@ jobs:
           git pull --rebase
           git push
       - name: Record and inspect actual combat audio
+        if: env.RIFT_REUSE_REVIEW != '1'
         run: |
           sudo apt-get install -y ffmpeg
           node scripts/showcase.mjs
       - name: Store reviewable combat videos
+        if: env.RIFT_REUSE_REVIEW != '1'
         working-directory: .
         run: |
           git config user.name "Rift audio verification"

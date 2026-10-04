@@ -307,7 +307,7 @@ test("material combat cues use fire, ice, stone, poison and void samples at actu
  for(const name of ["fire-cast","fire-impact","stone-impact","poison-impact","bolt-hit","void-cast","whirlwind"])expect(result.names).toContain(name);expect(result.names).not.toContain("magic");expect(result.buffers).toHaveLength(35);
 });
 
-test("bespoke blade and frost effects retain opaque silhouettes without sprite textures",async({page})=>{
+test("fallback blade and frost geometry retains opaque silhouettes without sprite textures",async({page})=>{
  const result=await page.evaluate(async()=>{const v=await import("/src/hero-vfx.js"),canvas=document.createElement("canvas");canvas.width=canvas.height=512;const c=canvas.getContext("2d"),r={ctx:c,quality:1,reduced:false},g={time:0,player:{x:256,y:256},weapons:{orbit:5},evolved:{},passives:{}};
  c.drawImage=()=>{throw Error("Critical skill shape depends on a raster sprite");};
  function pixels(){const d=c.getImageData(0,0,512,512).data;let opaque=0,hash=2166136261,bright=0;for(let i=0;i<d.length;i+=4){if(d[i+3]>=200)opaque++;if(d[i+3]>160&&d[i]+d[i+1]+d[i+2]>480)bright++;hash=Math.imul(hash^d[i]^d[i+1]^d[i+2]^d[i+3],16777619);}return {opaque,bright,hash:hash>>>0};}
@@ -353,24 +353,24 @@ for(const [key,hero]of [["crosscut","knight"],["explosive","ranger"],["spirit","
 });
 
 
-test("late-stage skill forms animate without pasted bitmap geometry and evolution changes their silhouette",async({page})=>{
+test("late-stage painted forms animate and evolution changes their silhouette",async({page})=>{
  const result=await page.evaluate(async()=>{
   const {Game}=await import("/src/core.js"),{drawCampaignField,drawCampaignProjectile}=await import("/src/campaign-vfx.js"),out=[];
   for(const [hero,key]of [["knight","thousand"],["ranger","ballista"],["mage","dragon"]]){
    const states=[];
    for(const evolved of [false,true]){
-    const hashes=[];let peak=0;
+    const hashes=[];let peak=0,textureDraws=0;
     for(const at of [.5,.85,1.25]){
      const g=new Game(hero,{},19);g.stage=5;g.weapons={};g.hitStopEnabled=false;g.spawnCd=g.nextElite=g.nextMagnet=9999;g.player.inv=999;g.player.x=g.player.y=280;g.evolved=evolved?{[key]:true}:{};
      for(let i=0;i<5;i++){const e=g.spawn("guard");Object.assign(e,{x:350+i%2*30,y:230+Math.floor(i/2)*45,speed:0,hp:99999,maxHp:99999,shoot:999});}g.attack(key,5);for(let i=0;i<Math.round(at*60);i++)g.step(1/60);
-     const canvas=document.createElement("canvas");canvas.width=canvas.height=640;const c=canvas.getContext("2d"),r={ctx:c,quality:1,reduced:false,currentGame:g,glow(){}};c.drawImage=()=>{throw Error("Stage-five attack geometry is a pasted bitmap");};
+     const canvas=document.createElement("canvas");canvas.width=canvas.height=640;const c=canvas.getContext("2d"),r={ctx:c,quality:1,reduced:false,currentGame:g,glow(){}};const drawImage=c.drawImage.bind(c);c.drawImage=(...args)=>{textureDraws++;return drawImage(...args);};
      for(const f of g.skillFields)drawCampaignField(r,f,g.time);for(const b of g.bullets)drawCampaignProjectile(r,b);
      const d=c.getImageData(0,0,640,640).data;let solid=0,h=2166136261;for(let i=0;i<d.length;i+=4){if(d[i+3]>180)solid++;h=Math.imul(h^d[i]^d[i+1]^d[i+2]^d[i+3],16777619);}hashes.push(h>>>0);peak=Math.max(peak,solid);
-    }states.push({hashes,peak});
+    }states.push({hashes,peak,textureDraws});
    }out.push({key,states});
   }return out;
  });
- for(const item of result){expect(item.states[0].peak,item.key+" has no readable body").toBeGreaterThan(300);expect(new Set(item.states[0].hashes).size,item.key+" is static").toBe(3);expect(item.states[0].hashes,item.key+" evolution has no visible transformation").not.toEqual(item.states[1].hashes);}
+ for(const item of result){expect(item.states[0].textureDraws,item.key+" did not use painted material").toBeGreaterThan(0);expect(item.states[1].textureDraws).toBeGreaterThan(0);expect(item.states[0].peak,item.key+" has no readable body").toBeGreaterThan(300);expect(new Set(item.states[0].hashes).size,item.key+" is static").toBe(3);expect(item.states[0].hashes,item.key+" evolution has no visible transformation").not.toEqual(item.states[1].hashes);}
 });
 test("actual contacts punch the camera while missed and sustained attacks stay bounded",async({page})=>{
  await page.locator("#start").click();
