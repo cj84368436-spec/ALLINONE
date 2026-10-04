@@ -1,0 +1,40 @@
+name: Review Rift painted material in real gameplay
+on:
+  push:
+    paths:
+      - '.github/workflows/rift-painted-review.yml'
+      - '.evidence/rift-5.2-source/drafts/**'
+      - '.evidence/rift-5.2-source/review.mjs'
+      - '.evidence/rift-5.2-source/proof.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  painted:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Stage renderer draft for actual gameplay review
+        run: |
+          cp .evidence/rift-5.2-source/drafts/*.js games/rift-survivors/src/
+          npm install --prefix games/rift-survivors --no-audit --no-fund
+          npm install --prefix /tmp/rift-review sharp@0.34.5 --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+        working-directory: games/rift-survivors
+      - run: node .evidence/rift-5.2-source/proof.mjs
+      - run: node ../../.evidence/rift-5.2-source/review.mjs
+        working-directory: games/rift-survivors
+      - name: Store actual gameplay and alpha proof
+        run: |
+          git config user.name "Rift painted review"
+          git config user.email "actions@users.noreply.github.com"
+          git add .evidence/rift-5.2-review
+          git diff --cached --quiet && exit 0
+          git commit -m "Store painted Rift gameplay and alpha proof [skip ci]"
+          git stash --include-untracked
+          git pull --rebase
+          git push
