@@ -1,4 +1,4 @@
-name: Package verified Rift 5.0.0 release
+name: Package verified Rift 5.1.0 release
 on:
   push:
     paths:
@@ -21,13 +21,22 @@ jobs:
           fetch-depth: 0
       - name: Confirm the tested runtime is unchanged
         working-directory: .
-        run: git diff --exit-code cc1516412c405caa8a83fba72370c4121dcb3bd6 HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/apps-in-toss.config.ts
+        run: git diff --exit-code cd4635546b53fe82dae4e06e24f85212023506f7 HEAD -- games/rift-survivors/src games/rift-survivors/public games/rift-survivors/index.html games/rift-survivors/package.json games/rift-survivors/apps-in-toss.config.ts
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm run build
       - run: npm run check:release
+      - name: Include this package manifest in the validation document
+        run: |
+          node --input-type=module <<'JS'
+          import fs from "node:fs";
+          const manifest=JSON.parse(fs.readFileSync("release/build-manifest.json","utf8"));
+          const lines=["","## 이 다운로드 패키지의 빌드 정보","",`[최종 패키징 검사](https://github.com/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`,""];
+          for(const file of manifest.artifacts)lines.push(`- ${file.name}: ${file.bytes.toLocaleString("en-US")} bytes · SHA256: ${file.sha256}`);
+          fs.appendFileSync("docs/VALIDATION.md",lines.join("\n")+"\n");
+          JS
       - name: Use the Ubuntu archive for browser dependencies
         run: |
           printf '%s\n' 'https://archive.ubuntu.com/ubuntu/' | sudo tee /etc/apt/apt-mirrors.txt > /dev/null
