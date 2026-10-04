@@ -59,7 +59,13 @@
     "live-mage-2",
     "live-mage-3",
     "live-mage-4",
-    "live-mage-5"
+    "live-mage-5",
+    "dragon-long-lv3-0",
+    "dragon-long-lv3-1",
+    "dragon-long-lv3-2",
+    "dragon-long-evolved-0",
+    "dragon-long-evolved-1",
+    "dragon-long-evolved-2"
   ],
   "temporalSheets": [
     "motion-knight-orbit.webp",
@@ -68,7 +74,9 @@
     "motion-ranger-ballista.webp",
     "motion-mage-frost.webp",
     "motion-mage-fireball.webp",
-    "motion-mage-dragon.webp"
+    "motion-mage-dragon.webp",
+    "motion-dragon-long-lv3.webp",
+    "motion-dragon-long-evolved.webp"
   ],
   "tierSheets": [
     "tiers-knight.webp",
