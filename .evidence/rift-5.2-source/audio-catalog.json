@@ -1,0 +1,988 @@
+{
+  "version": "5.2.0",
+  "method": "Archive inventory and FFprobe output; no human listening assessment",
+  "sources": [
+    {
+      "key": "fantasy",
+      "author": "JC Sounds",
+      "license": "CC-BY-4.0",
+      "page": "https://opengameart.org/content/jc-sounds-fantasy-sfx-pack-vol-1",
+      "archive": "https://opengameart.org/sites/default/files/fantasy_sfx_pack_vol_1.7z"
+    },
+    {
+      "key": "creature",
+      "author": "rubberduck",
+      "license": "CC0-1.0",
+      "page": "https://opengameart.org/content/80-cc0-creature-sfx",
+      "archive": "https://opengameart.org/sites/default/files/80-CC0-creature-SFX_0.zip"
+    }
+  ],
+  "clips": [
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Loop_Fantasy Pack Vol 1_Dark Necromancy Chant_01.wav",
+      "bytes": 1059090,
+      "seconds": 6,
+      "sampleRate": 44100,
+      "channels": 2
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Loop_Fantasy SFX Pack Vol 1_Electric Spell_Hold.wav",
+      "bytes": 159450,
+      "seconds": 1.8,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Loop_Fantasy SFX Pack Vol 1_Fireball_Hold.wav",
+      "bytes": 177090,
+      "seconds": 2,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Loop_Fantasy SFX Pack Vol 1_Ice Spell_Hold.wav",
+      "bytes": 121230,
+      "seconds": 1.366667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Seq_Fantasy SFX Pack Vol 1_Mana Drain_End.wav",
+      "bytes": 182970,
+      "seconds": 2.066667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Seq_Fantasy SFX Pack Vol 1_Mana Drain_Mid_LOOP.wav",
+      "bytes": 177090,
+      "seconds": 2,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Seq_Fantasy SFX Pack Vol 1_Mana Drain_Start.wav",
+      "bytes": 127110,
+      "seconds": 1.433333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Draw_01.wav",
+      "bytes": 83010,
+      "seconds": 0.933333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Draw_02.wav",
+      "bytes": 88890,
+      "seconds": 1,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Hit_01.wav",
+      "bytes": 15390,
+      "seconds": 0.166667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Hit_02.wav",
+      "bytes": 33030,
+      "seconds": 0.366667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Shoot_01.wav",
+      "bytes": 30090,
+      "seconds": 0.333333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Shoot_02.wav",
+      "bytes": 30090,
+      "seconds": 0.333333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Dagger_Hit_Metal_01.wav",
+      "bytes": 27150,
+      "seconds": 0.3,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Dagger_Hit_Metal_02.wav",
+      "bytes": 24210,
+      "seconds": 0.266667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Dagger_Hit_Metal_03.wav",
+      "bytes": 24210,
+      "seconds": 0.266667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Dagger_Swing_01.wav",
+      "bytes": 21270,
+      "seconds": 0.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Dagger_Swing_02.wav",
+      "bytes": 21270,
+      "seconds": 0.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Dagger_Swing_03.wav",
+      "bytes": 33030,
+      "seconds": 0.366667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Buildup.wav",
+      "bytes": 127110,
+      "seconds": 1.433333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Hit_01.wav",
+      "bytes": 74190,
+      "seconds": 0.833333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Hit_02.wav",
+      "bytes": 77130,
+      "seconds": 0.866667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Hit_03.wav",
+      "bytes": 77130,
+      "seconds": 0.866667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Launch_01.wav",
+      "bytes": 94770,
+      "seconds": 1.066667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Launch_02.wav",
+      "bytes": 94770,
+      "seconds": 1.066667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Launch_03.wav",
+      "bytes": 94770,
+      "seconds": 1.066667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Impact_01.wav",
+      "bytes": 109470,
+      "seconds": 1.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Impact_02.wav",
+      "bytes": 109470,
+      "seconds": 1.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Impact_03.wav",
+      "bytes": 109470,
+      "seconds": 1.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Launch_01.wav",
+      "bytes": 138870,
+      "seconds": 1.566667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Launch_02.wav",
+      "bytes": 138870,
+      "seconds": 1.566667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Launch_03.wav",
+      "bytes": 138870,
+      "seconds": 1.566667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball_Buildup.wav",
+      "bytes": 106530,
+      "seconds": 1.2,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Healing Chime_01.wav",
+      "bytes": 415230,
+      "seconds": 4.7,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Healing Chime_02.wav",
+      "bytes": 415230,
+      "seconds": 4.7,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Hit_Metal_01.wav",
+      "bytes": 59490,
+      "seconds": 0.666667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Hit_Metal_02.wav",
+      "bytes": 62430,
+      "seconds": 0.7,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Hit_Metal_03.wav",
+      "bytes": 62430,
+      "seconds": 0.7,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Swing_01.wav",
+      "bytes": 56550,
+      "seconds": 0.633333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Swing_02.wav",
+      "bytes": 53610,
+      "seconds": 0.6,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Swing_03.wav",
+      "bytes": 53610,
+      "seconds": 0.6,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard  Projectile_Impact_01.wav",
+      "bytes": 138870,
+      "seconds": 1.566667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard  Projectile_Impact_02.wav",
+      "bytes": 138870,
+      "seconds": 1.566667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard  Projectile_Impact_03.wav",
+      "bytes": 138870,
+      "seconds": 1.566667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard Projectile_Launch_01.wav",
+      "bytes": 191790,
+      "seconds": 2.166667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard Projectile_Launch_02.wav",
+      "bytes": 191790,
+      "seconds": 2.166667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard Projectile_Launch_03.wav",
+      "bytes": 191790,
+      "seconds": 2.166667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Spell_Buildup.wav",
+      "bytes": 106530,
+      "seconds": 1.2,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Magic Shield_Activation_01.wav",
+      "bytes": 474030,
+      "seconds": 5.366667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Magic Shield_Activation_02.wav",
+      "bytes": 474030,
+      "seconds": 5.366667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Hit_Metal_01.wav",
+      "bytes": 21270,
+      "seconds": 0.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Hit_Metal_02.wav",
+      "bytes": 21270,
+      "seconds": 0.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Hit_Metal_03.wav",
+      "bytes": 21270,
+      "seconds": 0.233333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_01.wav",
+      "bytes": 41850,
+      "seconds": 0.466667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_02.wav",
+      "bytes": 41850,
+      "seconds": 0.466667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_03.wav",
+      "bytes": 41850,
+      "seconds": 0.466667,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Teleport_In.wav",
+      "bytes": 144750,
+      "seconds": 1.633333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Teleport_Out.wav",
+      "bytes": 144750,
+      "seconds": 1.633333,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "path": "creature/alien_01.ogg",
+      "bytes": 43847,
+      "seconds": 0.695229,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/alien_02.ogg",
+      "bytes": 38506,
+      "seconds": 0.783167,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/alien_03.ogg",
+      "bytes": 53349,
+      "seconds": 0.82925,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/alien_04.ogg",
+      "bytes": 34957,
+      "seconds": 0.719792,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/alien_05.ogg",
+      "bytes": 25080,
+      "seconds": 0.452521,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/alien_06.ogg",
+      "bytes": 25462,
+      "seconds": 0.417292,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/barking_01.ogg",
+      "bytes": 17341,
+      "seconds": 0.398354,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/barking_02.ogg",
+      "bytes": 16651,
+      "seconds": 0.459042,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/breath.ogg",
+      "bytes": 28273,
+      "seconds": 0.670417,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/bug_01.ogg",
+      "bytes": 26999,
+      "seconds": 0.578896,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/bug_02.ogg",
+      "bytes": 29638,
+      "seconds": 0.574229,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/bug_03.ogg",
+      "bytes": 22423,
+      "seconds": 0.353771,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/bug_04.ogg",
+      "bytes": 20036,
+      "seconds": 0.445083,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/burble_01.ogg",
+      "bytes": 48655,
+      "seconds": 0.991583,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/burble_02.ogg",
+      "bytes": 43100,
+      "seconds": 0.925771,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/burp_01.ogg",
+      "bytes": 25902,
+      "seconds": 0.688458,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/burp_02.ogg",
+      "bytes": 36360,
+      "seconds": 0.819167,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cough_01.ogg",
+      "bytes": 21788,
+      "seconds": 0.427604,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cough_02.ogg",
+      "bytes": 17739,
+      "seconds": 0.349854,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cough_03.ogg",
+      "bytes": 36293,
+      "seconds": 0.835083,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_01.ogg",
+      "bytes": 19125,
+      "seconds": 0.39025,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_02.ogg",
+      "bytes": 21644,
+      "seconds": 0.461813,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_03.ogg",
+      "bytes": 27354,
+      "seconds": 0.611396,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_04.ogg",
+      "bytes": 23303,
+      "seconds": 0.513833,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_05.ogg",
+      "bytes": 22176,
+      "seconds": 0.507333,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_06.ogg",
+      "bytes": 20336,
+      "seconds": 0.442292,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_07.ogg",
+      "bytes": 15466,
+      "seconds": 0.292688,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_08.ogg",
+      "bytes": 18709,
+      "seconds": 0.38375,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_09.ogg",
+      "bytes": 26244,
+      "seconds": 0.604896,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/cute_10.ogg",
+      "bytes": 21713,
+      "seconds": 0.481313,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/eat_01.ogg",
+      "bytes": 32639,
+      "seconds": 0.581688,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/eat_02.ogg",
+      "bytes": 21480,
+      "seconds": 0.389875,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/eat_03.ogg",
+      "bytes": 12484,
+      "seconds": 0.272229,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/eat_04.ogg",
+      "bytes": 24596,
+      "seconds": 0.450125,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/grunt_01.ogg",
+      "bytes": 24912,
+      "seconds": 0.932771,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/grunt_02.ogg",
+      "bytes": 23322,
+      "seconds": 0.534958,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/grunt_03.ogg",
+      "bytes": 26099,
+      "seconds": 0.665708,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/grunt_04.ogg",
+      "bytes": 25479,
+      "seconds": 0.610896,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/grunt_05.ogg",
+      "bytes": 24809,
+      "seconds": 0.649917,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/howl.ogg",
+      "bytes": 25641,
+      "seconds": 0.716958,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/hurt_01.ogg",
+      "bytes": 24174,
+      "seconds": 0.495,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/hurt_02.ogg",
+      "bytes": 21608,
+      "seconds": 0.480229,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/hurt_03.ogg",
+      "bytes": 24204,
+      "seconds": 0.458063,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/hurt_04.ogg",
+      "bytes": 14308,
+      "seconds": 0.349104,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/hurt_05.ogg",
+      "bytes": 19383,
+      "seconds": 0.450438,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_01.ogg",
+      "bytes": 31780,
+      "seconds": 0.579146,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_02.ogg",
+      "bytes": 20457,
+      "seconds": 0.378417,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_03.ogg",
+      "bytes": 15025,
+      "seconds": 0.248292,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_04.ogg",
+      "bytes": 21866,
+      "seconds": 0.484979,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_05.ogg",
+      "bytes": 23752,
+      "seconds": 0.789271,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_06.ogg",
+      "bytes": 25696,
+      "seconds": 0.455917,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_07.ogg",
+      "bytes": 23984,
+      "seconds": 0.477896,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_08.ogg",
+      "bytes": 25174,
+      "seconds": 0.500771,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/misc_09.ogg",
+      "bytes": 20481,
+      "seconds": 0.651271,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/monster_01.ogg",
+      "bytes": 50215,
+      "seconds": 0.997771,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/monster_02.ogg",
+      "bytes": 29602,
+      "seconds": 0.576771,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/monster_03.ogg",
+      "bytes": 17484,
+      "seconds": 0.778875,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/monster_04.ogg",
+      "bytes": 24985,
+      "seconds": 1.275292,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/monster_05.ogg",
+      "bytes": 24208,
+      "seconds": 0.427917,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/monster_06.ogg",
+      "bytes": 31838,
+      "seconds": 0.833563,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/monster_07.ogg",
+      "bytes": 21987,
+      "seconds": 1.131271,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/nose.ogg",
+      "bytes": 17972,
+      "seconds": 0.348625,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/ooh.ogg",
+      "bytes": 16551,
+      "seconds": 0.738542,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/roar_01.ogg",
+      "bytes": 15863,
+      "seconds": 0.373354,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/roar_02.ogg",
+      "bytes": 28522,
+      "seconds": 0.902667,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/roar_03.ogg",
+      "bytes": 24977,
+      "seconds": 0.458417,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/scream_01.ogg",
+      "bytes": 38406,
+      "seconds": 0.960458,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/scream_02.ogg",
+      "bytes": 37049,
+      "seconds": 0.960458,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/snore.ogg",
+      "bytes": 24740,
+      "seconds": 0.442292,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/spit_01.ogg",
+      "bytes": 28176,
+      "seconds": 0.488146,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/spit_02.ogg",
+      "bytes": 35872,
+      "seconds": 0.686688,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/spit_03.ogg",
+      "bytes": 18610,
+      "seconds": 0.363063,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/troll_01.ogg",
+      "bytes": 25943,
+      "seconds": 0.571146,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/troll_02.ogg",
+      "bytes": 33825,
+      "seconds": 0.793875,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/troll_03.ogg",
+      "bytes": 20952,
+      "seconds": 0.420417,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/weird_01.ogg",
+      "bytes": 20568,
+      "seconds": 0.603604,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/weird_02.ogg",
+      "bytes": 16721,
+      "seconds": 0.457771,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/weird_03.ogg",
+      "bytes": 15579,
+      "seconds": 0.387521,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/weird_04.ogg",
+      "bytes": 11164,
+      "seconds": 0.304417,
+      "sampleRate": 48000,
+      "channels": 2
+    },
+    {
+      "path": "creature/weird_05.ogg",
+      "bytes": 19512,
+      "seconds": 0.673083,
+      "sampleRate": 48000,
+      "channels": 2
+    }
+  ]
+}
