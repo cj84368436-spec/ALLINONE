@@ -1,4 +1,4 @@
-import fs from "node:fs";import path from "node:path";import {execFileSync} from "node:child_process";import crypto from "node:crypto";import sharp from "/tmp/rift-asset-tools/node_modules/sharp/lib/index.js";
+import fs from "node:fs";import path from "node:path";import {execFileSync} from "node:child_process";import crypto from "node:crypto";import {createRequire} from "node:module";const sharp=createRequire(import.meta.url)("/tmp/rift-asset-tools/node_modules/sharp");
 const dir=".evidence/rift-5.2-source",parts=fs.readdirSync(dir+"/parts").filter(n=>n.endsWith(".pngpart")).sort();
 const png=Buffer.concat(parts.map(n=>fs.readFileSync(dir+"/parts/"+n)));if(png.subarray(0,8).toString("hex")!=="89504e470d0a1a0a")throw Error("Atlas header mismatch");
 fs.mkdirSync("games/rift-survivors/public/art",{recursive:true});
