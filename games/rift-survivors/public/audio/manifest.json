@@ -1,5 +1,5 @@
 {
-  "version": "4.0.0",
+  "version": "5.2.0",
   "files": [
     {
       "name": "ambience.mp3",
@@ -15,15 +15,15 @@
     },
     {
       "name": "arrow-hit.mp3",
-      "bytes": 5477,
-      "sha256": "b244031d6d97a7af7b55e682a9f69ffe06bcb0860950e8184d340c43bf5caad0",
-      "duration": 0.313469
+      "bytes": 7223,
+      "sha256": "1032c687c467eedfcc77aa64594b81bffce774721421d225f5d04faadcd3820b",
+      "duration": 0.417959
     },
     {
       "name": "arrow-release.mp3",
-      "bytes": 4554,
-      "sha256": "5b5eac5d60328703f740f034cf327ebcfb7a44640b4a8c40a4b0b0e8a537c525",
-      "duration": 0.235102
+      "bytes": 5969,
+      "sha256": "406cf6d23ff4735d633502baa1abb1808b7da3f99e2fe248e1e81cd2792f1ea0",
+      "duration": 0.339592
     },
     {
       "name": "arrow.mp3",
@@ -33,27 +33,27 @@
     },
     {
       "name": "blade-hit-a.mp3",
-      "bytes": 7395,
-      "sha256": "570247f1a2cf5355e2be76f7a423ef253fe6b64892d6c7bd24099ac88522e6b7",
-      "duration": 0.339592
+      "bytes": 4715,
+      "sha256": "f381be265ea3f8274e0715f226beadd7696dde3336824a986ba337388b7a4373",
+      "duration": 0.261224
     },
     {
       "name": "blade-hit-b.mp3",
-      "bytes": 7395,
-      "sha256": "635c9135ab1ae339989fcd131d905d56065b91e7473c5f69ffa07540bd61147f",
-      "duration": 0.339592
+      "bytes": 4715,
+      "sha256": "2d9044cd06555e4981968dc0a47f92d2bceec3ac458b3d7bfa7c73e8864bd2a4",
+      "duration": 0.261224
     },
     {
       "name": "bolt-hit.mp3",
-      "bytes": 7149,
-      "sha256": "c4f6df6bb43abf6a283b0a5bcbaeebff2578c5526e92e1ca334a0d5019c8c347",
-      "duration": 0.417959
+      "bytes": 13074,
+      "sha256": "63185957e8c8266eeb0b7d7ced4f10983b61900645d285da1fe8d55e2fa7e79e",
+      "duration": 0.783673
     },
     {
       "name": "bolt-release.mp3",
-      "bytes": 8869,
-      "sha256": "bc7c273bdb990239df0ab0fb404e76265be3df52bbaa17a60b5480cb6630600f",
-      "duration": 0.522449
+      "bytes": 14327,
+      "sha256": "8b361245502830c4ce0d0ee0575646fe580478b5f04087161bda831b6af4f455",
+      "duration": 0.862041
     },
     {
       "name": "boss.mp3",
@@ -62,22 +62,58 @@
       "duration": 2.533878
     },
     {
-      "name": "fire-cast.mp3",
-      "bytes": 12312,
-      "sha256": "1c225806694c0b83f8ffbbe9feb2163dd3717f0d2ba66534bcfa631fb30dafe5",
+      "name": "bow-draw.mp3",
+      "bytes": 15582,
+      "sha256": "dbafd69885bd4faf2a22e7a036c2417bc83a9e7a5ad792a397a6e29b7b9c3e77",
+      "duration": 0.940408
+    },
+    {
+      "name": "dragon-breath.mp3",
+      "bytes": 12164,
+      "sha256": "f6aca42c7572098715ced51f559c005923332dc5bf010225695f6ef3ae539490",
       "duration": 0.731429
     },
     {
+      "name": "dragon-growl.mp3",
+      "bytes": 8403,
+      "sha256": "d59f7294a3356e3255c96278d39142f76c35cb378ecd97a2b5531c8e7b81a007",
+      "duration": 0.496327
+    },
+    {
+      "name": "dragon-roar.mp3",
+      "bytes": 18016,
+      "sha256": "42114a620aebb0dc89cf5c4a70af6119cb6ea5fed939266e3a1fec6db76776eb",
+      "duration": 1.097143
+    },
+    {
+      "name": "fire-cast.mp3",
+      "bytes": 15581,
+      "sha256": "b1bb6de35aff8fcd59146f0fe632c3b670cc5dc0e1f96f8351b8a3c068b5bfac",
+      "duration": 0.940408
+    },
+    {
       "name": "fire-impact.mp3",
-      "bytes": 16344,
-      "sha256": "28c915d5f36664818a4e2c24961ddf50d28130f0d9110008682be9b58c9532dd",
-      "duration": 0.992653
+      "bytes": 19761,
+      "sha256": "e22131de63cfe8a4ed9b5343269df07eba19855ba40fb03325e4510c00819ed2",
+      "duration": 1.201633
     },
     {
       "name": "frost.mp3",
-      "bytes": 20572,
-      "sha256": "f7e24fc9480b5c4a6de8dd2f1529435f0ca1fb6e96157910b3c71d782a2c6f3f",
-      "duration": 1.253878
+      "bytes": 22686,
+      "sha256": "4b0faa7ca89feaee9134e599c52aceb638cdb5307a6808a339b9fb9b1db031c0",
+      "duration": 1.38449
+    },
+    {
+      "name": "greatblade-hit.mp3",
+      "bytes": 11820,
+      "sha256": "6aca75b4f29ae4d6731ca4ffdb806ef0c911fcbe7e8a93a15b00fdad57001bb3",
+      "duration": 0.705306
+    },
+    {
+      "name": "greatblade-swing.mp3",
+      "bytes": 10567,
+      "sha256": "6498ff92a2ce87a1ef33508fdfc1ccb1ad79fa78d9e630f34d1dacdf3bbc84af",
+      "duration": 0.626939
     },
     {
       "name": "hurt.mp3",
@@ -87,15 +123,15 @@
     },
     {
       "name": "ice-impact.mp3",
-      "bytes": 11328,
-      "sha256": "5b47914b30578fefc5b79e4052b51a31c5d9467d811703ed75f60edbe7721f17",
-      "duration": 0.679184
+      "bytes": 17254,
+      "sha256": "371e1efca8fe4c27a499ec1501f20246b5490f62e476fdfced384bb3895b8172",
+      "duration": 1.044898
     },
     {
       "name": "magic.mp3",
-      "bytes": 12200,
-      "sha256": "7d103fdc9bbfa794895f7f56281a99503dbd5c5dcd53508cb44b585433fe3a3d",
-      "duration": 0.731429
+      "bytes": 15164,
+      "sha256": "6bfe211002fb3b3c59f58b7b86abb047109349aa0c4a3102eb3113c1eb186b34",
+      "duration": 0.914286
     },
     {
       "name": "poison-impact.mp3",
@@ -117,9 +153,9 @@
     },
     {
       "name": "steel-return.mp3",
-      "bytes": 10122,
-      "sha256": "7fff1cf3fc2596404fe3448319be91510ed1d8144d5c007f5705266e21a23d0a",
-      "duration": 0.600816
+      "bytes": 10567,
+      "sha256": "59e6b0c019c826e447bf958b89eef38d42508a6ff518dfb2ae5d21c91228111f",
+      "duration": 0.626939
     },
     {
       "name": "stone-impact.mp3",
@@ -129,21 +165,21 @@
     },
     {
       "name": "swish-a.mp3",
-      "bytes": 6883,
-      "sha256": "9b5eb4d59218e75edbd9346abc925c7fc9f45ae705091cd2b52b9b904c127eec",
-      "duration": 0.313469
+      "bytes": 8477,
+      "sha256": "ae4873df4240629c37659da21e6cb2a66c6ccbcc049846a3ff186c6fd60dafe3",
+      "duration": 0.496327
     },
     {
       "name": "swish-b.mp3",
-      "bytes": 6883,
-      "sha256": "4d21d73565551cf924a96b2bf9bb4250afa7a39379e555e3f9eb9fd75d0c671c",
-      "duration": 0.313469
+      "bytes": 8477,
+      "sha256": "e74dfff4f019e47a42fcbd2482293d1acde13507ecd97eb1923da4a4ea71a800",
+      "duration": 0.496327
     },
     {
       "name": "swish-c.mp3",
-      "bytes": 6883,
-      "sha256": "a5a8528c4b1904da71c321c7ed8b6d3a733b55b5ce3bc29d4b30f928d9c8532a",
-      "duration": 0.313469
+      "bytes": 8477,
+      "sha256": "cf4b2a3d85cfbdb02869877bea1aaf1e0a394e99e7674cc14c8a5252f6bcf9ad",
+      "duration": 0.496327
     },
     {
       "name": "thunder.mp3",
@@ -159,15 +195,15 @@
     },
     {
       "name": "void-cast.mp3",
-      "bytes": 10911,
-      "sha256": "35b29b9dbae260a41d111ae1fa97890677da8a0a023724d75dcac279737b717b",
-      "duration": 0.653061
+      "bytes": 14746,
+      "sha256": "379059217353282eeea808a770b90f7d37938eb0064c0538e8c0802162d76260",
+      "duration": 0.888163
     },
     {
       "name": "void-impact.mp3",
-      "bytes": 14290,
-      "sha256": "bdf00d61ab3b90220bb00e56c31e69a71d087ff7759d2cb5b7eaab676b96243f",
-      "duration": 0.862041
+      "bytes": 18926,
+      "sha256": "693e37375b177065f65dbaa0175e30b899344e4ec090cca83117a69a384c6e35",
+      "duration": 1.149388
     },
     {
       "name": "whirlwind.mp3",
@@ -194,10 +230,24 @@
       "author": "Little Robot Sound Factory",
       "license": "CC-BY-3.0",
       "page": "https://opengameart.org/content/fantasy-sound-effects-library"
+    },
+    {
+      "name": "jc-fantasy",
+      "author": "JC Sounds",
+      "license": "CC-BY-4.0",
+      "page": "https://opengameart.org/content/jc-sounds-fantasy-sfx-pack-vol-1",
+      "archive": "https://opengameart.org/sites/default/files/fantasy_sfx_pack_vol_1.7z"
+    },
+    {
+      "name": "creature",
+      "author": "rubberduck",
+      "license": "CC0-1.0",
+      "page": "https://opengameart.org/content/80-cc0-creature-sfx",
+      "archive": "https://opengameart.org/sites/default/files/80-CC0-creature-SFX_0.zip"
     }
   ],
-  "totalBytes": 914610,
+  "totalBytes": 1031734,
   "bladeMix": "Recorded knife edge, low pitched cloth impact and quiet metal resonance; no chopped-wood layer. Contact playback is driven by combat contact events.",
   "rangedMix": "Separate quiet bow release, recorded aerodynamic flight whoosh and quieter target contact. Flight uses uncut CC0 swish-2/swish-12 Foley with airy EQ, pitch layers and 160 ms tail; no oscillator or synthesized noise.",
-  "materialMix": "Recorded fire crackle, fireworks, breaking rock, ice shatter, acid bubbles, wind and existing steel/arrow Foley. Layered, trimmed, equalized and peak-limited; no oscillator or arcade spell samples in combat routes."
+  "materialMix": "Licensed designed fantasy recordings, real thunder, air/rock/ice recordings and CC0 creature vocals. Distinct windup, flight, contact and finish cues; source dynamics preserved with peak gain, gentle filters and short fades. Not all source material is physical Foley."
 }

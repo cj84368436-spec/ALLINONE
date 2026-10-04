@@ -29,3 +29,12 @@ spookymodem — CC-BY-3.0 — https://opengameart.org/content/bubbling-acid
 Flixberry Entertainment — CC-BY-3.0 — https://opengameart.org/content/strong-wind-blowing
 CC BY 3.0: https://creativecommons.org/licenses/by/3.0/
 Edits: energetic recording excerpts, reversal, pitch, EQ, layers, compression, loudness, short fades and MP3 encoding. No Diablo audio or artwork used.
+
+Rift Keepers 5.2 licensed weapon and creature material:
+JC Sounds — Fantasy SFX Pack Vol 1 — CC BY 4.0
+https://opengameart.org/content/jc-sounds-fantasy-sfx-pack-vol-1
+https://creativecommons.org/licenses/by/4.0/
+rubberduck — 80 CC0 creature SFX — CC0 1.0
+https://opengameart.org/content/80-cc0-creature-sfx
+https://creativecommons.org/publicdomain/zero/1.0/
+Modifications: onset trim with 8ms pre-roll, peak gain preserving internal dynamics, pitch for creature cues, gentle high/low-pass EQ, fades, mono 44.1kHz MP3 encoding and runtime layers. Source roles and edits are recorded in .evidence/rift-5.2-source/sound-map.json and sound-report.json.

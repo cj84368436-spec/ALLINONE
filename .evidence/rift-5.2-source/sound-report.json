@@ -1,0 +1,446 @@
+{
+  "version": "5.2.0",
+  "method": "FFmpeg decoding/encoding, PCM onset/peak/RMS; not timbre or human listening approval",
+  "replaced": 17,
+  "added": 6,
+  "files": 35,
+  "reports": [
+    {
+      "key": "swish-a",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_01.wav",
+      "maxSeconds": 0.466667,
+      "highpassHz": 110,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.01689795918367347,
+      "preservedSeconds": 0.4497687074829932,
+      "sourcePeak": 0.78985595703125,
+      "gain": 0.8825376814755185,
+      "encoded": {
+        "peak": 0.5952326059341431,
+        "rms": 0.09103634613471981,
+        "onset": 555,
+        "seconds": 0.4497732426303855
+      }
+    },
+    {
+      "key": "swish-b",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_02.wav",
+      "maxSeconds": 0.466667,
+      "highpassHz": 110,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.019369614512471656,
+      "preservedSeconds": 0.447297052154195,
+      "sourcePeak": 0.8193359375,
+      "gain": 0.8829522661396896,
+      "encoded": {
+        "peak": 0.604108452796936,
+        "rms": 0.08661933522071663,
+        "onset": 377,
+        "seconds": 0.4473015873015873
+      }
+    },
+    {
+      "key": "swish-c",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_03.wav",
+      "maxSeconds": 0.466667,
+      "highpassHz": 110,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.013337868480725622,
+      "preservedSeconds": 0.4533287981859411,
+      "sourcePeak": 0.749908447265625,
+      "gain": 0.9756139233638624,
+      "encoded": {
+        "peak": 0.5928512811660767,
+        "rms": 0.09926490852763727,
+        "onset": 354,
+        "seconds": 0.4533333333333333
+      }
+    },
+    {
+      "key": "blade-hit-a",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Hit_Metal_01.wav",
+      "maxSeconds": 0.233333,
+      "highpassHz": 120,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.233333,
+      "sourcePeak": 0.971832275390625,
+      "gain": 0.6445895639571932,
+      "encoded": {
+        "peak": 0.5498000383377075,
+        "rms": 0.09514307748811165,
+        "onset": 3,
+        "seconds": 0.23333333333333334
+      }
+    },
+    {
+      "key": "blade-hit-b",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Hit_Metal_02.wav",
+      "maxSeconds": 0.233333,
+      "highpassHz": 120,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.233333,
+      "sourcePeak": 0.9659423828125,
+      "gain": 0.6519269175735313,
+      "encoded": {
+        "peak": 0.5425755977630615,
+        "rms": 0.08424773821035095,
+        "onset": 3,
+        "seconds": 0.23333333333333334
+      }
+    },
+    {
+      "key": "arrow-release",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Shoot_01.wav",
+      "maxSeconds": 0.333333,
+      "highpassHz": 90,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.027147392290249435,
+      "preservedSeconds": 0.3061859410430839,
+      "sourcePeak": 0.976287841796875,
+      "gain": 0.6751309516695067,
+      "encoded": {
+        "peak": 0.5930561423301697,
+        "rms": 0.06120181690940103,
+        "onset": 401,
+        "seconds": 0.3061904761904762
+      }
+    },
+    {
+      "key": "arrow-hit",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Hit_02.wav",
+      "maxSeconds": 0.366667,
+      "highpassHz": 110,
+      "lowpassHz": 8500,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.36666666666666664,
+      "sourcePeak": 0.975738525390625,
+      "gain": 0.7510611110115872,
+      "encoded": {
+        "peak": 0.6214037537574768,
+        "rms": 0.04172777618947131,
+        "onset": 0,
+        "seconds": 0.3667800453514739
+      }
+    },
+    {
+      "key": "bolt-release",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard Projectile_Launch_01.wav",
+      "maxSeconds": 0.82,
+      "highpassHz": 120,
+      "lowpassHz": 9000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.82,
+      "sourcePeak": 0.538116455078125,
+      "gain": 1.2650804787326055,
+      "encoded": {
+        "peak": 0.5918084383010864,
+        "rms": 0.07931067375788164,
+        "onset": 27,
+        "seconds": 0.82
+      }
+    },
+    {
+      "key": "bolt-hit",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard  Projectile_Impact_01.wav",
+      "maxSeconds": 0.74,
+      "highpassHz": 100,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.74,
+      "sourcePeak": 0.9532470703125,
+      "gain": 0.6974265563814125,
+      "encoded": {
+        "peak": 0.597225546836853,
+        "rms": 0.06733355806751382,
+        "onset": 60,
+        "seconds": 0.74
+      }
+    },
+    {
+      "key": "fire-cast",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Launch_01.wav",
+      "maxSeconds": 0.9,
+      "highpassHz": 90,
+      "lowpassHz": 8000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.038145124716553284,
+      "preservedSeconds": 0.9,
+      "sourcePeak": 0.773681640625,
+      "gain": 1.1771356333367669,
+      "encoded": {
+        "peak": 0.6036532521247864,
+        "rms": 0.09282674602638051,
+        "onset": 1108,
+        "seconds": 0.9
+      }
+    },
+    {
+      "key": "fire-impact",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Impact_01.wav",
+      "maxSeconds": 1.18,
+      "highpassHz": 75,
+      "lowpassHz": 8000,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.06238548752834467,
+      "preservedSeconds": 1.1709478458049887,
+      "sourcePeak": 0.710357666015625,
+      "gain": 1.049064688766763,
+      "encoded": {
+        "peak": 0.6823557615280151,
+        "rms": 0.08293505800424623,
+        "onset": 462,
+        "seconds": 1.170952380952381
+      }
+    },
+    {
+      "key": "ice-impact",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard  Projectile_Impact_02.wav",
+      "maxSeconds": 1,
+      "highpassHz": 95,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 1,
+      "sourcePeak": 0.976898193359375,
+      "gain": 0.8751638232428955,
+      "encoded": {
+        "peak": 0.669887363910675,
+        "rms": 0.07327854721097626,
+        "onset": 94,
+        "seconds": 1
+      }
+    },
+    {
+      "key": "frost",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Loop_Fantasy SFX Pack Vol 1_Ice Spell_Hold.wav",
+      "maxSeconds": 1.35,
+      "highpassHz": 140,
+      "lowpassHz": 7000,
+      "targetPeakDbfs": -5,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 1.35,
+      "sourcePeak": 0.88128662109375,
+      "gain": 0.8714495409712631,
+      "encoded": {
+        "peak": 0.5375739932060242,
+        "rms": 0.04592864493006135,
+        "onset": 35,
+        "seconds": 1.35
+      }
+    },
+    {
+      "key": "void-cast",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Seq_Fantasy SFX Pack Vol 1_Mana Drain_Start.wav",
+      "maxSeconds": 0.85,
+      "highpassHz": 110,
+      "lowpassHz": 5000,
+      "targetPeakDbfs": -5,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.0265124716553288,
+      "preservedSeconds": 0.85,
+      "sourcePeak": 0.54400634765625,
+      "gain": 1.3470868151061743,
+      "encoded": {
+        "peak": 0.5388854742050171,
+        "rms": 0.09460755706275459,
+        "onset": 384,
+        "seconds": 0.85
+      }
+    },
+    {
+      "key": "void-impact",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Seq_Fantasy SFX Pack Vol 1_Mana Drain_End.wav",
+      "maxSeconds": 1.1,
+      "highpassHz": 90,
+      "lowpassHz": 6000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.0756281179138322,
+      "preservedSeconds": 1.1,
+      "sourcePeak": 0.597869873046875,
+      "gain": 1.1520148361245317,
+      "encoded": {
+        "peak": 0.5774818658828735,
+        "rms": 0.06824134688575911,
+        "onset": 789,
+        "seconds": 1.1
+      }
+    },
+    {
+      "key": "steel-return",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Swing_03.wav",
+      "maxSeconds": 0.6,
+      "highpassHz": 95,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.022997732426303853,
+      "preservedSeconds": 0.5770022675736961,
+      "sourcePeak": 0.957489013671875,
+      "gain": 0.7703420494029947,
+      "encoded": {
+        "peak": 0.6065108180046082,
+        "rms": 0.09366147927370422,
+        "onset": 445,
+        "seconds": 0.5770068027210884
+      }
+    },
+    {
+      "key": "magic",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Hit_02.wav",
+      "maxSeconds": 0.866667,
+      "highpassHz": 100,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.8666666666666667,
+      "sourcePeak": 0.7518310546875,
+      "gain": 0.9788171925189634,
+      "encoded": {
+        "peak": 0.6691575050354004,
+        "rms": 0.08642937222631868,
+        "onset": 4,
+        "seconds": 0.8666666666666667
+      }
+    },
+    {
+      "key": "bow-draw",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Draw_01.wav",
+      "maxSeconds": 0.9,
+      "highpassHz": 120,
+      "lowpassHz": 6500,
+      "targetPeakDbfs": -5,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.9,
+      "sourcePeak": 0.44561767578125,
+      "gain": 1.4243488091394727,
+      "encoded": {
+        "peak": 0.532470166683197,
+        "rms": 0.04508441529713738,
+        "onset": 33,
+        "seconds": 0.9
+      }
+    },
+    {
+      "key": "greatblade-swing",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Swing_01.wav",
+      "maxSeconds": 0.633333,
+      "highpassHz": 85,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1,
+      "trimStartSeconds": 0.05127437641723356,
+      "preservedSeconds": 0.5820589569160998,
+      "sourcePeak": 0.9556884765625,
+      "gain": 0.7554864672278848,
+      "encoded": {
+        "peak": 0.6732978224754333,
+        "rms": 0.09480087791312823,
+        "onset": 440,
+        "seconds": 0.5820634920634921
+      }
+    },
+    {
+      "key": "greatblade-hit",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Hit_Metal_01.wav",
+      "maxSeconds": 0.666667,
+      "highpassHz": 90,
+      "lowpassHz": 9000,
+      "targetPeakDbfs": -2.5,
+      "pitchRate": 1,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 0.6666666666666666,
+      "sourcePeak": 0.982635498046875,
+      "gain": 0.8472703072686681,
+      "encoded": {
+        "peak": 0.7241207361221313,
+        "rms": 0.0690332728447548,
+        "onset": 0,
+        "seconds": 0.6666666666666666
+      }
+    },
+    {
+      "key": "dragon-growl",
+      "source": "creature/roar_03.ogg",
+      "maxSeconds": 0.7,
+      "highpassHz": 75,
+      "lowpassHz": 4800,
+      "targetPeakDbfs": -5,
+      "pitchRate": 0.94,
+      "trimStartSeconds": 0.016648526077097506,
+      "preservedSeconds": 0.4699860085878323,
+      "sourcePeak": 1.4649077653884888,
+      "gain": 0.44795121744187416,
+      "encoded": {
+        "peak": 0.5377068519592285,
+        "rms": 0.07702424834503818,
+        "onset": 866,
+        "seconds": 0.46997732426303857
+      }
+    },
+    {
+      "key": "dragon-roar",
+      "source": "creature/roar_02.ogg",
+      "maxSeconds": 1.2,
+      "highpassHz": 75,
+      "lowpassHz": 6500,
+      "targetPeakDbfs": -3,
+      "pitchRate": 0.86,
+      "trimStartSeconds": 0,
+      "preservedSeconds": 1.0495965828191742,
+      "sourcePeak": 0.9665064811706543,
+      "gain": 0.9312711290614847,
+      "encoded": {
+        "peak": 0.672516405582428,
+        "rms": 0.12527051730141672,
+        "onset": 381,
+        "seconds": 1.049591836734694
+      }
+    },
+    {
+      "key": "dragon-breath",
+      "source": "creature/breath.ogg",
+      "maxSeconds": 0.85,
+      "highpassHz": 100,
+      "lowpassHz": 6500,
+      "targetPeakDbfs": -5,
+      "pitchRate": 0.95,
+      "trimStartSeconds": 0.01456235827664399,
+      "preservedSeconds": 0.6903878744480249,
+      "sourcePeak": 0.33656150102615356,
+      "gain": 1.7029434036289113,
+      "encoded": {
+        "peak": 0.5343568325042725,
+        "rms": 0.05142348146845433,
+        "onset": 346,
+        "seconds": 0.6903854875283447
+      }
+    }
+  ]
+}
