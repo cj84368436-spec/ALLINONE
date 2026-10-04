@@ -104,5 +104,15 @@ try{
  if(stage<5){await page.evaluate(()=>{const g=window.__riftTest.game;g.phase="playing";g.hit(g.enemies.find(e=>e.boss),999999,g.player);});await page.locator("#next-stage").waitFor();await page.setViewportSize({width:360,height:640});await page.waitForTimeout(50);await capture(page,"region-"+stage+"-continue");await page.locator("#next-stage").click();await page.setViewportSize({width:390,height:844});}}
  await page.evaluate(()=>window.__riftTest.finish(false));await page.locator("#result-home").click();
  await page.setViewportSize({width:360,height:640});await page.waitForTimeout(150);await capture(page,"small-home");
+
+ // A 330px dragon aimed down the portrait viewport checks the long UV path too.
+ await page.locator('[data-hero="mage"]').click();await page.locator("#start").click();
+ for(const evolved of [false,true]){const names=[];
+ for(const [frame,at]of [.35,.85,1.40].entries()){const name="dragon-long-"+(evolved?"evolved":"lv3")+"-"+frame;names.push(name);
+ await page.evaluate(({evolved,at})=>{const {game:g,renderer:r}=window.__riftTest;g.phase="playing";g.stage=5;g.stageStarted=0;g.time=42;g.hitStopEnabled=false;g.spawnCd=g.nextElite=g.nextMagnet=g.nextRift=9999;g.enemies=[];g.bullets=[];g.shots=[];g.hazards=[];g.events=[];g.fx=[];g.skillFields=[];g.skillTasks=[];g.spellFields=[];g.weapons={};g.passives={};g.evolved=evolved?{dragon:true}:{};g.cool={};g.ultimateState=null;g.bladeSwing=null;g.rangedAttacks={};g.skillPose=null;g.rift=null;g.player.x=g.player.y=900;g.player.inv=999;r.reduced=false;r.setQuality(1);
+ for(let i=0;i<4;i++){const e=g.spawn(i%2?"guard":"hound");Object.assign(e,{x:900+(i-1.5)*10,y:1210+i%2*5,hp:99999,maxHp:99999,speed:0,shoot:9999,special:9999});}g.attack("dragon",evolved?5:3);for(let i=0;i<Math.round(at*60);i++)g.step(1/60,{x:0,y:0});g.events=[];g.phase="paused";
+ },{evolved,at});await page.waitForTimeout(50);await capture(page,name);}
+ const sheet="motion-dragon-long-"+(evolved?"evolved":"lv3")+".webp";temporalSheets.push(sheet);await sharp({create:{width:1170,height:844,channels:4,background:"#091321"}}).composite(names.map((name,i)=>({input:dir+"/"+name+".webp",left:i*390,top:0}))).webp({quality:90}).toFile(dir+"/"+sheet);}
+ await page.evaluate(()=>window.__riftTest.finish(false));await page.locator("#result-home").click();
  if(errors.length)throw Error(JSON.stringify(errors));fs.writeFileSync(dir+"/manifest.json",JSON.stringify({version:"5.2.0",viewport:"390×844; 360×640 small home",method:"Screenshots of the real Canvas/DOM renderer. Combat fixtures seed enemies, time and upgrades for visual review; they are staged scenes, not evidence of human play quality.",shots,temporalSheets,tierSheets,liveSheets,timelines:["timeline-orbit.webp","timeline-whirlwind.webp","timeline-ultimate.webp"],details:["detail-orbit.webp","detail-whirlwind.webp","detail-ultimate.webp"],errors},null,2));console.log("Art review scenes captured: "+shots.length);
 }finally{await browser?.close();server.kill();}

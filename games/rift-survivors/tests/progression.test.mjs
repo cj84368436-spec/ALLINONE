@@ -18,7 +18,7 @@ test("filled slots reject stale discoveries until their real level threshold",()
  g.phase="upgrade";g.pending=1;g.choices=["orbit"];g.level=9;assert.equal(g.choose("orbit"),false);g.level=10;assert.equal(g.choose("orbit"),true);
 });
 test("flight is louder than bow and contact, fires on release and does not sound for a miss",()=>{
- const audio=new Audio(),calls=[];audio.play=(name,options)=>calls.push({name,...options});audio.event("projectile-windup","arrow");assert.equal(calls.length,0);
+ const audio=new Audio(),calls=[];audio.play=(name,options)=>calls.push({name,...options});audio.event("projectile-windup","arrow");assert.deepEqual(calls.map(c=>c.name),["bow-draw"]);assert.ok(calls[0].gain<.15);calls.length=0;
  audio.event("projectile-release","arrow",{id:1});assert.deepEqual(calls.map(c=>c.name),["arrow-release","arrow-flight"]);assert.ok(calls[1].gain>calls[0].gain*3);assert.ok(calls[1].delay>0);const flight=calls[1].gain;calls.length=0;
  audio.event("projectile-contact","arrow",{});assert.equal(calls[0].name,"arrow-hit");assert.ok(calls[0].gain<flight*.5);calls.length=0;
  for(const key of ["multishot","piercing","poison","volley"]){audio.event("skill-release",key);assert.equal(calls.at(-1).name,"arrow-flight");}
