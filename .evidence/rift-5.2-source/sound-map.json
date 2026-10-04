@@ -1,0 +1,226 @@
+{
+  "version": "5.2.0",
+  "aliases": [
+    {
+      "key": "swish-a",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_01.wav",
+      "maxSeconds": 0.466667,
+      "highpassHz": 110,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "swish-b",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_02.wav",
+      "maxSeconds": 0.466667,
+      "highpassHz": 110,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "swish-c",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Swing_03.wav",
+      "maxSeconds": 0.466667,
+      "highpassHz": 110,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "blade-hit-a",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Hit_Metal_01.wav",
+      "maxSeconds": 0.233333,
+      "highpassHz": 120,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "blade-hit-b",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Sword_Hit_Metal_02.wav",
+      "maxSeconds": 0.233333,
+      "highpassHz": 120,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "arrow-release",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Shoot_01.wav",
+      "maxSeconds": 0.333333,
+      "highpassHz": 90,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "arrow-hit",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Hit_02.wav",
+      "maxSeconds": 0.366667,
+      "highpassHz": 110,
+      "lowpassHz": 8500,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "bolt-release",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard Projectile_Launch_01.wav",
+      "maxSeconds": 0.82,
+      "highpassHz": 120,
+      "lowpassHz": 9000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "bolt-hit",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard  Projectile_Impact_01.wav",
+      "maxSeconds": 0.74,
+      "highpassHz": 100,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "fire-cast",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Launch_01.wav",
+      "maxSeconds": 0.9,
+      "highpassHz": 90,
+      "lowpassHz": 8000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "fire-impact",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Fireball Impact_01.wav",
+      "maxSeconds": 1.18,
+      "highpassHz": 75,
+      "lowpassHz": 8000,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1
+    },
+    {
+      "key": "ice-impact",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Ice Shard  Projectile_Impact_02.wav",
+      "maxSeconds": 1,
+      "highpassHz": 95,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1
+    },
+    {
+      "key": "frost",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Loop_Fantasy SFX Pack Vol 1_Ice Spell_Hold.wav",
+      "maxSeconds": 1.35,
+      "highpassHz": 140,
+      "lowpassHz": 7000,
+      "targetPeakDbfs": -5,
+      "pitchRate": 1
+    },
+    {
+      "key": "void-cast",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Seq_Fantasy SFX Pack Vol 1_Mana Drain_Start.wav",
+      "maxSeconds": 0.85,
+      "highpassHz": 110,
+      "lowpassHz": 5000,
+      "targetPeakDbfs": -5,
+      "pitchRate": 1
+    },
+    {
+      "key": "void-impact",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Seq_Fantasy SFX Pack Vol 1_Mana Drain_End.wav",
+      "maxSeconds": 1.1,
+      "highpassHz": 90,
+      "lowpassHz": 6000,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "steel-return",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Swing_03.wav",
+      "maxSeconds": 0.6,
+      "highpassHz": 95,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -4,
+      "pitchRate": 1
+    },
+    {
+      "key": "magic",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Electric Spell_Hit_02.wav",
+      "maxSeconds": 0.866667,
+      "highpassHz": 100,
+      "lowpassHz": 9500,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1
+    }
+  ],
+  "additions": [
+    {
+      "key": "bow-draw",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Bow_Arrow_Draw_01.wav",
+      "maxSeconds": 0.9,
+      "highpassHz": 120,
+      "lowpassHz": 6500,
+      "targetPeakDbfs": -5,
+      "pitchRate": 1
+    },
+    {
+      "key": "greatblade-swing",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Swing_01.wav",
+      "maxSeconds": 0.633333,
+      "highpassHz": 85,
+      "lowpassHz": 10000,
+      "targetPeakDbfs": -3,
+      "pitchRate": 1
+    },
+    {
+      "key": "greatblade-hit",
+      "source": "fantasy/Fantasy SFX Pack Vol 1/Single_Fantasy SFX Pack Vol 1_Heavy Sword_Hit_Metal_01.wav",
+      "maxSeconds": 0.666667,
+      "highpassHz": 90,
+      "lowpassHz": 9000,
+      "targetPeakDbfs": -2.5,
+      "pitchRate": 1
+    },
+    {
+      "key": "dragon-growl",
+      "source": "creature/roar_03.ogg",
+      "maxSeconds": 0.7,
+      "highpassHz": 75,
+      "lowpassHz": 4800,
+      "targetPeakDbfs": -5,
+      "pitchRate": 0.94
+    },
+    {
+      "key": "dragon-roar",
+      "source": "creature/roar_02.ogg",
+      "maxSeconds": 1.2,
+      "highpassHz": 75,
+      "lowpassHz": 6500,
+      "targetPeakDbfs": -3,
+      "pitchRate": 0.86
+    },
+    {
+      "key": "dragon-breath",
+      "source": "creature/breath.ogg",
+      "maxSeconds": 0.85,
+      "highpassHz": 100,
+      "lowpassHz": 6500,
+      "targetPeakDbfs": -5,
+      "pitchRate": 0.95
+    }
+  ],
+  "expectedSampleCount": 35,
+  "method": "Source-file selection and objective PCM analysis; no human listening assessment",
+  "encoding": {
+    "sampleRate": 44100,
+    "channels": 1,
+    "codec": "libmp3lame",
+    "bitrate": "128k",
+    "onsetThresholdDb": -42,
+    "preservePreOnsetSeconds": 0.008,
+    "fadeInSeconds": 0.003,
+    "fadeOutSeconds": 0.05
+  }
+}

@@ -5,6 +5,8 @@ on:
       - '.github/workflows/rift-material-foundry.yml'
       - '.evidence/rift-5.2-source/parts/**'
       - '.evidence/rift-5.2-source/prepare.mjs'
+      - '.evidence/rift-5.2-source/sound-map.json'
+      - '.evidence/rift-5.2-source/import-sound.mjs'
   workflow_dispatch:
 permissions:
   contents: write
@@ -32,12 +34,14 @@ jobs:
           7z x /tmp/rift-audio-catalog/fantasy.7z -o/tmp/rift-audio-catalog/fantasy -y
           unzip -q /tmp/rift-audio-catalog/creature.zip -d /tmp/rift-audio-catalog/creature
       - name: Encode painted materials and inspect recorded samples
-        run: node .evidence/rift-5.2-source/prepare.mjs
+        run: |
+          node .evidence/rift-5.2-source/prepare.mjs
+          node .evidence/rift-5.2-source/import-sound.mjs
       - name: Store original material and inspectable inventory
         run: |
           git config user.name "Rift material foundry"
           git config user.email "actions@users.noreply.github.com"
-          git add games/rift-survivors/public/art/vfx-painted.webp .evidence/rift-5.2-source
+          git add games/rift-survivors/public/art/vfx-painted.webp games/rift-survivors/public/audio .evidence/rift-5.2-source
           git diff --cached --quiet && exit 0
           git commit -m "Store original painted materials and licensed sound inventory [skip ci]"
           git pull --rebase
