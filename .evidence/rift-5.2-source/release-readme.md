@@ -21,7 +21,7 @@
 
 ## 출시 파일 받기
 
-[최종 패키징 실행](https://github.com/cj84368436-spec/ALLINONE/actions/workflows/rift-verified-package.yml)에서 성공한 5.2 실행을 열고 **rift-keepers-toss-release** 아티팩트를 내려받으세요. [전체 자동 검사](https://github.com/cj84368436-spec/ALLINONE/actions/runs/37198657007)는 기능·모바일 브라우저·전투 진행·성능·출시 패키지를 검사합니다.
+[최종 패키징 실행](https://github.com/cj84368436-spec/ALLINONE/actions/workflows/rift-verified-package.yml)에서 성공한 5.2 실행을 열고 **rift-keepers-toss-release** 아티팩트를 내려받으세요. [검증 내역](docs/VALIDATION.md)에 기능·모바일 브라우저·전투 진행·성능·출시 패키지 검사 결과를 기록합니다.
 
 .ait 번들, 600px PNG 아이콘, 게임 이미지, 빌드 manifest와 등록 문서가 포함됩니다. 실제 검증 상태는 [docs/VALIDATION.md](docs/VALIDATION.md), 등록 절차는 [docs/SUBMISSION.md](docs/SUBMISSION.md)에 기록합니다.
 

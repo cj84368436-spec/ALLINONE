@@ -1,30 +1,50 @@
 {
   "version": "5.2.0",
-  "runtimeRef": "c412ff0efaca669d98d3ed325c8a54cb7e1671db",
-  "testRef": "a38ca783847de1fad8599e2c7c4c393976265ebf",
-  "videoRef": "48fe719c988f1ffed62aeaa64aaf5ce98af4a4a7",
-  "fullRun": 37199341354,
-  "hostedDiagnosticRun": 37200035472,
-  "previousHostedRun": 37199360736,
-  "hostedRepo": "cj84368436-spec/privacy-policy",
-  "artReview": {
-    "shots": 274,
-    "timelines": 41,
-    "growth": 3,
-    "dense": 3,
-    "designerActuallyReviewedComparisons": 47
+  "runtimeCommit": "c412ff0efaca669d98d3ed325c8a54cb7e1671db",
+  "priorRun": 37199341354,
+  "repairAndPackageRun": 37200853674,
+  "hostedRun": 37200035472,
+  "combinedChecks": {
+    "node": 135,
+    "chromium": 82,
+    "webkit": 82,
+    "total": 299
   },
-  "audio": {
-    "files": 35,
-    "replaced": 17,
-    "added": 6,
-    "license": "CC-BY-4.0 JC Sounds; CC0 rubberduck; existing credits retained"
+  "repairedBrowser": {
+    "startTime": "2026-10-04T12:05:31.179Z",
+    "duration": 22027.690000000002,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
   },
-  "pending": [
-    "Complete integrated browser/native build checks",
-    "Resolve hosted WebKit check and keep its original failure",
-    "Update final validation and package docs",
-    "Build the final Toss .ait with current docs"
+  "botWins": 9,
+  "botRuns": 9,
+  "consoleRegistrationVerified": false,
+  "nativePhoneTestCompleted": false,
+  "status": "implemented-and-validated",
+  "nativeBuild": {
+    "name": "rift-keepers.ait",
+    "bytes": 7788339,
+    "sha256": "75a10b60a046564758ca93e3053de8e7d06478c0689f9d8fb8bfb9a021169097"
+  },
+  "nativeDownload": "https://github.com/cj84368436-spec/ALLINONE/actions/runs/37200853674/artifacts/11302253698",
+  "playURL": "https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/?v=5.2.0-painted-r1",
+  "videoURL": "https://cj84368436-spec.github.io/privacy-policy/play/rift-keepers/sword.html?v=5.2.0",
+  "checkedAt": "2026-10-04 12:08 UTC",
+  "completed": [
+    "painted material integration and motion/layer fixes",
+    "35 locally packaged audio cues, event-driven playback and foreground mixing",
+    "47 comparison-sheet visual review",
+    "combined 299 automated checks with the four failed assertions repaired and rerun",
+    "nine legal five-region bot wins",
+    "hosted Chromium and WebKit verification",
+    "native Apps in Toss 3.x build and registration images",
+    "final validation and five-region submission documentation"
   ],
-  "updatedAt": "2026-10-04T11:53:00Z"
+  "remaining": [
+    "physical iPhone inside Toss: frame rate, heat, native lifecycle/storage and listening",
+    "Toss console registration, submission review and public launch",
+    "further painted art and dense-combat readability work documented in DESIGN-5.2.md"
+  ]
 }
