@@ -1,0 +1,44 @@
+name: Prepare painted Rift 5.2 materials
+on:
+  push:
+    paths:
+      - '.github/workflows/rift-material-foundry.yml'
+      - '.evidence/rift-5.2-source/parts/**'
+      - '.evidence/rift-5.2-source/prepare.mjs'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  materials:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare media tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y p7zip-full unzip ffmpeg
+          npm install --prefix /tmp/rift-asset-tools sharp --no-audit --no-fund
+      - name: Download licensed recorded material
+        run: |
+          mkdir -p /tmp/rift-audio-catalog/fantasy /tmp/rift-audio-catalog/creature
+          curl -fL --retry 3 --max-time 120 https://opengameart.org/sites/default/files/fantasy_sfx_pack_vol_1.7z -o /tmp/rift-audio-catalog/fantasy.7z
+          curl -fL --retry 3 --max-time 120 https://opengameart.org/sites/default/files/80-CC0-creature-SFX_0.zip -o /tmp/rift-audio-catalog/creature.zip
+          curl -fL --retry 3 --max-time 60 https://opengameart.org/content/jc-sounds-fantasy-sfx-pack-vol-1 -o /tmp/rift-audio-catalog/fantasy-license.html
+          curl -fL --retry 3 --max-time 60 https://opengameart.org/content/80-cc0-creature-sfx -o /tmp/rift-audio-catalog/creature-license.html
+          7z x /tmp/rift-audio-catalog/fantasy.7z -o/tmp/rift-audio-catalog/fantasy -y
+          unzip -q /tmp/rift-audio-catalog/creature.zip -d /tmp/rift-audio-catalog/creature
+      - name: Encode painted materials and inspect recorded samples
+        run: node .evidence/rift-5.2-source/prepare.mjs
+      - name: Store original material and inspectable inventory
+        run: |
+          git config user.name "Rift material foundry"
+          git config user.email "actions@users.noreply.github.com"
+          git add games/rift-survivors/public/art/vfx-painted.webp .evidence/rift-5.2-source
+          git diff --cached --quiet && exit 0
+          git commit -m "Store original painted materials and licensed sound inventory [skip ci]"
+          git pull --rebase
+          git push
