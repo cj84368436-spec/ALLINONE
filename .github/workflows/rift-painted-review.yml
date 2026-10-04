@@ -21,12 +21,13 @@ jobs:
       - name: Stage renderer draft for actual gameplay review
         run: |
           cp .evidence/rift-5.2-source/drafts/*.js games/rift-survivors/src/
+          cp .evidence/rift-5.2-source/review.mjs games/rift-survivors/scripts/painted-review.mjs
           npm install --prefix games/rift-survivors --no-audit --no-fund
           npm install --prefix /tmp/rift-review sharp@0.34.5 --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
         working-directory: games/rift-survivors
       - run: node .evidence/rift-5.2-source/proof.mjs
-      - run: node ../../.evidence/rift-5.2-source/review.mjs
+      - run: node scripts/painted-review.mjs
         working-directory: games/rift-survivors
       - name: Store actual gameplay and alpha proof
         run: |
